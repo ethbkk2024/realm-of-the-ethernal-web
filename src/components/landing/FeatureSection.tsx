@@ -25,17 +25,17 @@ const FeatureSectionStyled = styled.section`
     }
     .feature-text {
       color: #fd5394;
-      font-size: 40px;
+      font-size: 32px;
       width: 100%;
       line-height: 1.4;
       @media screen and (max-width: 980px) {
-        font-size: 34px;
+        font-size: 24px;
       }
       @media screen and (max-width: 768px) {
-        font-size: 30px;
+        font-size: 20px;
       }
       @media screen and (max-width: 620px) {
-        font-size: 26px;
+        font-size: 16px;
       }
     }
     .header-zone {
@@ -50,34 +50,30 @@ const FeatureSectionStyled = styled.section`
         row-gap: 16px;
       }
       .title {
-        font-size: 42px;
+        font-size: 32px;
         margin: 0;
         color: #5149f2;
         line-height: 1.4;
         @media screen and (max-width: 980px) {
-          font-size: 38px;
+          font-size: 24px;
         }
         @media screen and (max-width: 768px) {
-          font-size: 34px;
+          font-size: 20px;
         }
         @media screen and (max-width: 620px) {
-          font-size: 30px;
+          font-size: 16px;
         }
       }
       .btn {
         display: block;
         a {
           button {
-            font-size: 20px !important;
+            font-size: 12px !important;
             min-height: 52px !important;
             border-radius: 32px !important;
             padding: 0 64px 0 32px !important;
             white-space: nowrap !important;
-            @media screen and (max-width: 768px) {
-              font-size: 18px !important;
-            }
             @media screen and (max-width: 620px) {
-              font-size: 16px !important;
               min-height: 48px !important;
               max-height: 48px !important;
               padding: 0 62px 0 26px !important;
@@ -129,15 +125,9 @@ const FeatureSectionStyled = styled.section`
           }
           .feature-topic-text {
             color: white;
-            font-size: 28px;
-            @media screen and (max-width: 980px) {
-              font-size: 26px;
-            }
+            font-size: 18px;
             @media screen and (max-width: 768px) {
-              font-size: 24px;
-            }
-            @media screen and (max-width: 620px) {
-              font-size: 20px;
+              font-size: 14px;
             }
           }
           img {
@@ -157,9 +147,9 @@ const FeatureSectionStyled = styled.section`
         }
         .feature-p {
           color: white;
-          font-size: 18px;
+          font-size: 14px;
           @media screen and (max-width: 620px) {
-            font-size: 16px;
+            font-size: 12px;
           }
         }
       }

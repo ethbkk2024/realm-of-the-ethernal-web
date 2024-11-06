@@ -54,29 +54,26 @@ const WhyPlaySectionStyled = styled.section<{
         row-gap: 8px;
         .topic {
           color: #ffb7d2;
-          font-size: 42px;
+          font-size: 32px;
           line-height: 1.2;
           @media screen and (max-width: 980px) {
-            font-size: 38px;
+            font-size: 28px;
           }
           @media screen and (max-width: 768px) {
-            font-size: 34px;
+            font-size: 24px;
           }
           @media screen and (max-width: 620px) {
-            font-size: 30px;
+            font-size: 20px;
           }
         }
         .description {
           max-width: 540px;
-          font-size: 24px;
-          @media screen and (max-width: 980px) {
-            font-size: 20px;
-          }
+          font-size: 16px;
           @media screen and (max-width: 768px) {
-            font-size: 18px;
+            font-size: 14px;
           }
           @media screen and (max-width: 620px) {
-            font-size: 16px;
+            font-size: 12px;
           }
         }
       }
@@ -117,12 +114,9 @@ const WhyPlaySectionStyled = styled.section<{
             justify-content: center;
           }
           .text {
-            font-size: 20px;
-            @media screen and (max-width: 980px) {
-              font-size: 18px;
-            }
+            font-size: 14px;
             @media screen and (max-width: 768px) {
-              font-size: 16px;
+              font-size: 12px;
             }
           }
         }
@@ -142,7 +136,7 @@ const WhyPlaySectionStyled = styled.section<{
       width: 2000px;
     }
     .text {
-      font-size: 112px;
+      font-size: 88px;
       -webkit-text-stroke: 1px #dbe2e5;
       -webkit-text-fill-color: transparent;
       rotate: 90deg;

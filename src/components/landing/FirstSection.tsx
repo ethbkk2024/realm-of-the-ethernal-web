@@ -42,49 +42,38 @@ const FirstSectionStyled = styled.div`
       row-gap: 8px;
 
       h1 {
-        font-size: 52px;
+        font-size: 32px;
         text-align: center;
         line-height: 1.4;
+        z-index: 1;
         @media screen and (max-width: 980px) {
-          font-size: 44px;
+          font-size: 28px;
         }
         @media screen and (max-width: 768px) {
-          font-size: 40px;
+          font-size: 24px;
         }
         @media screen and (max-width: 620px) {
-          font-size: 34px;
+          font-size: 20px;
         }
       }
 
       .h1 {
-        font-size: 40px;
+        font-size: 20px;
         text-align: center;
         line-height: 1.4;
         @media screen and (max-width: 980px) {
-          font-size: 34px;
+          font-size: 18px;
         }
         @media screen and (max-width: 768px) {
-          font-size: 30px;
-        }
-        @media screen and (max-width: 620px) {
-          font-size: 28px;
+          font-size: 14px;
         }
       }
 
       p {
-        font-size: 24px;
+        font-size: 14px;
         text-align: center;
         z-index: 1;
         max-width: 980px;
-        @media screen and (max-width: 980px) {
-          font-size: 20px;
-        }
-        @media screen and (max-width: 768px) {
-          font-size: 18px;
-        }
-        @media screen and (max-width: 620px) {
-          font-size: 16px;
-        }
       }
     }
   }
@@ -100,17 +89,11 @@ const FirstSectionStyled = styled.div`
       margin-top: 26px;
     }
     @media screen and (max-width: 768px) {
-      button {
-        width: 274px;
-        font-size: 18px !important;
-      }
+      //
     }
     @media screen and (max-width: 620px) {
       button {
-        width: 250px;
-        font-size: 16px !important;
         height: 48px !important;
-
         .drop {
           width: 34px;
           height: 34px;
@@ -158,31 +141,31 @@ const BrandMarqueeWrapStyled = styled.section`
     flex-direction: column;
     padding: 0 24px;
     h2 {
-      font-size: 42px;
+      font-size: 32px;
       margin-top: 40px;
       text-align: center;
       @media screen and (max-width: 980px) {
-        font-size: 38px;
+        font-size: 30px;
       }
       @media screen and (max-width: 768px) {
-        font-size: 34px;
+        font-size: 24px;
       }
       @media screen and (max-width: 620px) {
-        font-size: 30px;
+        font-size: 18px;
         padding: 0 24px;
       }
     }
     .h2 {
-      font-size: 38px;
+      font-size: 20px;
       text-align: center;
       @media screen and (max-width: 980px) {
-        font-size: 32px;
+        font-size: 18px;
       }
       @media screen and (max-width: 768px) {
-        font-size: 28px;
+        font-size: 16px;
       }
       @media screen and (max-width: 620px) {
-        font-size: 24px;
+        font-size: 14px;
       }
     }
     p {
@@ -229,10 +212,10 @@ const FirstSection = () => {
               text="Start the game"
               boxShadow="0px 0px 0px 2px white inset !important"
               height={56}
-              fontSize={20}
+              fontSize={12}
               dropRight={8}
               dropColor={'gradient'}
-              width={272}
+              width={262}
             />
           </Link>
         </section>

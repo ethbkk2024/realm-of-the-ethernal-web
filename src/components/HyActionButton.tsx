@@ -37,7 +37,8 @@ const HyActionButtonStyled = styled(Button)<{
   position: relative;
   overflow: hidden;
   white-space: nowrap !important;
-
+  justify-content: start !important;
+  padding-left: 24px;
   .text {
     z-index: 1;
   }

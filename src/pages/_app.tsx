@@ -17,19 +17,21 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { http } from 'viem';
 import { mainnet } from 'viem/chains';
 import Head from 'next/head';
+import { realmFont } from '@/styles/font';
 
 const GlobalStyle = createGlobalStyle`
     * {
         -webkit-box-sizing:border-box;
         -moz-box-sizing:border-box;
         box-sizing:border-box;
+        font-family: ${realmFont.style.fontFamily} !important;
     }
     html {
         scroll-behavior: smooth;
         -webkit-tap-highlight-color: transparent;
         body {
             margin: 0;
-            font-size: 16px;
+            font-size: 12px;
             font-weight: 400;
             color: #263238;
             a {
@@ -54,12 +56,12 @@ const GlobalStyle = createGlobalStyle`
           }
             h1, h2, h3, h4, h5, h6 {
                 margin: 0;
-                font-weight: 700;
+                font-weight: 600;
             }
         }
     }
   strong {
-    font-weight: 700;
+    font-weight: 600;
   }
     #nprogress {
         transition: all .8s ease-out !important;

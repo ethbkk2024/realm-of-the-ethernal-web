@@ -208,13 +208,13 @@ const NavStyle = styled.div<{
         }
       }
       .hy-text {
-        font-size: 32px;
+        font-size: 16px;
         color: white;
         @media screen and (max-width: 1150px) {
-          font-size: 28px;
+          font-size: 12px;
         }
         @media screen and (max-width: 980px) {
-          font-size: 24px;
+          font-size: 10px;
         }
       }
     }

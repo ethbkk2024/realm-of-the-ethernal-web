@@ -32,19 +32,11 @@ const FooterStyled = styled.footer`
     align-items: center;
     justify-content: center;
     padding: 88px 40px 88px 40px;
-    row-gap: 24px;
+    row-gap: 36px;
     z-index: 1;
-    @media screen and (max-width: 768px) {
-      button {
-        width: 274px;
-        font-size: 18px !important;
-      }
-    }
     @media screen and (max-width: 620px) {
       padding: 40px 24px 24px;
       button {
-        width: 250px;
-        font-size: 16px !important;
         height: 48px !important;
         .drop {
           width: 34px;
@@ -57,27 +49,24 @@ const FooterStyled = styled.footer`
     }
     .footer-title {
       text-align: center;
-      font-size: 42px;
+      font-size: 32px;
       color: white;
       @media screen and (max-width: 980px) {
-        font-size: 40px;
+        font-size: 28px;
       }
       @media screen and (max-width: 768px) {
-        font-size: 38px;
+        font-size: 24px;
       }
       @media screen and (max-width: 620px) {
-        font-size: 34px;
+        font-size: 20px;
       }
     }
     .footer-description {
       color: white;
-      font-size: 28px;
+      font-size: 16px;
       text-align: center;
-      @media screen and (max-width: 980px) {
-        font-size: 22px;
-      }
       @media screen and (max-width: 768px) {
-        font-size: 18px;
+        font-size: 12px;
       }
     }
     .social-media-wrap {
@@ -134,6 +123,9 @@ const FooterStyled = styled.footer`
     flex-wrap: wrap;
     row-gap: 8px;
     overflow: hidden;
+    * {
+      font-size: 10px;
+    }
     @media screen and (max-width: 1075px) {
       flex-direction: column;
     }
@@ -147,7 +139,7 @@ const FooterStyled = styled.footer`
       justify-content: center;
       text-align: center;
       @media screen and (max-width: 914px) {
-        font-size: 14px;
+        font-size: 10px;
         width: 100%;
       }
     }
@@ -197,7 +189,7 @@ const FooterStyled = styled.footer`
               text-overflow: ellipsis;
               white-space: nowrap;
               @media screen and (max-width: 914px) {
-                font-size: 14px;
+                font-size: 10px;
               }
             }
             .marker {
@@ -236,10 +228,10 @@ const Footer = () => {
             text="Start the game"
             boxShadow="0px 0px 0px 2px white inset !important"
             height={56}
-            fontSize={20}
+            fontSize={12}
             dropRight={8}
             dropColor={'gradient'}
-            width={290}
+            width={262}
           />
         </Link>
         <div className="footer-description">

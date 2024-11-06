@@ -67,7 +67,7 @@ export const theme = createTheme({
           textTransform: 'none',
           fontWeight: 400,
           transition: '.3s ease-in',
-          fontSize: '16px',
+          fontSize: '12px',
           '&:active': {
             boxShadow: 'none',
           },
@@ -114,7 +114,7 @@ export const theme = createTheme({
           },
         },
         input: {
-          fontSize: '16px',
+          fontSize: '12px',
           outline: 'none',
           width: '100%',
           height: '100%',
