@@ -1,5 +1,6 @@
 {
-  "extends": ["airbnb-base","airbnb-typescript","plugin:prettier/recommended","next/core-web-vitals", "next/typescript"],
+  // Configuration for JavaScript files
+  "extends": ["airbnb-base", "plugin:prettier/recommended","plugin:@next/next/recommended"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -14,8 +15,9 @@
       "files": ["**/*.ts", "**/*.tsx"],
       "plugins": ["@typescript-eslint", "unused-imports"],
       "extends": [
-        "eslint:recommended",
-        "next"
+        "airbnb-typescript",
+        "next/core-web-vitals",
+        "plugin:prettier/recommended"
       ],
       "parserOptions": {
         "project": "./tsconfig.json"
@@ -38,8 +40,8 @@
         "import/order": "off",
         "import/no-cycle": "off",
         "import/prefer-default-export": "off",
-        "import/extensions": "off",
         "import/no-unresolved": "off",
+        "import/extensions": "off",
         "react-hooks/rules-of-hooks": "off",
         "object-shorthand": "off",
         "no-await-in-loop": "off",
@@ -52,7 +54,6 @@
         "no-return-await": "off",
         "no-use-before-define": "off",
         "no-undef": "off",
-        "no-unused-vars": "off",
         "no-unused-expressions": "off",
         "no-console": "off",
         "no-prototype-builtins": "off",
@@ -75,7 +76,7 @@
           }
         ],
         "unused-imports/no-unused-imports": "error",
-        "unused-imports/no-unused-vars": ["error", { "argsIgnorePattern": "_" }],
+        "unused-imports/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
         "semi": "off"
       }
     }
