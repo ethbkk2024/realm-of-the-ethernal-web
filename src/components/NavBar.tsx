@@ -144,7 +144,7 @@ const NavStyle = styled.div<{
     ul {
       display: flex;
       align-items: center;
-      column-gap: 16px;
+      column-gap: 8px;
       margin: 0;
       background: #2632384f;
       position: absolute;
