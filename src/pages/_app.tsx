@@ -157,7 +157,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
       <DynamicContextProvider
         settings={{
-          environmentId: 'ENV_ID',
+          environmentId: 'e1d804b8-4c7b-4a83-901e-86c8780b67d1',
           walletConnectors: [EthereumWalletConnectors],
         }}
       >

@@ -6,6 +6,7 @@ import { menuConfig } from '@/utils/menuConfig';
 import { Button, IconButton } from '@mui/material';
 import Image from 'next/image';
 import Aside from '@/components/Aside';
+import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
 
 const NavStyle = styled.div<{
   $isShow: boolean;
@@ -413,6 +414,7 @@ const NavBar = () => {
             ))}
           </ul>
           <div className="r-wrap">
+            <DynamicWidget />
             <div className="btn-group">
               <Link href={`#`}>
                 <Button type="button" variant="contained" color="white">
