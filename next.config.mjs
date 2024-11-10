@@ -4,7 +4,7 @@ const nextConfig = {
   // experimental: { scrollRestoration: true },
   compiler: {
     styledComponents: {
-      ssr: true,
+      ssr: false,
       displayName: true,
     },
   },
