@@ -7,6 +7,8 @@ const Quest = () => {
   const phaserRef = useRef<IRefPhaserGame | null>(null);
   const [canMoveSprite, setCanMoveSprite] = useState(true);
 
+  console.log('canMoveSprite', canMoveSprite);
+
   const currentScene = (scene: Phaser.Scene) => {
     setCanMoveSprite(scene.scene.key !== 'QuestMap');
   };
