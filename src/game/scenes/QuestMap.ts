@@ -43,6 +43,11 @@ export class QuestMap extends Scene {
       frameWidth: 16,
       frameHeight: 16,
     });
+    this.load.atlas('cloud-a', 'cloud/cloud-a.png', 'cloud/cloud-a_atlas.json');
+    this.load.atlas('cloud-b', 'cloud/cloud-b.png', 'cloud/cloud-b_atlas.json');
+    this.load.atlas('cloud-c', 'cloud/cloud-c.png', 'cloud/cloud-c_atlas.json');
+    this.load.atlas('cloud-d', 'cloud/cloud-d.png', 'cloud/cloud-d_atlas.json');
+    this.load.atlas('cloud-e', 'cloud/cloud-e.png', 'cloud/cloud-e_atlas.json');
   }
 
   create() {
@@ -60,13 +65,16 @@ export class QuestMap extends Scene {
 
     // this.add.sprite(screenCenterX, screenCenterY, 'map').setOrigin(0.5, 0.5);
     this.add
-      .sprite(screenCenterX - 250, screenCenterY - 175, 'land-a')
+      .sprite(screenCenterX - 250, screenCenterY - 120, 'land-a')
+      .setScale(0.75)
       .setOrigin(0.5, 0.5);
     this.add
-      .sprite(screenCenterX + 250, screenCenterY - 175, 'land-b')
+      .sprite(screenCenterX + 250, screenCenterY - 120, 'land-b')
+      .setScale(0.75)
       .setOrigin(0.5, 0.5);
     this.add
       .sprite(screenCenterX, screenCenterY + 175, 'land-c')
+      .setScale(0.75)
       .setOrigin(0.5, 0.5);
     this.anims.create({
       key: 'cow_anim',
@@ -91,6 +99,42 @@ export class QuestMap extends Scene {
       frameRate: 10,
       repeat: -1,
     });
+    this.anims.create({
+      key: 'cloud_a_anim',
+      frames: this.anims.generateFrameNames('cloud-a'),
+      frameRate: 0.25,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'cloud_a_anim_b',
+      frames: this.anims.generateFrameNames('cloud-a'),
+      frameRate: 0.43,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'cloud_b_anim',
+      frames: this.anims.generateFrameNames('cloud-b'),
+      frameRate: 0.5,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'cloud_c_anim',
+      frames: this.anims.generateFrameNames('cloud-c'),
+      frameRate: 0.73,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'cloud_d_anim',
+      frames: this.anims.generateFrameNames('cloud-d'),
+      frameRate: 0.5,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'cloud_e_anim',
+      frames: this.anims.generateFrameNames('cloud-e'),
+      frameRate: 0.5,
+      repeat: -1,
+    });
 
     this.add
       .sprite(screenCenterX - 200, screenCenterY - 100, 'cow')
@@ -100,6 +144,86 @@ export class QuestMap extends Scene {
       .sprite(screenCenterX - 250, screenCenterY - 100, 'sheep')
       .setScale(1)
       .play('sheep_anim', true);
+    // land c
+    this.add
+      .sprite(screenCenterX - 100, screenCenterY + 50, 'cloud-c')
+      .setScale(0.25)
+      .play('cloud_c_anim', true);
+    this.add
+      .sprite(screenCenterX + 100, screenCenterY + 75, 'cloud-c')
+      .setScale(0.35)
+      .play('cloud_c_anim', true);
+    this.add
+      .sprite(screenCenterX, screenCenterY + 200, 'cloud-c')
+      .setScale(0.45)
+      .play('cloud_c_anim', true);
+    // land a
+    this.add
+      .sprite(screenCenterX - 120, screenCenterY - 210, 'cloud-c')
+      .setScale(0.45)
+      .play('cloud_c_anim', true);
+    this.add
+      .sprite(screenCenterX - 370, screenCenterY - 210, 'cloud-c')
+      .setScale(0.35)
+      .play('cloud_c_anim', true);
+    // land b
+    this.add
+      .sprite(screenCenterX + 120, screenCenterY - 210, 'cloud-c')
+      .setScale(0.45)
+      .play('cloud_c_anim', true);
+    this.add
+      .sprite(screenCenterX + 370, screenCenterY - 100, 'cloud-c')
+      .setScale(0.35)
+      .play('cloud_c_anim', true);
+    // background
+    this.add
+      .sprite(screenCenterX - 260, screenCenterY + 260, 'cloud-a')
+      .setScale(1)
+      .play('cloud_a_anim', true);
+    this.add
+      .sprite(screenCenterX - 400, screenCenterY + 150, 'cloud-a')
+      .setScale(0.75)
+      .play('cloud_a_anim_b', true);
+    this.add
+      .sprite(screenCenterX - 600, screenCenterY - 200, 'cloud-a')
+      .setScale(1)
+      .play('cloud_a_anim', true);
+    this.add
+      .sprite(screenCenterX - 500, screenCenterY - 100, 'cloud-a')
+      .setScale(0.5)
+      .play('cloud_a_anim_b', true);
+    this.add
+      .sprite(screenCenterX - 700, screenCenterY, 'cloud-a')
+      .setScale(2)
+      .play('cloud_a_anim', true);
+    this.add
+      .sprite(screenCenterX - 700, screenCenterY + 270, 'cloud-a')
+      .setScale(2)
+      .play('cloud_a_anim_b', true);
+    this.add
+      .sprite(screenCenterX + 260, screenCenterY + 260, 'cloud-a')
+      .setScale(1)
+      .play('cloud_a_anim_b', true);
+    this.add
+      .sprite(screenCenterX + 400, screenCenterY + 150, 'cloud-a')
+      .setScale(0.75)
+      .play('cloud_a_anim', true);
+    this.add
+      .sprite(screenCenterX + 600, screenCenterY - 200, 'cloud-a')
+      .setScale(1)
+      .play('cloud_a_anim_b', true);
+    this.add
+      .sprite(screenCenterX + 500, screenCenterY - 100, 'cloud-a')
+      .setScale(0.5)
+      .play('cloud_a_anim', true);
+    this.add
+      .sprite(screenCenterX + 700, screenCenterY, 'cloud-a')
+      .setScale(2)
+      .play('cloud_a_anim_b', true);
+    this.add
+      .sprite(screenCenterX + 700, screenCenterY + 270, 'cloud-a')
+      .setScale(2)
+      .play('cloud_a_anim', true);
 
     Array(4)
       .fill('mock')

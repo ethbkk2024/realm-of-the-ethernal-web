@@ -4,9 +4,19 @@ const nextConfig = {
   // experimental: { scrollRestoration: true },
   compiler: {
     styledComponents: {
-      ssr: false,
+      ssr: true,
       displayName: true,
     },
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3350',
+        pathname: '/**',
+      },
+    ],
   },
   // images: {
   //   remotePatterns: [

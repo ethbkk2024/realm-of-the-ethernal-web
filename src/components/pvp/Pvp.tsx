@@ -1,21 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { IRefPhaserGame, QuestGame } from '@/game/QuestGame';
-import { QuestMap } from '@/game/scenes/QuestMap';
+import { IRefPhaserGame } from '@/game/QuestGame';
+import { PvpGame } from '@/game/PvpGame';
+import { PvpMap } from '@/game/scenes/PvpMap';
 
-const Quest = () => {
+const Pvp = () => {
   const phaserRef = useRef<IRefPhaserGame | null>(null);
   const [canMoveSprite, setCanMoveSprite] = useState(true);
 
   console.log('canMoveSprite', canMoveSprite);
 
   const currentScene = (scene: Phaser.Scene) => {
-    setCanMoveSprite(scene.scene.key !== 'QuestMap');
+    setCanMoveSprite(scene.scene.key !== 'PvpMap');
   };
 
   useEffect(() => {
     if (phaserRef.current) {
-      const scene = phaserRef.current.scene as QuestMap;
+      const scene = phaserRef.current.scene as PvpMap;
       if (scene) {
         scene.changeScene();
       }
@@ -23,14 +24,14 @@ const Quest = () => {
   }, [phaserRef]);
 
   return (
-    <QuestContainer>
-      <QuestGame ref={phaserRef} currentActiveScene={currentScene} />
-    </QuestContainer>
+    <PvpContainer>
+      <PvpGame ref={phaserRef} currentActiveScene={currentScene} />
+    </PvpContainer>
   );
 };
-export default Quest;
+export default Pvp;
 
-const QuestContainer = styled.div`
+const PvpContainer = styled.div`
   margin-top: -88px;
   height: 100vh;
   canvas {

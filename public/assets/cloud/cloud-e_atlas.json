@@ -1,0 +1,73 @@
+{
+    "frames": [
+        {
+            "filename": "cloud_shape6_1",
+            "frame": {
+                "w": 284,
+                "h": 57,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "cloud_shape6_2",
+            "frame": {
+                "w": 224,
+                "h": 45,
+                "x": 0,
+                "y": 57
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "cloud_shape6_3",
+            "frame": {
+                "w": 133,
+                "h": 23,
+                "x": 0,
+                "y": 102
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "cloud_shape6_4",
+            "frame": {
+                "w": 84,
+                "h": 15,
+                "x": 133,
+                "y": 102
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "cloud_shape6_5",
+            "frame": {
+                "w": 58,
+                "h": 9,
+                "x": 224,
+                "y": 57
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}
