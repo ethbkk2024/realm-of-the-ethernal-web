@@ -83,7 +83,6 @@ const ActionButtonStyled = styled(Button)<{
 type HyActionButtonProps = {
   text: string;
   boxShadow?: string;
-  isGradient?: boolean;
   height: number;
   fontSize: number;
   dropRight: number;
@@ -98,7 +97,6 @@ const ActionButton = (props: HyActionButtonProps) => {
   const {
     text,
     boxShadow,
-    isGradient,
     height,
     fontSize,
     dropRight,
