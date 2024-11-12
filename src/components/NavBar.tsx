@@ -182,7 +182,7 @@ const NavStyle = styled.div<{
         .active {
           height: 100%;
           width: 100%;
-          background: white;
+          background: #263238;
           position: absolute;
           border-radius: 20px;
         }
@@ -206,16 +206,6 @@ const NavStyle = styled.div<{
       @media screen and (max-width: 980px) {
         img {
           width: 34px;
-        }
-      }
-      .hy-text {
-        font-size: 16px;
-        color: white;
-        @media screen and (max-width: 1150px) {
-          font-size: 12px;
-        }
-        @media screen and (max-width: 980px) {
-          font-size: 10px;
         }
       }
     }
@@ -256,9 +246,10 @@ const NavStyle = styled.div<{
             .bg-gradient {
               background: linear-gradient(
                 90deg,
-                rgba(81, 73, 242, 1) 20%,
-                rgba(253, 83, 148, 1) 100%
+                rgba(59, 0, 102, 1) 20%,
+                rgba(0, 56, 94, 1) 100%
               );
+              filter: brightness(2);
               width: 200%;
               height: 100%;
               position: absolute;
@@ -270,6 +261,7 @@ const NavStyle = styled.div<{
               &:hover {
                 .bg-gradient {
                   transform: translateX(-25%);
+                  filter: brightness(2) saturate(1.5);
                 }
               }
             }
@@ -373,7 +365,6 @@ const NavBar = () => {
                 alt=""
                 priority
               />
-              <div className="hy-text">Realm Of The Ethernal</div>
             </div>
           </Link>
           <div className="hamburger-wrap">
@@ -395,7 +386,7 @@ const NavBar = () => {
                   <Link
                     href={item.url}
                     style={{
-                      color: router.pathname === item.url ? '#263238' : 'white',
+                      color: 'white',
                     }}
                     onClick={(e: any) => {
                       if (item.id !== 1) {

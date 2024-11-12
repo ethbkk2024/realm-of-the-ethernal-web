@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Image from 'next/image';
 import Marquee from 'react-fast-marquee';
-import HySellerSocialMaterial from '@/components/HySellerSocialMaterial';
+import Material from '@/components/Material';
 
 const WhyPlaySectionStyled = styled.section<{
   $maxHeight: number;
@@ -11,6 +11,44 @@ const WhyPlaySectionStyled = styled.section<{
   max-width: 100%;
   overflow: hidden;
   position: relative;
+  background: #7e75c5;
+  //&:before {
+  //  content: '';
+  //  background: linear-gradient(
+  //    to top,
+  //    rgba(255, 255, 255, 0) 0%,
+  //    rgb(255, 255, 255) 100%
+  //  );
+  //  position: absolute;
+  //  z-index: 1;
+  //  height: 48px;
+  //  left: 0;
+  //  width: 100%;
+  //  top: 0;
+  //}
+  //&:after {
+  //  content: '';
+  //  background: linear-gradient(
+  //    to bottom,
+  //    rgba(255, 255, 255, 0) 0%,
+  //    rgb(255, 255, 255) 100%
+  //  );
+  //  position: absolute;
+  //  z-index: 1;
+  //  height: 48px;
+  //  left: 0;
+  //  width: 100%;
+  //  bottom: 0;
+  //}
+  .why-bg {
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.3);
+    z-index: 0;
+  }
   .why-use-content-wrap {
     display: flex;
     justify-content: space-between;
@@ -33,7 +71,9 @@ const WhyPlaySectionStyled = styled.section<{
     @media screen and (max-width: 620px) {
       padding: 52px 24px;
     }
+
     .reason-zone {
+      z-index: 1;
       display: flex;
       flex-direction: column;
       max-width: 832px;
@@ -47,11 +87,13 @@ const WhyPlaySectionStyled = styled.section<{
         min-width: auto;
         row-gap: 42px;
       }
+
       .header-group {
         display: flex;
         flex-direction: column;
         column-gap: 8px;
         row-gap: 8px;
+
         .topic {
           color: #ffb7d2;
           font-size: 32px;
@@ -66,9 +108,11 @@ const WhyPlaySectionStyled = styled.section<{
             font-size: 20px;
           }
         }
+
         .description {
           max-width: 540px;
           font-size: 16px;
+          color: white;
           @media screen and (max-width: 768px) {
             font-size: 14px;
           }
@@ -77,32 +121,25 @@ const WhyPlaySectionStyled = styled.section<{
           }
         }
       }
+
       .reason-group {
         width: 100%;
         display: grid;
-        gap: 12px;
         grid-template-rows: 1fr;
         grid-template-columns: auto;
+        gap: 24px;
         .reason {
           display: flex;
           align-items: center;
           column-gap: 24px;
-          border-radius: 34px;
-          background-color: #f0eeff;
-          padding: 34px 24px;
-          ${({ $maxHeight }) =>
-            $maxHeight &&
-            css`
-              height: ${$maxHeight}px;
-            `};
           @media screen and (max-width: 1382px) {
-            padding: 20px;
             column-gap: 20px;
           }
           //@media screen and (max-width: 768px) {
           //  flex-direction: column;
           //  text-align: center;
           //}
+
           .icon {
             background-color: #d8d3ff;
             min-width: 68px;
@@ -113,8 +150,10 @@ const WhyPlaySectionStyled = styled.section<{
             align-items: center;
             justify-content: center;
           }
+
           .text {
             font-size: 14px;
+            color: white;
             @media screen and (max-width: 768px) {
               font-size: 12px;
             }
@@ -123,6 +162,7 @@ const WhyPlaySectionStyled = styled.section<{
       }
     }
   }
+
   .marquee-vertical {
     position: absolute;
     left: 50%;
@@ -131,10 +171,12 @@ const WhyPlaySectionStyled = styled.section<{
     @media screen and (max-width: 1510px) {
       bottom: 0;
     }
+
     .rfm-marquee-container {
       overflow: hidden;
       width: 2000px;
     }
+
     .text {
       font-size: 88px;
       -webkit-text-stroke: 1px #dbe2e5;
@@ -188,94 +230,110 @@ const WhyPlaySection = () => {
 
   return (
     <WhyPlaySectionStyled $maxHeight={maxHeight} id="highlights">
+      <Image src="/images/bg-2.jpg" fill alt="" priority className="why-bg" />
       <div className="why-use-content-wrap">
         <div className="reason-zone">
           <div className="header-group">
-            <h1 className="topic">Realm Of The Ethernal</h1>
+            <h1 className="topic">Realm of the Eternal Archive</h1>
             <p className="description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Discover a world of ancient secrets, powerful artifacts, and
+              legendary quests in the Realm of the Eternal Archive.
             </p>
           </div>
           <div className="reason-group">
+            {/* Reason 1 */}
             <div className="reason">
               <div className="icon">
                 <Image
-                  src="/icons/icon-phone.svg"
+                  src="/icons/icon-nft-character.svg"
                   width="40"
                   height="40"
-                  alt=""
+                  alt="NFT Character"
                   priority
                 />
               </div>
               <p className="text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Unique NFT characters powered by NounsDAO, making each hero
+                truly yours.
               </p>
             </div>
+
+            {/* Reason 2 */}
             <div className="reason">
               <div className="icon">
                 <Image
-                  src="/icons/icon-social-media.svg"
+                  src="/icons/icon-web3-integration.svg"
                   width="40"
                   height="40"
-                  alt=""
+                  alt="Web3 Integration"
                   priority
                 />
               </div>
               <p className="text">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse.
+                Experience seamless Web3 integration with Filecoin, Uniswap, and
+                Sign Protocol for secure and immersive gameplay.
               </p>
             </div>
+
+            {/* Reason 3 */}
             <div className="reason">
               <div className="icon">
                 <Image
-                  src="/icons/icon-camera.svg"
+                  src="/icons/icon-quest.svg"
                   width="40"
                   height="40"
-                  alt=""
+                  alt="Epic Quests"
                   priority
                 />
               </div>
               <p className="text">
-                Excepteur sint occaecat cupidatat non proident.
+                Embark on thrilling quests and defeat powerful bosses to unlock
+                rare artifacts and rewards.
               </p>
             </div>
+
+            {/* Reason 4 */}
             <div className="reason">
               <div className="icon">
                 <Image
-                  src="/icons/icon-video.svg"
+                  src="/icons/icon-marketplace.svg"
                   width="40"
                   height="40"
-                  alt=""
+                  alt="Marketplace"
                   priority
                 />
               </div>
               <p className="text">
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris.
+                Buy, sell, and trade items and NFTs in the Realm Marketplace to
+                empower your character.
               </p>
             </div>
+
+            {/* Reason 5 */}
             <div className="reason">
               <div className="icon">
                 <Image
-                  src="/icons/icon-shop.svg"
+                  src="/icons/icon-rewards.svg"
                   width="40"
                   height="40"
-                  alt=""
+                  alt="Reward System"
                   priority
                 />
               </div>
               <p className="text">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
+                Collect USDC, Realm Tokens, and exclusive NFT items from the
+                reward pool by completing quests and challenges.
               </p>
             </div>
           </div>
         </div>
-        <HySellerSocialMaterial />
+        <Material />
       </div>
       <div className="marquee-vertical">
         <Marquee speed={60} autoFill={true} direction={marqueePosition}>
-          <div className="text">REALM OF THE ETHERNAL NFT · GAME &nbsp;</div>
+          <div className="text">
+            REALM OF THE ETERNAL ARCHIVE · NFT GAME &nbsp;
+          </div>
         </Marquee>
       </div>
     </WhyPlaySectionStyled>

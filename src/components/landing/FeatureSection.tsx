@@ -160,13 +160,13 @@ const FeatureSection = () => {
   return (
     <FeatureSectionStyled id="feature">
       <div className="feature-content">
-        <h1 className="feature-text">FEATURE</h1>
+        <h1 className="feature-text">KEY FEATURES</h1>
         <div className="header-zone">
-          <p className="title">Realm Of The Ethernal</p>
+          <p className="title">Realm Of The Eternal Archive</p>
           <div className="btn">
             <Link href="#">
               <Button type="button" variant="contained" color="white">
-                <span>Start the game</span>
+                <span>Start the Adventure</span>
                 <Image
                   src="/icons/icon-arrow-right-black.svg"
                   width={32}
@@ -180,102 +180,106 @@ const FeatureSection = () => {
         </div>
 
         <div className="feature-grid">
+          {/* Feature 1 */}
           <div className="feature">
             <div className="feature-topic">
               <Image
-                src="/icons/icon-dvr.svg"
+                src="/icons/icon-nft-character.svg"
                 width={44}
                 height={44}
                 alt=""
                 priority
               />
-              <h2 className="feature-topic-text">Lorem ipsum dolor sit amet</h2>
+              <h2 className="feature-topic-text">NFT Character Creation</h2>
             </div>
             <p className="feature-p">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              nec odio. Praesent libero. Sed cursus ante dapibus diam.
+              Create a unique NFT character through NounsDAO to represent
+              yourself in the game world.
             </p>
           </div>
+          {/* Feature 2 */}
           <div className="feature">
             <div className="feature-topic">
               <Image
-                src="/icons/icon-encrypted.svg"
+                src="/icons/icon-web3-integration.svg"
                 width={44}
                 height={44}
                 alt=""
                 priority
               />
-              <h2 className="feature-topic-text">
-                Curabitur suscipit suscipit tellus
-              </h2>
+              <h2 className="feature-topic-text">Web3 Integrations</h2>
             </div>
             <p className="feature-p">
-              Curabitur suscipit suscipit tellus. Praesent adipiscing. Phasellus
-              accumsan cursus velit. Vestibulum ante ipsum primis.
+              Integrates with Web3 technologies like Filecoin, Sign Protocol,
+              and Uniswap for seamless and secure gameplay.
             </p>
           </div>
+          {/* Feature 3 */}
           <div className="feature">
             <div className="feature-topic">
               <Image
-                src="/icons/icon-receipt.svg"
+                src="/icons/icon-quests.svg"
                 width={44}
                 height={44}
                 alt=""
                 priority
               />
-              <h2 className="feature-topic-text">Morbi lectus risus</h2>
+              <h2 className="feature-topic-text">Epic Quest System</h2>
             </div>
             <p className="feature-p">
-              Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa.
-              Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
+              Embark on quests like Filecoin Storage, Sign Protocol, and Uniswap
+              Trade to earn rare items and powerful boosts.
             </p>
           </div>
+          {/* Feature 4 */}
           <div className="feature">
             <div className="feature-topic">
               <Image
-                src="/icons/icon-order.svg"
+                src="/icons/icon-boss-battle.svg"
                 width={44}
                 height={44}
                 alt=""
                 priority
               />
-              <h2 className="feature-topic-text">Suspendisse potenti</h2>
+              <h2 className="feature-topic-text">Challenging Boss Battles</h2>
             </div>
             <p className="feature-p">
-              Suspendisse potenti. Cras in purus eu magna vulputate luctus.
-              Mauris vel urna nec nisi mollis placerat.
+              Fight powerful bosses in each level, from the Forest Guardian to
+              the Dragon Emperor, and earn exclusive rewards.
             </p>
           </div>
+          {/* Feature 5 */}
           <div className="feature">
             <div className="feature-topic">
               <Image
-                src="/icons/icon-box.svg"
+                src="/icons/icon-marketplace.svg"
                 width={44}
                 height={44}
                 alt=""
                 priority
               />
-              <h2 className="feature-topic-text">In hac habitasse platea</h2>
+              <h2 className="feature-topic-text">NFT Marketplace</h2>
             </div>
             <p className="feature-p">
-              In hac habitasse platea dictumst. Proin quis tortor orci. Etiam at
-              risus et justo dignissim congue.
+              Buy, sell, and trade items and NFTs in the Realm Marketplace to
+              enhance your character's strength.
             </p>
           </div>
+          {/* Feature 6 */}
           <div className="feature">
             <div className="feature-topic">
               <Image
-                src="/icons/icon-notes.svg"
+                src="/icons/icon-rewards.svg"
                 width={44}
                 height={44}
                 alt=""
                 priority
               />
-              <h2 className="feature-topic-text">Vivamus vestibulum</h2>
+              <h2 className="feature-topic-text">Reward Pool System</h2>
             </div>
             <p className="feature-p">
-              Vivamus vestibulum ntulla nec ante. Praesent placerat risus quis
-              eros. Fusce pellentesque suscipit nibh.
+              Earn USDC, Realm Tokens, and exclusive NFT items through gameplay
+              achievements and contributions to the pool.
             </p>
           </div>
         </div>

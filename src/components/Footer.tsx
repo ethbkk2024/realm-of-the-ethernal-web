@@ -2,11 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
-import HyActionButton from '@/components/HyActionButton';
+import ActionButton from '@/components/ActionButton';
 
 const FooterStyled = styled.footer`
   width: 100%;
-  background-color: #263238;
+  background: linear-gradient(
+    45deg,
+    rgba(59, 0, 102, 1) 20%,
+    rgba(0, 56, 94, 1) 100%
+  );
+  filter: saturate(0.4);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -31,7 +36,7 @@ const FooterStyled = styled.footer`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 88px 40px 88px 40px;
+    padding: 40px 20px 40px 20px;
     row-gap: 36px;
     z-index: 1;
     @media screen and (max-width: 620px) {
@@ -209,8 +214,18 @@ const Footer = () => {
   return (
     <FooterStyled id="about-us">
       <div className="pattern-wrap">
-        <Image src="/images/footer-pattern-top.svg" fill alt="" priority />
-        <Image src="/images/footer-pattern-bottom.svg" fill alt="" priority />
+        <Image
+          src="/images/footer-pattern-top.svg"
+          fill
+          alt="Pattern Top"
+          priority
+        />
+        <Image
+          src="/images/footer-pattern-bottom.svg"
+          fill
+          alt="Pattern Bottom"
+          priority
+        />
       </div>
       <div className="content-footer">
         <div className="footer-logo">
@@ -218,59 +233,64 @@ const Footer = () => {
             src="/icons/icon-hy-seller.svg"
             width="82"
             height="94"
-            alt=""
+            alt="Game Logo"
             priority
           />
         </div>
-        <div className="footer-title">Realm Of The Ethernal</div>
+        <div className="footer-title">Realm of the Eternal Archive</div>
         <Link href={`#`}>
-          <HyActionButton
-            text="Start the game"
+          <ActionButton
+            text="Start the Adventure"
             boxShadow="0px 0px 0px 2px white inset !important"
             height={56}
             fontSize={12}
             dropRight={8}
             dropColor={'gradient'}
-            width={262}
+            width={324}
           />
         </Link>
         <div className="footer-description">
-          Incididunt voluptate exercitation in.
+          Embark on an epic journey through the mystical world of the Eternal
+          Archive.
         </div>
         <div className="social-media-wrap">
+          {/* Facebook */}
           <div className="circle">
             <Image
               src="/icons/icon-facebook.svg"
               width="24"
               height="24"
-              alt=""
+              alt="Facebook"
               priority
             />
           </div>
+          {/* YouTube */}
           <div className="circle">
             <Image
               src="/icons/icon-youtube.svg"
               width="24"
               height="24"
-              alt=""
+              alt="YouTube"
               priority
             />
           </div>
+          {/* Line */}
           <div className="circle">
             <Image
               src="/icons/icon-line.svg"
               width="24"
               height="24"
-              alt=""
+              alt="Line"
               priority
             />
           </div>
+          {/* TikTok */}
           <div className="circle">
             <Image
               src="/icons/icon-tiktok.svg"
               width="24"
               height="24"
-              alt=""
+              alt="TikTok"
               priority
             />
           </div>
@@ -278,50 +298,29 @@ const Footer = () => {
       </div>
       <div className="copyright-bar">
         <div className="copyright">
-          © 2024 Realm Of The Ethernal All Rights Reserved.
+          © 2024 Realm of the Eternal Archive. All Rights Reserved.
         </div>
         <div className="about">
           <ul>
             <li>
               <div className="about-group">
-                <Link
-                  href="about-us"
-                  onClick={(event: any) => {
-                    event.preventDefault();
-                  }}
-                >
-                  About
-                </Link>
+                <Link href="#about-us">About</Link>
                 <div className="marker" />
               </div>
               <div className="about-group">
-                <Link
-                  href="#"
-                  onClick={(event: any) => {
-                    event.preventDefault();
-                  }}
-                >
-                  How to play
-                </Link>
+                <Link href="#how-to-play">How to Play</Link>
                 <div className="marker" />
               </div>
               <div className="about-group">
-                <Link href={`#`}>Privacy Policy</Link>
+                <Link href="#privacy-policy">Privacy Policy</Link>
                 <div className="marker" />
               </div>
               <div className="about-group">
-                <Link href={`#`}>Terms of Service</Link>
+                <Link href="#terms-of-service">Terms of Service</Link>
                 <div className="marker" />
               </div>
               <div className="about-group">
-                <Link
-                  href="about-us"
-                  onClick={(event: any) => {
-                    event.preventDefault();
-                  }}
-                >
-                  Contact Us
-                </Link>
+                <Link href="#contact-us">Contact Us</Link>
               </div>
             </li>
           </ul>

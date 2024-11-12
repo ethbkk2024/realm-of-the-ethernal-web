@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { Button } from '@mui/material';
 import NorthIcon from '@mui/icons-material/North';
 
-const HyActionButtonStyled = styled(Button)<{
+const ActionButtonStyled = styled(Button)<{
   $boxShadow: string | undefined;
   $height: number;
   $fontSize: number;
@@ -39,19 +39,15 @@ const HyActionButtonStyled = styled(Button)<{
   white-space: nowrap !important;
   justify-content: start !important;
   padding-left: 24px;
+  background: linear-gradient(
+    90deg,
+    rgba(59, 0, 102, 1) 0%,
+    rgba(0, 56, 94, 1) 100%
+  );
+  filter: saturate(2);
+
   .text {
     z-index: 1;
-  }
-  .gradient {
-    width: 200%;
-    height: 100%;
-    position: absolute;
-    transition: 0.3s ease-out;
-    background: linear-gradient(
-      90deg,
-      rgba(81, 73, 242, 1) 10%,
-      rgba(253, 83, 148, 1) 100%
-    );
   }
   .drop {
     width: 40px;
@@ -78,9 +74,7 @@ const HyActionButtonStyled = styled(Button)<{
     }
   }
   &:hover {
-    .gradient {
-      transform: translateX(25%);
-    }
+    filter: saturate(2) brightness(1.2);
     .drop {
       filter: drop-shadow(0px 0px 8px white);
     }
@@ -100,7 +94,7 @@ type HyActionButtonProps = {
   isRegister?: boolean | undefined;
   disabled?: boolean | undefined;
 };
-const HyActionButton = (props: HyActionButtonProps) => {
+const ActionButton = (props: HyActionButtonProps) => {
   const {
     text,
     boxShadow,
@@ -117,7 +111,7 @@ const HyActionButton = (props: HyActionButtonProps) => {
   } = props;
   console.log(loading);
   return (
-    <HyActionButtonStyled
+    <ActionButtonStyled
       type="submit"
       variant="contained"
       color={isRegister ? 'secondary' : 'primary'}
@@ -128,7 +122,6 @@ const HyActionButton = (props: HyActionButtonProps) => {
       $dropRight={dropRight}
       $width={width}
     >
-      {isGradient && <div className="gradient" />}
       <span className="text">{text}</span>
       <div className={`drop ${dropColor === 'gradient' && 'drop-gradient'}`}>
         <NorthIcon
@@ -145,8 +138,8 @@ const HyActionButton = (props: HyActionButtonProps) => {
         {/*  priority */}
         {/* /> */}
       </div>
-    </HyActionButtonStyled>
+    </ActionButtonStyled>
   );
 };
 
-export default HyActionButton;
+export default ActionButton;
