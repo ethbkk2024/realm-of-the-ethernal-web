@@ -7,187 +7,166 @@ import Material from '@/components/Material';
 const WhyPlaySectionStyled = styled.section<{
   $maxHeight: number;
 }>`
-  width: 1920px;
+  width: 100%;
   max-width: 100%;
   overflow: hidden;
   position: relative;
   background: #7e75c5;
-  //&:before {
-  //  content: '';
-  //  background: linear-gradient(
-  //    to top,
-  //    rgba(255, 255, 255, 0) 0%,
-  //    rgb(255, 255, 255) 100%
-  //  );
-  //  position: absolute;
-  //  z-index: 1;
-  //  height: 48px;
-  //  left: 0;
-  //  width: 100%;
-  //  top: 0;
-  //}
-  //&:after {
-  //  content: '';
-  //  background: linear-gradient(
-  //    to bottom,
-  //    rgba(255, 255, 255, 0) 0%,
-  //    rgb(255, 255, 255) 100%
-  //  );
-  //  position: absolute;
-  //  z-index: 1;
-  //  height: 48px;
-  //  left: 0;
-  //  width: 100%;
-  //  bottom: 0;
-  //}
-  .why-bg {
-    position: absolute;
-    z-index: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.3);
-    z-index: 0;
-  }
-  .why-use-content-wrap {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    gap: 24px;
-    padding: 64px 40px;
-    @media screen and (max-width: 1510px) {
-      margin-bottom: 120px;
-    }
-    @media screen and (max-width: 1382px) {
-      flex-direction: column-reverse;
-      gap: 56px;
-      margin-bottom: 74px;
-      align-items: center;
-    }
-    @media screen and (max-width: 768px) {
-      gap: 34px;
-    }
-    @media screen and (max-width: 620px) {
-      padding: 52px 24px;
-    }
-
-    .reason-zone {
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      max-width: 832px;
-      min-width: 640px;
-      width: 42vw;
-      row-gap: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .content {
+    width: 1920px;
+    max-width: 100%;
+    .why-bg {
+      position: absolute;
+      z-index: 0;
+      width: 100%;
       height: 100%;
+      object-fit: cover;
+      filter: brightness(0.3);
+      z-index: 0;
+    }
+    .why-use-content-wrap {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      gap: 24px;
+      padding: 64px 40px;
+      @media screen and (max-width: 1510px) {
+        margin-bottom: 120px;
+      }
       @media screen and (max-width: 1382px) {
-        width: 100%;
-        max-width: 100%;
-        min-width: auto;
-        row-gap: 42px;
+        flex-direction: column-reverse;
+        gap: 56px;
+        margin-bottom: 74px;
+        align-items: center;
+      }
+      @media screen and (max-width: 768px) {
+        gap: 34px;
+      }
+      @media screen and (max-width: 620px) {
+        padding: 52px 24px;
       }
 
-      .header-group {
+      .reason-zone {
+        z-index: 1;
         display: flex;
         flex-direction: column;
-        column-gap: 8px;
-        row-gap: 8px;
-
-        .topic {
-          color: #ffb7d2;
-          font-size: 32px;
-          line-height: 1.2;
-          @media screen and (max-width: 980px) {
-            font-size: 28px;
-          }
-          @media screen and (max-width: 768px) {
-            font-size: 24px;
-          }
-          @media screen and (max-width: 620px) {
-            font-size: 20px;
-          }
+        max-width: 832px;
+        min-width: 640px;
+        width: 42vw;
+        row-gap: 24px;
+        height: 100%;
+        @media screen and (max-width: 1382px) {
+          width: 100%;
+          max-width: 100%;
+          min-width: auto;
+          row-gap: 42px;
         }
 
-        .description {
-          max-width: 540px;
-          font-size: 16px;
-          color: white;
-          @media screen and (max-width: 768px) {
-            font-size: 14px;
-          }
-          @media screen and (max-width: 620px) {
-            font-size: 12px;
-          }
-        }
-      }
-
-      .reason-group {
-        width: 100%;
-        display: grid;
-        grid-template-rows: 1fr;
-        grid-template-columns: auto;
-        gap: 24px;
-        .reason {
+        .header-group {
           display: flex;
-          align-items: center;
-          column-gap: 24px;
-          @media screen and (max-width: 1382px) {
-            column-gap: 20px;
-          }
-          //@media screen and (max-width: 768px) {
-          //  flex-direction: column;
-          //  text-align: center;
-          //}
+          flex-direction: column;
+          column-gap: 8px;
+          row-gap: 8px;
 
-          .icon {
-            background-color: #d8d3ff;
-            min-width: 68px;
-            width: 68px;
-            height: 68px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+          .topic {
+            color: #ffb7d2;
+            font-size: 32px;
+            line-height: 1.2;
+            @media screen and (max-width: 980px) {
+              font-size: 28px;
+            }
+            @media screen and (max-width: 768px) {
+              font-size: 24px;
+            }
+            @media screen and (max-width: 620px) {
+              font-size: 20px;
+            }
           }
 
-          .text {
-            font-size: 14px;
+          .description {
+            max-width: 540px;
+            font-size: 16px;
             color: white;
             @media screen and (max-width: 768px) {
+              font-size: 14px;
+            }
+            @media screen and (max-width: 620px) {
               font-size: 12px;
+            }
+          }
+        }
+
+        .reason-group {
+          width: 100%;
+          display: grid;
+          grid-template-rows: 1fr;
+          grid-template-columns: auto;
+          gap: 24px;
+          .reason {
+            display: flex;
+            align-items: center;
+            column-gap: 24px;
+            @media screen and (max-width: 1382px) {
+              column-gap: 20px;
+            }
+            //@media screen and (max-width: 768px) {
+            //  flex-direction: column;
+            //  text-align: center;
+            //}
+
+            .icon {
+              background-color: #d8d3ff;
+              min-width: 68px;
+              width: 68px;
+              height: 68px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            .text {
+              font-size: 14px;
+              color: white;
+              @media screen and (max-width: 768px) {
+                font-size: 12px;
+              }
             }
           }
         }
       }
     }
-  }
 
-  .marquee-vertical {
-    position: absolute;
-    left: 50%;
-    bottom: 50%;
-    transform: translateX(-50%);
-    @media screen and (max-width: 1510px) {
-      bottom: 0;
-    }
-
-    .rfm-marquee-container {
-      overflow: hidden;
-      width: 2000px;
-    }
-
-    .text {
-      font-size: 88px;
-      -webkit-text-stroke: 1px #dbe2e5;
-      -webkit-text-fill-color: transparent;
-      rotate: 90deg;
-      white-space: nowrap;
+    .marquee-vertical {
+      position: absolute;
+      left: 50%;
+      bottom: 50%;
+      transform: translateX(-50%);
       @media screen and (max-width: 1510px) {
-        rotate: 0deg;
+        bottom: 0;
       }
-      @media screen and (max-width: 1382px) {
+
+      .rfm-marquee-container {
+        overflow: hidden;
+        width: 2000px;
+      }
+
+      .text {
         font-size: 88px;
+        -webkit-text-stroke: 1px #dbe2e5;
+        -webkit-text-fill-color: transparent;
+        rotate: 90deg;
+        white-space: nowrap;
+        @media screen and (max-width: 1510px) {
+          rotate: 0deg;
+        }
+        @media screen and (max-width: 1382px) {
+          font-size: 88px;
+        }
       }
     }
   }
@@ -230,118 +209,120 @@ const WhyPlaySection = () => {
 
   return (
     <WhyPlaySectionStyled $maxHeight={maxHeight} id="highlights">
-      <Image
-        src="/images/bg-2.jpg"
-        fill
-        alt=""
-        priority
-        className="why-bg"
-        draggable={false}
-      />
-      <div className="why-use-content-wrap">
-        <div className="reason-zone">
-          <div className="header-group">
-            <h1 className="topic">Realm of the Eternal Archive</h1>
-            <p className="description">
-              Discover a world of ancient secrets, powerful artifacts, and
-              legendary quests in the Realm of the Eternal Archive.
-            </p>
+      <div className="content">
+        <Image
+          src="/images/bg-2.jpg"
+          fill
+          alt=""
+          priority
+          className="why-bg"
+          draggable={false}
+        />
+        <div className="why-use-content-wrap">
+          <div className="reason-zone">
+            <div className="header-group">
+              <h1 className="topic">Realm of the Eternal Archive</h1>
+              <p className="description">
+                Discover a world of ancient secrets, powerful artifacts, and
+                legendary quests in the Realm of the Eternal Archive.
+              </p>
+            </div>
+            <div className="reason-group">
+              {/* Reason 1 */}
+              <div className="reason">
+                <div className="icon">
+                  <Image
+                    src="/icons/icon-nft-character.svg"
+                    width="40"
+                    height="40"
+                    alt="NFT Character"
+                    priority
+                  />
+                </div>
+                <p className="text">
+                  Unique NFT characters powered by NounsDAO, making each hero
+                  truly yours.
+                </p>
+              </div>
+
+              {/* Reason 2 */}
+              <div className="reason">
+                <div className="icon">
+                  <Image
+                    src="/icons/icon-web3-integration.svg"
+                    width="40"
+                    height="40"
+                    alt="Web3 Integration"
+                    priority
+                  />
+                </div>
+                <p className="text">
+                  Experience seamless Web3 integration with Filecoin, Uniswap,
+                  and Sign Protocol for secure and immersive gameplay.
+                </p>
+              </div>
+
+              {/* Reason 3 */}
+              <div className="reason">
+                <div className="icon">
+                  <Image
+                    src="/icons/icon-quest.svg"
+                    width="40"
+                    height="40"
+                    alt="Epic Quests"
+                    priority
+                  />
+                </div>
+                <p className="text">
+                  Embark on thrilling quests and defeat powerful bosses to
+                  unlock rare artifacts and rewards.
+                </p>
+              </div>
+
+              {/* Reason 4 */}
+              <div className="reason">
+                <div className="icon">
+                  <Image
+                    src="/icons/icon-marketplace.svg"
+                    width="40"
+                    height="40"
+                    alt="Marketplace"
+                    priority
+                  />
+                </div>
+                <p className="text">
+                  Buy, sell, and trade items and NFTs in the Realm Marketplace
+                  to empower your character.
+                </p>
+              </div>
+
+              {/* Reason 5 */}
+              <div className="reason">
+                <div className="icon">
+                  <Image
+                    src="/icons/icon-rewards.svg"
+                    width="40"
+                    height="40"
+                    alt="Reward System"
+                    priority
+                  />
+                </div>
+                <p className="text">
+                  Collect USDC, Realm Tokens, and exclusive NFT items from the
+                  reward pool by completing quests and challenges.
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="reason-group">
-            {/* Reason 1 */}
-            <div className="reason">
-              <div className="icon">
-                <Image
-                  src="/icons/icon-nft-character.svg"
-                  width="40"
-                  height="40"
-                  alt="NFT Character"
-                  priority
-                />
-              </div>
-              <p className="text">
-                Unique NFT characters powered by NounsDAO, making each hero
-                truly yours.
-              </p>
-            </div>
-
-            {/* Reason 2 */}
-            <div className="reason">
-              <div className="icon">
-                <Image
-                  src="/icons/icon-web3-integration.svg"
-                  width="40"
-                  height="40"
-                  alt="Web3 Integration"
-                  priority
-                />
-              </div>
-              <p className="text">
-                Experience seamless Web3 integration with Filecoin, Uniswap, and
-                Sign Protocol for secure and immersive gameplay.
-              </p>
-            </div>
-
-            {/* Reason 3 */}
-            <div className="reason">
-              <div className="icon">
-                <Image
-                  src="/icons/icon-quest.svg"
-                  width="40"
-                  height="40"
-                  alt="Epic Quests"
-                  priority
-                />
-              </div>
-              <p className="text">
-                Embark on thrilling quests and defeat powerful bosses to unlock
-                rare artifacts and rewards.
-              </p>
-            </div>
-
-            {/* Reason 4 */}
-            <div className="reason">
-              <div className="icon">
-                <Image
-                  src="/icons/icon-marketplace.svg"
-                  width="40"
-                  height="40"
-                  alt="Marketplace"
-                  priority
-                />
-              </div>
-              <p className="text">
-                Buy, sell, and trade items and NFTs in the Realm Marketplace to
-                empower your character.
-              </p>
-            </div>
-
-            {/* Reason 5 */}
-            <div className="reason">
-              <div className="icon">
-                <Image
-                  src="/icons/icon-rewards.svg"
-                  width="40"
-                  height="40"
-                  alt="Reward System"
-                  priority
-                />
-              </div>
-              <p className="text">
-                Collect USDC, Realm Tokens, and exclusive NFT items from the
-                reward pool by completing quests and challenges.
-              </p>
-            </div>
-          </div>
+          <Material />
         </div>
-        <Material />
-      </div>
-      <div className="marquee-vertical">
-        <Marquee speed={60} autoFill={true} direction={marqueePosition}>
-          <div className="text">
-            REALM OF THE ETERNAL ARCHIVE · NFT GAME &nbsp;
-          </div>
-        </Marquee>
+        <div className="marquee-vertical">
+          <Marquee speed={60} autoFill={true} direction={marqueePosition}>
+            <div className="text">
+              REALM OF THE ETERNAL ARCHIVE · NFT GAME &nbsp;
+            </div>
+          </Marquee>
+        </div>
       </div>
     </WhyPlaySectionStyled>
   );

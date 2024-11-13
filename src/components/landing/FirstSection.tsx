@@ -1,10 +1,11 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ActionButton from '@/components/ActionButton';
 import styled from 'styled-components';
 import Image from 'next/image';
 import BrandMarquee from '@/components/landing/BrandMarquee';
 import Plyr from 'plyr-react';
+import { LoadElement } from '@/styles/animations';
 
 const FirstSectionStyled = styled.div`
   display: flex;
@@ -119,6 +120,9 @@ const FirstSectionStyled = styled.div`
       @media screen and (max-width: 980px) {
         margin-bottom: 26px;
       }
+      .video {
+        animation: ${LoadElement} 0.3s ease-in;
+      }
     }
   }
 `;
@@ -174,7 +178,8 @@ const BrandMarqueeWrapStyled = styled.section`
 type VideoPlayerProps = {
   videoUrl: string;
 };
-const VideoPlayer = memo(({ videoUrl }: VideoPlayerProps) => (
+
+const VideoPlayer = ({ videoUrl }: VideoPlayerProps) => (
   <Plyr
     source={{
       type: 'video',
@@ -196,19 +201,14 @@ const VideoPlayer = memo(({ videoUrl }: VideoPlayerProps) => (
       ],
     }}
   />
-));
+);
 const FirstSection = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-
   useEffect(() => {
-    const videoElement = document.querySelector(
-      '.plyr--full-u',
-    ) as HTMLVideoElement;
-    if (videoElement) {
-      videoElement.onloadeddata = () => setIsVideoLoaded(true);
-    }
+    const video = document.createElement('video');
+    video.src = 'https://assets.sheetpapers.com/videos%2Fman-on-the-cloud.mp4';
+    video.onloadeddata = () => setIsVideoLoaded(true);
   }, []);
-
   return (
     <>
       <FirstSectionStyled id="/">
@@ -235,11 +235,13 @@ const FirstSection = () => {
         <section className="first-section-content">
           <div className="player-wrap">
             {isVideoLoaded ? (
-              <VideoPlayer
-                videoUrl={
-                  'https://assets.sheetpapers.com/videos%2Fman-on-the-cloud.mp4'
-                }
-              />
+              <div className="video">
+                <VideoPlayer
+                  videoUrl={
+                    'https://assets.sheetpapers.com/videos%2Fman-on-the-cloud.mp4'
+                  }
+                />
+              </div>
             ) : (
               <p>Loading video...</p>
             )}
