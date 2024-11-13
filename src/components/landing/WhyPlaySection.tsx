@@ -230,7 +230,14 @@ const WhyPlaySection = () => {
 
   return (
     <WhyPlaySectionStyled $maxHeight={maxHeight} id="highlights">
-      <Image src="/images/bg-2.jpg" fill alt="" priority className="why-bg" />
+      <Image
+        src="/images/bg-2.jpg"
+        fill
+        alt=""
+        priority
+        className="why-bg"
+        draggable={false}
+      />
       <div className="why-use-content-wrap">
         <div className="reason-zone">
           <div className="header-group">

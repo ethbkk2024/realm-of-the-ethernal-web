@@ -18,6 +18,7 @@ import { http } from 'viem';
 import { mainnet } from 'viem/chains';
 import Head from 'next/head';
 import { realmFont } from '@/styles/font';
+import 'plyr/dist/plyr.css';
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -103,6 +104,16 @@ const GlobalStyle = createGlobalStyle`
         background-position: 0% 0%;
       }
     }
+    .plyr--full-ui input[type='range'] {
+        color: #b0a6ff;
+        //filter: saturate(2);
+    }
+    .plyr__controls__item {
+        background: none !important;
+        button {
+            background: none !important;
+        }
+    }
 `;
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -151,9 +162,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <GlobalStyle />
       <Head>
-        <meta property="og:site_name" content="Realm Of The Ethernal" />
+        <meta property="og:site_name" content="Realm Of The Eternal Archive" />
         {/* <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" /> */}
-        <title>Realm Of The Ethernal</title>
+        <title>Realm Of The Eternal Archive</title>
       </Head>
       <DynamicContextProvider
         settings={{

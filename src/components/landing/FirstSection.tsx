@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import Link from 'next/link';
 import ActionButton from '@/components/ActionButton';
 import styled from 'styled-components';
 import Image from 'next/image';
 import BrandMarquee from '@/components/landing/BrandMarquee';
+import Plyr from 'plyr-react';
 
 const FirstSectionStyled = styled.div`
   display: flex;
@@ -101,11 +102,12 @@ const FirstSectionStyled = styled.div`
       }
     }
 
-    .image-wrap {
-      width: 1200px;
+    .player-wrap {
+      min-width: 800px;
+      min-height: 450px;
+      width: 800px;
       box-shadow: 0px 0px 16px 0px #00000014;
-      border-radius: 40px;
-      border: 2px solid #ffffff33;
+      border-radius: 34px;
       background: #ffffff80;
       display: flex;
       align-items: center;
@@ -113,20 +115,9 @@ const FirstSectionStyled = styled.div`
       margin-bottom: 40px;
       max-width: 100%;
       z-index: 1;
+      overflow: hidden;
       @media screen and (max-width: 980px) {
         margin-bottom: 26px;
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
-        padding: 8px;
-        border-radius: 40px;
-        aspect-ratio: 20/9 !important;
-
-        @media screen and (max-width: 980px) {
-          padding: 4px;
-        }
       }
     }
   }
@@ -180,7 +171,44 @@ const BrandMarqueeWrapStyled = styled.section`
     }
   }
 `;
+type VideoPlayerProps = {
+  videoUrl: string;
+};
+const VideoPlayer = memo(({ videoUrl }: VideoPlayerProps) => (
+  <Plyr
+    source={{
+      type: 'video',
+      sources: [
+        {
+          src: videoUrl,
+          type: 'video/mp4',
+        },
+      ],
+    }}
+    options={{
+      controls: [
+        'play',
+        'progress',
+        'current-time',
+        'mute',
+        'volume',
+        'fullscreen',
+      ],
+    }}
+  />
+));
 const FirstSection = () => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    const videoElement = document.querySelector(
+      '.plyr--full-u',
+    ) as HTMLVideoElement;
+    if (videoElement) {
+      videoElement.onloadeddata = () => setIsVideoLoaded(true);
+    }
+  }, []);
+
   return (
     <>
       <FirstSectionStyled id="/">
@@ -190,6 +218,7 @@ const FirstSection = () => {
           alt=""
           priority
           className="bg-image"
+          draggable={false}
         />
         <header className="header-landing">
           <div className="header-content-wrap">
@@ -204,14 +233,16 @@ const FirstSection = () => {
           </div>
         </header>
         <section className="first-section-content">
-          <div className="image-wrap">
-            <Image
-              src="/images/landing/landing-mock.png"
-              width={1600}
-              height={1200}
-              alt=""
-              priority
-            />
+          <div className="player-wrap">
+            {isVideoLoaded ? (
+              <VideoPlayer
+                videoUrl={
+                  'https://assets.sheetpapers.com/videos%2Fman-on-the-cloud.mp4'
+                }
+              />
+            ) : (
+              <p>Loading video...</p>
+            )}
           </div>
           <Link href={`#`}>
             <ActionButton
@@ -241,5 +272,4 @@ const FirstSection = () => {
     </>
   );
 };
-
 export default FirstSection;
