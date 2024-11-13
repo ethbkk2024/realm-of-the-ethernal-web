@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import HyActionButton from '@/components/HyActionButton';
+import ActionButton from '@/components/ActionButton';
 import styled from 'styled-components';
 import Image from 'next/image';
 import BrandMarquee from '@/components/landing/BrandMarquee';
@@ -136,10 +136,15 @@ const BrandMarqueeWrapStyled = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: #263238;
+  * {
+    color: white;
+  }
   .text-group {
     display: flex;
     flex-direction: column;
     padding: 0 24px;
+    align-items: center;
     h2 {
       font-size: 32px;
       margin-top: 40px;
@@ -188,12 +193,13 @@ const FirstSection = () => {
         />
         <header className="header-landing">
           <div className="header-content-wrap">
-            <h1>Realm Of The Ethernal</h1>
-            <p className="h1">Commodo duis est enim id.</p>
+            <h1>Realm Of The Eternal Archive</h1>
+            <p className="h1">Explore a Mystical World of Endless Knowledge</p>
             <p>
-              Magna nulla amet eiusmod nisi anim fugiat veniam cillum ad dolor
-              irure. Consequat non quis eiusmod laborum deserunt aute do
-              adipiscing id.
+              Venture into an ancient archive filled with hidden artifacts,
+              mystical spells, and secrets from a forgotten era. Unlock
+              treasures and face thrilling quests as you journey deeper into the
+              unknown.
             </p>
           </div>
         </header>
@@ -208,26 +214,26 @@ const FirstSection = () => {
             />
           </div>
           <Link href={`#`}>
-            <HyActionButton
-              text="Start the game"
+            <ActionButton
+              text="Start the Adventure"
               boxShadow="0px 0px 0px 2px white inset !important"
               height={56}
               fontSize={12}
               dropRight={8}
               dropColor={'gradient'}
-              width={262}
+              width={324}
             />
           </Link>
         </section>
       </FirstSectionStyled>
       <BrandMarqueeWrapStyled>
         <div className="text-group">
-          <h2>Realm Of The Ethernal</h2>
-          <p className="h2">Commodo duis est enim id.</p>
+          <h2>The Secrets of the Eternal Archive</h2>
+          <p className="h2 mt-[16px]">Join a world where knowledge is power.</p>
           <p>
-            Magna nulla amet eiusmod nisi anim fugiat veniam cillum ad dolor
-            irure. Consequat non quis eiusmod laborum deserunt aute do
-            adipiscing id.
+            Dive into quests that challenge your wits and courage. Unravel
+            mysteries, collect rare artifacts, and become part of a story that
+            blends ancient wisdom with modern technology.
           </p>
         </div>
         <BrandMarquee />

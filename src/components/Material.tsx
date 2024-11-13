@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-const HySellerSocialMaterialStyled = styled.div`
+const MaterialStyled = styled.div`
   max-width: 832px;
   min-width: 640px;
   width: 42vw;
@@ -195,13 +195,12 @@ const HySellerSocialMaterialStyled = styled.div`
   }
 `;
 
-type HySellerSocialMaterialProps = {
+type Props = {
   isRegister?: boolean | undefined;
 };
-const HySellerSocialMaterial = (props: HySellerSocialMaterialProps) => {
-  const { isRegister } = props;
+const Material = ({ isRegister }: Props) => {
   return (
-    <HySellerSocialMaterialStyled>
+    <MaterialStyled>
       <div className="presenter-content">
         <motion.div
           className="presenter-main"
@@ -384,8 +383,8 @@ const HySellerSocialMaterial = (props: HySellerSocialMaterialProps) => {
           />
         </motion.div>
       </div>
-    </HySellerSocialMaterialStyled>
+    </MaterialStyled>
   );
 };
 
-export default HySellerSocialMaterial;
+export default Material;
