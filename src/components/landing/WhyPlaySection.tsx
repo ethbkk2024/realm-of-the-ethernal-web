@@ -208,7 +208,7 @@ const WhyPlaySection = () => {
   }, []);
 
   return (
-    <WhyPlaySectionStyled $maxHeight={maxHeight} id="highlights">
+    <WhyPlaySectionStyled $maxHeight={maxHeight} id="">
       <div className="content">
         <Image
           src="/images/bg-2.jpg"

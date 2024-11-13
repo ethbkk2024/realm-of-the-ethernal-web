@@ -15,105 +15,105 @@ import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
 import { createConfig, WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { http } from 'viem';
-import { mainnet } from 'viem/chains';
+import { mainnet, optimism, base } from 'viem/chains';
 import Head from 'next/head';
 import { realmFont } from '@/styles/font';
 import 'plyr/dist/plyr.css';
 
 const GlobalStyle = createGlobalStyle`
-    * {
-        -webkit-box-sizing:border-box;
-        -moz-box-sizing:border-box;
-        box-sizing:border-box;
-        font-family: ${realmFont.style.fontFamily} !important;
-    }
-    html {
-        scroll-behavior: smooth;
-        -webkit-tap-highlight-color: transparent;
-        body {
-            margin: 0;
-            font-size: 12px;
-            font-weight: 400;
-            color: #263238;
-            a {
-                color: #263238;
-            }
-            p {
-                margin: 12px 0;
-                line-height: 1.8;
-                white-space: pre-line;
-            }
-            ul,ol {
-                @media screen and (max-width: 480px) {
-                    padding-inline-start: 24px;
-                }
-                li{
-                    line-height: 1.8;
-                    white-space: pre-line;
-                }
-            }
-          ul {
-            margin: 12px 0;
-          }
-            h1, h2, h3, h4, h5, h6 {
-                margin: 0;
-                font-weight: 600;
-            }
+  * {
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    font-family: ${realmFont.style.fontFamily} !important;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    body {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 400;
+      color: #263238;
+      a {
+        color: #263238;
+      }
+      p {
+        margin: 12px 0;
+        line-height: 1.8;
+        white-space: pre-line;
+      }
+      ul,ol {
+        @media screen and (max-width: 480px) {
+          padding-inline-start: 24px;
         }
+        li{
+          line-height: 1.8;
+          white-space: pre-line;
+        }
+      }
+      ul {
+        margin: 12px 0;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        font-weight: 600;
+      }
     }
+  }
   strong {
     font-weight: 600;
   }
-    #nprogress {
-        transition: all .8s ease-out !important;
-        .bar {
-            box-shadow: 0 0 10px red, 0 0 4px red;
-            height: 1px;
-            background: red;
-        }
+  #nprogress {
+    transition: all .8s ease-out !important;
+    .bar {
+      box-shadow: 0 0 10px red, 0 0 4px red;
+      height: 1px;
+      background: red;
     }
-    .zoom-image {
-        clip-path: inset(0 round 8px);
-    }
-    .medium-zoom-overlay {
-        height: 100%;
-      background: rgb(248 248 248 / 95%) !important;
-    }
-    .realm-name {
-      background: linear-gradient(360deg, #FF0000, #FFFF00);
-      background-size: 100% 120%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-animation 5s linear infinite;
-    }
+  }
+  .zoom-image {
+    clip-path: inset(0 round 8px);
+  }
+  .medium-zoom-overlay {
+    height: 100%;
+    background: rgb(248 248 248 / 95%) !important;
+  }
+  .realm-name {
+    background: linear-gradient(360deg, #FF0000, #FFFF00);
+    background-size: 100% 120%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-animation 5s linear infinite;
+  }
 
-    @keyframes gradient-animation {
-      0% {
-        background-position: 0% 0%;
-      }
-      20% {
-        background-position: 0% 25%;
-      }
-      50% {
-        background-position: 0% 100%;
-      }
-      80% {
-        background-position: 0% 25%;
-      }
-      100% {
-        background-position: 0% 0%;
-      }
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 0%;
     }
-    .plyr--full-ui input[type='range'] {
-        color: #b0a6ff;
-        //filter: saturate(2);
+    20% {
+      background-position: 0% 25%;
     }
-    .plyr__controls__item {
-        background: none !important;
-        button {
-            background: none !important;
-        }
+    50% {
+      background-position: 0% 100%;
     }
+    80% {
+      background-position: 0% 25%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+  .plyr--full-ui input[type='range'] {
+    color: #b0a6ff;
+    //filter: saturate(2);
+  }
+  .plyr__controls__item {
+    background: none !important;
+    button {
+      background: none !important;
+    }
+  }
 `;
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -125,10 +125,12 @@ type AppPropsWithLayout = AppProps & {
 };
 
 const config = createConfig({
-  chains: [mainnet],
+  chains: [mainnet, optimism, base],
   multiInjectedProviderDiscovery: false,
   transports: {
     [mainnet.id]: http(),
+    [optimism.id]: http(),
+    [base.id]: http(),
   },
 });
 

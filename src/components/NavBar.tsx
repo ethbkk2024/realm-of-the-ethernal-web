@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { menuConfig } from '@/utils/menuConfig';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import Image from 'next/image';
 import Aside from '@/components/Aside';
 import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
+import { useAccount } from 'wagmi';
 
 const NavStyle = styled.div<{
   $isShow: boolean;
@@ -28,13 +28,12 @@ const NavStyle = styled.div<{
   align-items: center;
   width: 100%;
   padding: 0 24px;
-  box-shadow: 0 8px 8px -8px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 8px 8px -8px rgba(0, 0, 0, 0.5);
   z-index: 99;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   background-color: #00000050;
   transition: 0.3s ease-out;
-
   ${({ $scrollDirection, $scrollYPosition }) => {
     if ($scrollDirection === 'down' && $scrollYPosition >= 80) {
       return css`
@@ -182,7 +181,7 @@ const NavStyle = styled.div<{
         .active {
           height: 100%;
           width: 100%;
-          background: #263238;
+          background: #9d90ff;
           position: absolute;
           border-radius: 20px;
         }
@@ -299,10 +298,14 @@ const NavStyle = styled.div<{
 `;
 
 const NavBar = () => {
-  const router = useRouter();
+  const { address, isConnected, chain } = useAccount();
   const [scrollDirection, setScrollDirection] = useState('');
   const [scrollYPosition, setScrollYPosition] = useState(0);
   const [screenWidth, setScreenWidth] = useState<number>(0);
+  const [activeSection, setActiveSection] = useState<string>('/');
+  console.log('address', address);
+  console.log('isConnected', isConnected);
+  console.log('chain', chain);
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
@@ -322,26 +325,27 @@ const NavBar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const newYPosition = window.scrollY;
-
       setScrollYPosition(newYPosition);
-
-      if (newYPosition > scrollYPosition) {
-        setScrollDirection('down');
-      } else {
-        setScrollDirection('up');
-      }
+      setScrollDirection(newYPosition > scrollYPosition ? 'down' : 'up');
+      menuConfig.forEach((item) => {
+        const element = document.getElementById(item.url);
+        if (element) {
+          const { top, bottom } = element.getBoundingClientRect();
+          if (top < window.innerHeight && bottom > 0) {
+            setActiveSection(item.url);
+          }
+        }
+      });
     };
 
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [scrollYPosition]);
+
   const handleScroll = (url: string) => {
     const element = document.getElementById(url);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   };
 
@@ -358,13 +362,7 @@ const NavBar = () => {
         <nav>
           <Link href={`#`}>
             <div className="l-wrap">
-              <Image
-                src="/icons/icon-hy-seller.svg"
-                width="42"
-                height="48"
-                alt=""
-                priority
-              />
+              <Image src="" width="42" height="48" alt="" priority />
             </div>
           </Link>
           <div className="hamburger-wrap">
@@ -389,37 +387,45 @@ const NavBar = () => {
                       color: 'white',
                     }}
                     onClick={(e: any) => {
-                      if (item.id !== 1) {
-                        e.preventDefault();
-                      }
+                      e.preventDefault();
                       handleScroll(item.url);
                     }}
                   >
                     {item.name}
                   </Link>
-                  <div
-                    className={router.pathname === item.url ? 'active' : ''}
-                  />
+                  <div className={activeSection === item.url ? 'active' : ''} />
                 </li>
               </React.Fragment>
             ))}
           </ul>
           <div className="r-wrap">
             <DynamicWidget />
-            <div className="btn-group">
-              <Link href={`#`}>
-                <Button type="button" variant="contained" color="white">
-                  <div className="bg-gradient"></div>
-                  <div className="btn-text">Connect</div>
-                </Button>
-              </Link>
-              <Link href={`#`}>
-                <div className="bg"></div>
-                <Button type="button" variant="contained" color="white">
-                  Verify
-                </Button>
-              </Link>
-            </div>
+            {/* <div className="btn-group"> */}
+            {/*  <Link */}
+            {/*    href={`#`} */}
+            {/*    onClick={(e: any) => { */}
+            {/*      e.preventDefault(); */}
+            {/*    }} */}
+            {/*  > */}
+            {/*    <Button type="button" variant="contained" color="white"> */}
+            {/*      <div className="bg-gradient"></div> */}
+            {/*      <div className="btn-text"> */}
+            {/*        {isConnected ? 'Connected' : 'Connect'} */}
+            {/*      </div> */}
+            {/*    </Button> */}
+            {/*  </Link> */}
+            {/*  <Link */}
+            {/*    href={`#`} */}
+            {/*    onClick={(e: any) => { */}
+            {/*      e.preventDefault(); */}
+            {/*    }} */}
+            {/*  > */}
+            {/*    <div className="bg"></div> */}
+            {/*    <Button type="button" variant="contained" color="white"> */}
+            {/*      Verify */}
+            {/*    </Button> */}
+            {/*  </Link> */}
+            {/* </div> */}
           </div>
         </nav>
       </NavStyle>
