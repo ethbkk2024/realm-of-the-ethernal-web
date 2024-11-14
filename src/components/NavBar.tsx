@@ -194,11 +194,13 @@ const NavStyle = styled.div<{
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 34px;
+        height: 24px;
         transition: 0.3s ease-out;
-        @media screen and (max-width: 1150px) {
-          height: 34px;
-          padding: 0 12px;
+        &:first-child {
+          margin-left: 5px;
+        }
+        &:last-child {
+          margin-right: 5px;
         }
         &:hover {
           background: #263238;
