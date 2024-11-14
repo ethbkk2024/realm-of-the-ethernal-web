@@ -104,7 +104,6 @@ const FirstSectionStyled = styled.div`
     }
 
     .player-wrap {
-      min-width: 800px;
       min-height: 450px;
       width: 800px;
       background: #ffffff80;
@@ -151,7 +150,8 @@ const FirstSectionStyled = styled.div`
         margin-bottom: 26px;
       }
       .video {
-        animation: ${LoadElement} 0.3s ease-in;
+        opacity: 0;
+        animation: ${LoadElement} 0.3s ease-in 0.3s forwards;
       }
     }
   }

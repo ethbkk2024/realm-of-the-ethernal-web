@@ -112,6 +112,12 @@ const GlobalStyle = createGlobalStyle`
       background-position: 0% 0%;
     }
   }
+  .plyr {
+    height: 450px;
+    video {
+      object-fit: cover;
+    }
+  }
   .plyr--full-ui input[type='range'] {
     color: #b0a6ff;
     //filter: saturate(2);
