@@ -125,6 +125,74 @@ const GlobalStyle = createGlobalStyle`
   .MuiTouchRipple-root {
     display: none !important;
   }
+  .modal {
+    width: 480px !important;
+    max-width: 100% !important;
+    *{
+      font-size: 10px !important;
+      .typography {
+        line-height: 1.8;
+      }
+    }
+    .badge__container {
+      *{
+        font-size: 8px !important;
+      }
+    }
+  }
+  .badge__dot {
+    display: none !important;
+  }
+  .dynamic-widget-modal {
+    width: 600px !important;
+    max-width: 100% !important;
+     *{
+        font-size: 10px !important;
+       .typography {
+         line-height: 1.8;
+       }
+      }
+    .non-widget-network-picker {
+      display: flex;
+      align-items: center;
+    }
+    .active-wallet-information__network-picker {
+      display: flex;
+      align-items: center;
+    }
+    .active-wallet-information__address-container {
+      >div:first-child {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+    }
+    .active-wallet-information__header {
+      align-items: center;
+    }
+    .active-wallet-information__details {
+      flex-wrap: wrap;
+      column-gap: .5rem;
+      row-gap: 0;
+    }
+    .user-profile-section__header {
+      align-items: center;
+      margin-bottom: 16px;
+      *{
+        margin: 0;
+      }
+    }
+    .user-profile-field {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      row-gap: 8px;
+      p {
+        margin: 0;
+      }
+    }
+  }
 `;
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

@@ -239,6 +239,54 @@ const NavStyle = styled.div<{
       @media screen and (max-width: 980px) {
         display: none;
       }
+      .dynamic-widget-inline-controls {
+        animation: ${LoadElement} 0.3s ease-in;
+        border-radius: 0 !important;
+        height: 34px;
+        box-shadow:
+          0px 0px 0px 2px white,
+          2px 2px 0px 0px #9d90ff,
+          -2px 2px 0px 0px #9d90ff,
+          2px -2px 0px 0px #9d90ff,
+          -2px -2px 0px 0px #9d90ff,
+          4px 0px 0px 0px white,
+          -4px 0px 0px 0px white,
+          0px 4px 0px 0px white,
+          0px -4px 0px 0px white,
+          inset 0px 0px 0px 4px #897de0,
+          inset 4px 4px 0px 0px white,
+          inset -4px 4px 0px 0px white,
+          inset 4px -4px 0px 0px white,
+          inset -4px -4px 0px 0px white;
+        &:hover {
+          box-shadow:
+            0px 0px 0px 4px white,
+            4px 4px 0px 0px #9d90ff,
+            -4px 4px 0px 0px #9d90ff,
+            4px -4px 0px 0px #9d90ff,
+            -4px -4px 0px 0px #9d90ff,
+            8px 0px 0px 0px white,
+            -8px 0px 0px 0px white,
+            0px 8px 0px 0px white,
+            0px -8px 0px 0px white,
+            inset 0px 0px 0px 4px #897de0,
+            inset 4px 4px 0px 0px white,
+            inset -4px 4px 0px 0px white,
+            inset 4px -4px 0px 0px white,
+            inset -4px -4px 0px 0px white;
+        }
+        * {
+          font-size: 10px !important;
+        }
+      }
+      .account-control__container {
+        display: flex;
+        height: 34px;
+      }
+      .evm-network-control__container {
+        display: flex;
+        height: 34px;
+      }
       .connect-button-custom {
         all: unset;
         height: 34px;
