@@ -7,7 +7,6 @@ import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { theme } from '@/styles/theme';
-import NProgress from 'nprogress';
 
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core';
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
@@ -19,6 +18,8 @@ import { mainnet, optimism, base } from 'viem/chains';
 import Head from 'next/head';
 import { realmFont } from '@/styles/font';
 import 'plyr/dist/plyr.css';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -68,11 +69,15 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 600;
   }
   #nprogress {
-    transition: all .8s ease-out !important;
+    transition: all .8s ease-out;
+    position: absolute;
+    z-index: 109;
+    top: 0;
     .bar {
-      box-shadow: 0 0 10px red, 0 0 4px red;
-      height: 1px;
-      background: red;
+      box-shadow: 0 0 10px #16D5C5, 0 0 4px #605DEC;
+      height: 2px;
+      background: #fd5394;
+      animation: changeColor 2s ease-in-out infinite;
     }
   }
   .zoom-image {
@@ -146,9 +151,14 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   const router = useRouter();
   useEffect(() => {
-    NProgress.configure({ easing: 'ease-out', speed: 800 });
-    NProgress.configure({ showSpinner: false });
-    NProgress.configure({ trickleRate: 0.02, trickleSpeed: 800 });
+    NProgress.configure({
+      easing: 'ease-out',
+      speed: 300,
+      showSpinner: false,
+      trickleRate: 0.02,
+      trickleSpeed: 800,
+    });
+
     const routeChangeStartHandler = () => {
       NProgress.start();
     };
@@ -156,6 +166,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const routeChangeEndHandler = () => {
       NProgress.done();
     };
+
     router.events.on('routeChangeStart', routeChangeStartHandler);
     router.events.on('routeChangeComplete', routeChangeEndHandler);
     router.events.on('routeChangeError', routeChangeEndHandler);

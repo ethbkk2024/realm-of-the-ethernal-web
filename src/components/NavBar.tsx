@@ -8,6 +8,7 @@ import Aside from '@/components/Aside';
 import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
 import { useAccount } from 'wagmi';
 import { LoadElement } from '@/styles/animations';
+import { useRouter } from 'next/router';
 
 const NavStyle = styled.div<{
   $isShow: boolean;
@@ -368,11 +369,11 @@ const NavStyle = styled.div<{
 `;
 
 const NavBar = () => {
+  const router = useRouter();
   const { address, isConnected, chain } = useAccount();
   const [scrollDirection, setScrollDirection] = useState('');
   const [scrollYPosition, setScrollYPosition] = useState(0);
   const [screenWidth, setScreenWidth] = useState<number>(0);
-  const [activeSection, setActiveSection] = useState<string>('/');
   console.log('address', address);
   console.log('isConnected', isConnected);
   console.log('chain', chain);
@@ -397,15 +398,6 @@ const NavBar = () => {
       const newYPosition = window.scrollY;
       setScrollYPosition(newYPosition);
       setScrollDirection(newYPosition > scrollYPosition ? 'down' : 'up');
-      menuConfig.forEach((item) => {
-        const element = document.getElementById(item.url);
-        if (element) {
-          const { top, bottom } = element.getBoundingClientRect();
-          if (top < window.innerHeight && bottom > 0) {
-            setActiveSection(item.url);
-          }
-        }
-      });
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -456,14 +448,20 @@ const NavBar = () => {
                     style={{
                       color: 'white',
                     }}
-                    onClick={(e: any) => {
+                    onClick={async (e: any) => {
                       e.preventDefault();
-                      handleScroll(item.url);
+                      if (item.sectionId !== null) {
+                        handleScroll(item.sectionId);
+                      } else {
+                        await router.push(item.url);
+                      }
                     }}
                   >
                     {item.name}
                   </Link>
-                  <div className={activeSection === item.url ? 'active' : ''} />
+                  <div
+                    className={router.pathname === item.url ? 'active' : ''}
+                  />
                 </li>
               </React.Fragment>
             ))}
