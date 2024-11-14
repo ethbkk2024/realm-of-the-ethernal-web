@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import Link from 'next/link';
 import { menuConfig } from '@/utils/menuConfig';
 import { useRouter } from 'next/router';
-import { Button } from '@mui/material';
+import { lazyLoadAside } from '@/styles/animations';
+import { motion } from 'framer-motion';
+import useAside from '@/stores/layout/aside/useAside';
 
 const AsideStyled = styled.div<{
   $isShow: boolean;
@@ -11,41 +13,46 @@ const AsideStyled = styled.div<{
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
+  height: fit-content;
+  border-radius: 0 0 24px 24px;
+  overflow: hidden;
   position: fixed;
   opacity: 0;
-  transform: translateX(20%);
-  transition: 0.3s ease-out;
   visibility: hidden;
   z-index: 98;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  background-color: #26323880;
+  background-color: #ffffff8a;
+  * {
+    font-size: 14px;
+  }
   ${({ $isShow }) =>
-    $isShow &&
-    css`
-      transform: translateX(0);
-      opacity: 1;
-      visibility: visible;
-    `};
+    $isShow
+      ? css`
+          opacity: 1;
+          visibility: visible;
+          transition: 0.3s ease-out;
+        `
+      : css`
+          transition: 0.3s ease-in;
+        `};
   .menu-wrap {
-    padding: 86px 32px;
+    padding: 82px 24px 24px;
     display: flex;
     flex-direction: column;
     row-gap: 24px;
-    @media screen and (max-width: 430px) {
-      padding: 86px 24px;
+    @media screen and (max-width: 480px) {
+      padding: 78px 16px 16px;
     }
     .menu {
       a {
         text-decoration: none;
-        font-size: 16px;
+        font-weight: 700;
         position: relative;
-        color: white;
         .line-hov {
           width: 0;
           height: 4px;
-          background-color: white;
+          background-color: #263238;
           position: absolute;
           transition: 0.15s ease-out;
           opacity: 0;
@@ -57,136 +64,60 @@ const AsideStyled = styled.div<{
       }
     }
   }
-  .btn-group {
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 4px;
-    box-shadow: 0px 0px 16px 0px #00000014;
-    border-radius: 24px;
-    column-gap: 4px;
-    overflow: hidden;
-    position: absolute;
-    bottom: 64px;
-    left: 50%;
-    transform: translateX(-50%);
-    a {
-      text-decoration: none;
-      button {
-        transition: 0.15s ease-out !important;
-        color: white !important;
-        overflow: hidden !important;
-        height: 34px !important;
-        padding: 6px 12px !important;
-        white-space: nowrap; !important;
-        .btn-text {
-          z-index: 1;
-        }
-        .bg-gradient {
-          background: linear-gradient(
-            90deg,
-            rgba(81, 73, 242, 1) 20%,
-            rgba(253, 83, 148, 1) 100%
-          );
-          width: 200%;
-          height: 100%;
-          position: absolute;
-          transition: 0.15s ease-out;
-        }
-      }
-      &:first-child {
-        button {
-          &:hover {
-            .bg-gradient {
-              transform: translateX(-25%);
-            }
-          }
-        }
-      }
-      &:nth-child(2) {
-        button {
-          color: #263238 !important;
-          background: transparent !important;
-          position: initial !important;
-        }
-        &:hover {
-          overflow: visible !important;
-          button {
-            color: white !important;
-          }
-          .bg {
-            background: #9d90ff !important;
-          }
-        }
-        .bg {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background: #d8d3ff;
-          left: 0;
-          top: 0;
-          z-index: -1;
-          transition: 0.15s ease-out !important;
-        }
-      }
-    }
-  }
 `;
 
-type AsideProps = {
-  isShow: boolean;
-};
-const Aside = (props: AsideProps) => {
-  const { isShow } = props;
+const Aside = () => {
+  const { open, onClickShowAside } = useAside();
   const router = useRouter();
-  const handleScroll = (url: string) => {
-    // todo aside
-    // dispatch(setShowAside(false));
-    const element = document.getElementById(url);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
+  function useOutsideAlerter(ref: any) {
+    useEffect(() => {
+      function handleClickOutside(event: Event) {
+        const target = event.target as HTMLElement;
+        const closeAside = Array.from(target.classList).includes('hamburger');
+        if (!closeAside) {
+          if (ref.current && !ref.current.contains(target)) {
+            onClickShowAside(false);
+          }
+        }
+      }
+
+      document.addEventListener('mousedown', handleClickOutside);
+
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [ref]);
+  }
+
   return (
-    <AsideStyled $isShow={isShow}>
+    <AsideStyled $isShow={open} ref={wrapperRef}>
       <div className="menu-wrap">
         {menuConfig.map((item: any, index: number) => (
           <React.Fragment key={index}>
-            <div className="menu">
+            <motion.div
+              className="menu"
+              initial="offscreen"
+              animate={open ? 'onscreen' : 'offscreen'}
+              variants={lazyLoadAside(index)}
+            >
               <Link
                 href={item.url}
-                onClick={(e: any) => {
-                  if (item.id !== 1) {
-                    e.preventDefault();
-                  }
-                  handleScroll(item.url);
+                onClick={() => {
+                  onClickShowAside(false);
                 }}
               >
                 {item.name}
                 <div
                   className={`line-hov ${
-                    router.pathname === item.url && 'active'
+                    router.pathname === item.url ? 'active' : ''
                   }`}
                 />
               </Link>
-            </div>
+            </motion.div>
           </React.Fragment>
         ))}
-      </div>
-      <div className="btn-group">
-        <Link href="#">
-          <Button type="button" variant="contained" color="white">
-            <div className="bg-gradient"></div>
-            <div className="btn-text">SIGN UP</div>
-          </Button>
-        </Link>
-        <Link href="#">
-          <div className="bg"></div>
-          <Button type="button" variant="contained" color="white">
-            LOG IN
-          </Button>
-        </Link>
       </div>
     </AsideStyled>
   );

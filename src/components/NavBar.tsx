@@ -9,6 +9,7 @@ import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
 import { useAccount } from 'wagmi';
 import { LoadElement } from '@/styles/animations';
 import { useRouter } from 'next/router';
+import useAside from '@/stores/layout/aside/useAside';
 
 const NavStyle = styled.div<{
   $isShow: boolean;
@@ -421,6 +422,7 @@ const NavStyle = styled.div<{
 const NavBar = () => {
   const router = useRouter();
   const { address, isConnected, chain } = useAccount();
+  const { open, onClickShowAside } = useAside();
   const [scrollDirection, setScrollDirection] = useState('');
   const [scrollYPosition, setScrollYPosition] = useState(0);
   const [screenWidth, setScreenWidth] = useState<number>(0);
@@ -439,8 +441,7 @@ const NavBar = () => {
   }, []);
   useEffect(() => {
     if (screenWidth >= 980) {
-      // todo aside
-      // dispatch(setShowAside(false));
+      onClickShowAside(false);
     }
   }, [screenWidth]);
   useEffect(() => {
@@ -464,10 +465,7 @@ const NavBar = () => {
   return (
     <>
       <NavStyle
-        $isShow={
-          // todo aside
-          false
-        }
+        $isShow={open}
         $scrollDirection={scrollDirection}
         $scrollYPosition={scrollYPosition}
       >
@@ -480,8 +478,7 @@ const NavBar = () => {
           <div className="hamburger-wrap">
             <IconButton
               onClick={() => {
-                // todo aside
-                // dispatch(setShowAside(!showAside));
+                onClickShowAside(!open);
               }}
             >
               <div className="hamburger">
@@ -547,12 +544,7 @@ const NavBar = () => {
           </div>
         </nav>
       </NavStyle>
-      <Aside
-        isShow={
-          // todo aside
-          false
-        }
-      />
+      <Aside />
     </>
   );
 };
