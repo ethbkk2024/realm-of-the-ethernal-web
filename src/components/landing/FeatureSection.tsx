@@ -68,20 +68,48 @@ const FeatureSectionStyled = styled.section`
         display: block;
         a {
           button {
+            border-radius: 0 !important;
+            box-shadow:
+              0px 0px 0px 2px white,
+              2px 2px 0px 0px #9d90ff,
+              -2px 2px 0px 0px #9d90ff,
+              2px -2px 0px 0px #9d90ff,
+              -2px -2px 0px 0px #9d90ff,
+              4px 0px 0px 0px white,
+              -4px 0px 0px 0px white,
+              0px 4px 0px 0px white,
+              0px -4px 0px 0px white,
+              inset 0px 0px 0px 4px #897de0,
+              inset 4px 4px 0px 0px white,
+              inset -4px 4px 0px 0px white,
+              inset 4px -4px 0px 0px white,
+              inset -4px -4px 0px 0px white;
             font-size: 12px !important;
-            min-height: 52px !important;
-            border-radius: 32px !important;
+            min-height: 38px !important;
             padding: 0 64px 0 32px !important;
             white-space: nowrap !important;
-            @media screen and (max-width: 620px) {
-              min-height: 48px !important;
-              max-height: 48px !important;
-              padding: 0 62px 0 26px !important;
-            }
             img {
               position: absolute;
               right: 16px;
             }
+            &:hover {
+              box-shadow:
+                0px 0px 0px 4px white,
+                4px 4px 0px 0px #9d90ff,
+                -4px 4px 0px 0px #9d90ff,
+                4px -4px 0px 0px #9d90ff,
+                -4px -4px 0px 0px #9d90ff,
+                8px 0px 0px 0px white,
+                -8px 0px 0px 0px white,
+                0px 8px 0px 0px white,
+                0px -8px 0px 0px white,
+                inset 0px 0px 0px 4px #897de0,
+                inset 4px 4px 0px 0px white,
+                inset -4px 4px 0px 0px white,
+                inset 4px -4px 0px 0px white,
+                inset -4px -4px 0px 0px white;
+            }
+            transition: none;
           }
         }
       }

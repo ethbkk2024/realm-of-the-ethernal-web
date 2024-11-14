@@ -10,25 +10,48 @@ const ActionButtonStyled = styled(Button)<{
   $dropRight: number;
   $width: string | number;
 }>`
-  ${({ $height }) =>
-    $height &&
-    css`
-      height: ${$height}px !important;
-    `};
-
+  height: 38px;
   ${({ $fontSize }) =>
     $fontSize &&
     css`
       font-size: ${$fontSize}px !important;
     `};
 
-  ${({ $boxShadow }) =>
-    $boxShadow &&
-    css`
-      box-shadow: ${$boxShadow};
-    `};
+  box-shadow:
+    0px 0px 0px 2px white,
+    2px 2px 0px 0px #9d90ff,
+    -2px 2px 0px 0px #9d90ff,
+    2px -2px 0px 0px #9d90ff,
+    -2px -2px 0px 0px #9d90ff,
+    4px 0px 0px 0px white,
+    -4px 0px 0px 0px white,
+    0px 4px 0px 0px white,
+    0px -4px 0px 0px white,
+    inset 0px 0px 0px 4px #897de0,
+    inset 4px 4px 0px 0px white,
+    inset -4px 4px 0px 0px white,
+    inset 4px -4px 0px 0px white,
+    inset -4px -4px 0px 0px white;
+
   border: none !important;
-  border-radius: 32px !important;
+  border-radius: 0 !important;
+  &:hover {
+    box-shadow:
+      0px 0px 0px 4px white,
+      4px 4px 0px 0px #9d90ff,
+      -4px 4px 0px 0px #9d90ff,
+      4px -4px 0px 0px #9d90ff,
+      -4px -4px 0px 0px #9d90ff,
+      8px 0px 0px 0px white,
+      -8px 0px 0px 0px white,
+      0px 8px 0px 0px white,
+      0px -8px 0px 0px white,
+      inset 0px 0px 0px 4px #897de0,
+      inset 4px 4px 0px 0px white,
+      inset -4px 4px 0px 0px white,
+      inset 4px -4px 0px 0px white,
+      inset -4px -4px 0px 0px white;
+  }
   ${({ $width }) =>
     $width &&
     css`
@@ -50,20 +73,15 @@ const ActionButtonStyled = styled(Button)<{
     z-index: 1;
   }
   .drop {
-    width: 40px;
-    height: 40px;
+    width: 34px;
+    height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
     background: white;
     position: absolute;
     transition: 0.5s ease-in-out;
-    ${({ $dropRight }) =>
-      $dropRight &&
-      css`
-        right: ${$dropRight}px;
-      `};
+    right: 4px;
 
     &.drop-gradient {
       background: linear-gradient(
@@ -74,13 +92,32 @@ const ActionButtonStyled = styled(Button)<{
     }
   }
   &:hover {
+    box-shadow:
+      0px 0px 0px 4px white,
+      4px 4px 0px 0px #9d90ff,
+      -4px 4px 0px 0px #9d90ff,
+      4px -4px 0px 0px #9d90ff,
+      -4px -4px 0px 0px #9d90ff,
+      8px 0px 0px 0px white,
+      -8px 0px 0px 0px white,
+      0px 8px 0px 0px white,
+      0px -8px 0px 0px white,
+      inset 0px 0px 0px 4px #897de0,
+      inset 4px 4px 0px 0px white,
+      inset -4px 4px 0px 0px white,
+      inset 4px -4px 0px 0px white,
+      inset -4px -4px 0px 0px white;
     filter: saturate(2) brightness(1.2);
     .drop {
       filter: drop-shadow(0px 0px 8px white);
     }
   }
+  * {
+    transition: none !important;
+  }
+  transition: none !important;
 `;
-type HyActionButtonProps = {
+type ActionButtonProps = {
   text: string;
   boxShadow?: string;
   height: number;
@@ -93,7 +130,7 @@ type HyActionButtonProps = {
   isRegister?: boolean | undefined;
   disabled?: boolean | undefined;
 };
-const ActionButton = (props: HyActionButtonProps) => {
+const ActionButton = (props: ActionButtonProps) => {
   const {
     text,
     boxShadow,

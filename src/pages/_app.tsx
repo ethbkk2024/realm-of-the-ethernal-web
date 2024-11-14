@@ -35,6 +35,9 @@ const GlobalStyle = createGlobalStyle`
       font-size: 12px;
       font-weight: 400;
       color: #263238;
+     *{
+       cursor: url('data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAPAAAADAAAAAwAAAA8AAAAPAAAADAAAAAwAAAM8AAADPAAAA/wAAAP8AAAD/wAAA/8AAAP8AAAD/AAAA/AAAAPwAAADwAAAA8AAAAMAAAADAAAAAAAAAAAAAAAAAAAAAAAAAA///////////////////////D////w////wD///8A////A////wP//zwD//88A///DA///wwP//8AD///AA///wAA//8AAP//AAP//wAD//8AD///AA///wA///8AP///AP///wD///8D////A////w////8P////P////z////8='), auto !important;
+     }
       a {
         color: #263238;
       }
@@ -114,6 +117,9 @@ const GlobalStyle = createGlobalStyle`
       background: none !important;
     }
   }
+  .MuiTouchRipple-root {
+    display: none !important;
+  }
 `;
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -172,6 +178,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         settings={{
           environmentId: 'e1d804b8-4c7b-4a83-901e-86c8780b67d1',
           walletConnectors: [EthereumWalletConnectors],
+          shadowDOMEnabled: false,
         }}
       >
         <WagmiProvider config={config}>

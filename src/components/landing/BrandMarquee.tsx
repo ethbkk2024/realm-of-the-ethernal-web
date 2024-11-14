@@ -24,7 +24,7 @@ const BrandMarqueeStyled = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1px solid #dbe2e5;
+        border: 4px solid #dbe2e5;
         border-left: 0;
         @media screen and (max-width: 980px) {
           width: 234px;

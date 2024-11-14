@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Aside from '@/components/Aside';
 import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
 import { useAccount } from 'wagmi';
+import { LoadElement } from '@/styles/animations';
 
 const NavStyle = styled.div<{
   $isShow: boolean;
@@ -58,7 +59,6 @@ const NavStyle = styled.div<{
       `;
     }};
   }
-
   nav {
     display: flex;
     align-items: center;
@@ -144,18 +144,43 @@ const NavStyle = styled.div<{
     ul {
       display: flex;
       align-items: center;
-      column-gap: 8px;
       margin: 0;
       background: #2632384f;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      height: 48px;
-      border-radius: 24px;
-      padding: 4px;
-      @media screen and (max-width: 1150px) {
-        height: 40px;
-        column-gap: 4px;
+      height: 34px;
+      box-shadow:
+        0px 0px 0px 2px white,
+        2px 2px 0px 0px #9d90ff,
+        -2px 2px 0px 0px #9d90ff,
+        2px -2px 0px 0px #9d90ff,
+        -2px -2px 0px 0px #9d90ff,
+        4px 0px 0px 0px white,
+        -4px 0px 0px 0px white,
+        0px 4px 0px 0px white,
+        0px -4px 0px 0px white,
+        inset 0px 0px 0px 4px #897de0,
+        inset 4px 4px 0px 0px white,
+        inset -4px 4px 0px 0px white,
+        inset 4px -4px 0px 0px white,
+        inset -4px -4px 0px 0px white;
+      &:hover {
+        box-shadow:
+          0px 0px 0px 4px white,
+          4px 4px 0px 0px #9d90ff,
+          -4px 4px 0px 0px #9d90ff,
+          4px -4px 0px 0px #9d90ff,
+          -4px -4px 0px 0px #9d90ff,
+          8px 0px 0px 0px white,
+          -8px 0px 0px 0px white,
+          0px 8px 0px 0px white,
+          0px -8px 0px 0px white,
+          inset 0px 0px 0px 4px #897de0,
+          inset 4px 4px 0px 0px white,
+          inset -4px 4px 0px 0px white,
+          inset 4px -4px 0px 0px white,
+          inset -4px -4px 0px 0px white;
       }
       @media screen and (max-width: 980px) {
         display: none;
@@ -168,8 +193,7 @@ const NavStyle = styled.div<{
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 40px;
-        border-radius: 20px;
+        height: 34px;
         transition: 0.3s ease-out;
         @media screen and (max-width: 1150px) {
           height: 34px;
@@ -183,7 +207,6 @@ const NavStyle = styled.div<{
           width: 100%;
           background: #9d90ff;
           position: absolute;
-          border-radius: 20px;
         }
         a {
           text-decoration: none;
@@ -215,6 +238,53 @@ const NavStyle = styled.div<{
       @media screen and (max-width: 980px) {
         display: none;
       }
+      .connect-button-custom {
+        all: unset;
+        height: 34px;
+        padding: 0 16px;
+        background: #9d90ff;
+        position: relative;
+        cursor: pointer;
+        animation: ${LoadElement} 0.3s ease-in;
+        box-shadow:
+          0px 0px 0px 2px white,
+          2px 2px 0px 0px #9d90ff,
+          -2px 2px 0px 0px #9d90ff,
+          2px -2px 0px 0px #9d90ff,
+          -2px -2px 0px 0px #9d90ff,
+          4px 0px 0px 0px white,
+          -4px 0px 0px 0px white,
+          0px 4px 0px 0px white,
+          0px -4px 0px 0px white,
+          inset 0px 0px 0px 4px #897de0,
+          inset 4px 4px 0px 0px white,
+          inset -4px 4px 0px 0px white,
+          inset 4px -4px 0px 0px white,
+          inset -4px -4px 0px 0px white;
+        &:hover {
+          background: #897de0;
+          box-shadow:
+            0px 0px 0px 4px white,
+            4px 4px 0px 0px #9d90ff,
+            -4px 4px 0px 0px #9d90ff,
+            4px -4px 0px 0px #9d90ff,
+            -4px -4px 0px 0px #9d90ff,
+            8px 0px 0px 0px white,
+            -8px 0px 0px 0px white,
+            0px 8px 0px 0px white,
+            0px -8px 0px 0px white,
+            inset 0px 0px 0px 4px #897de0,
+            inset 4px 4px 0px 0px white,
+            inset -4px 4px 0px 0px white,
+            inset 4px -4px 0px 0px white,
+            inset -4px -4px 0px 0px white;
+        }
+        .typography {
+          color: white;
+          font-size: 12px;
+        }
+      }
+
       .btn-group {
         height: 48px;
         display: flex;
@@ -399,7 +469,7 @@ const NavBar = () => {
             ))}
           </ul>
           <div className="r-wrap">
-            <DynamicWidget />
+            <DynamicWidget buttonClassName={'connect-button-custom'} />
             {/* <div className="btn-group"> */}
             {/*  <Link */}
             {/*    href={`#`} */}

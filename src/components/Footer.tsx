@@ -85,23 +85,14 @@ const FooterStyled = styled.footer`
         column-gap: 24px;
       }
       .circle {
-        width: 48px;
-        height: 48px;
+        width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 50%;
         background-color: #7a6af4;
         cursor: pointer;
-        transition: 0.3s ease-out;
-        @media screen and (max-width: 980px) {
-          width: 40px;
-          height: 40px;
-          img {
-            width: 24px;
-            height: 24px;
-          }
-        }
+        border: 2px solid white;
         @media screen and (max-width: 620px) {
           width: 34px;
           height: 34px;
@@ -200,7 +191,6 @@ const FooterStyled = styled.footer`
             .marker {
               width: 2px;
               height: 2px;
-              border-radius: 50%;
               background-color: #b0bec5;
             }
           }
