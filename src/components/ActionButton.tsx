@@ -16,7 +16,7 @@ const ActionButtonStyled = styled(Button)<{
     css`
       font-size: ${$fontSize}px !important;
     `};
-
+  transition: 0.15s ease-out;
   box-shadow:
     0px 0px 0px 2px white,
     2px 2px 0px 0px #9d90ff,
@@ -73,16 +73,19 @@ const ActionButtonStyled = styled(Button)<{
     z-index: 1;
   }
   .drop {
-    width: 34px;
-    height: 34px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: white;
     position: absolute;
     transition: 0.5s ease-in-out;
-    right: 4px;
-
+    right: 8px;
+    border-radius: 50%;
+    * {
+      font-size: 16px;
+    }
     &.drop-gradient {
       background: linear-gradient(
         45deg,
@@ -112,10 +115,6 @@ const ActionButtonStyled = styled(Button)<{
       filter: drop-shadow(0px 0px 8px white);
     }
   }
-  * {
-    transition: none !important;
-  }
-  transition: none !important;
 `;
 type ActionButtonProps = {
   text: string;

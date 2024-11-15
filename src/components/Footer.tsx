@@ -236,7 +236,7 @@ const Footer = () => {
             fontSize={12}
             dropRight={8}
             dropColor={'gradient'}
-            width={324}
+            width={308}
           />
         </Link>
         <div className="footer-description">

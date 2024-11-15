@@ -152,6 +152,8 @@ const NavStyle = styled.div<{
       left: 50%;
       transform: translateX(-50%);
       height: 34px;
+      transition: 0.15s ease-out;
+      animation: ${LoadElement} 0.3s ease-in;
       box-shadow:
         0px 0px 0px 2px white,
         2px 2px 0px 0px #9d90ff,
@@ -246,6 +248,7 @@ const NavStyle = styled.div<{
         animation: ${LoadElement} 0.3s ease-in;
         border-radius: 0 !important;
         height: 34px;
+        transition: 0.15s ease-out;
         box-shadow:
           0px 0px 0px 2px white,
           2px 2px 0px 0px #9d90ff,
@@ -298,6 +301,7 @@ const NavStyle = styled.div<{
         position: relative;
         cursor: pointer;
         animation: ${LoadElement} 0.3s ease-in;
+        transition: 0.15s ease-out;
         box-shadow:
           0px 0px 0px 2px white,
           2px 2px 0px 0px #9d90ff,

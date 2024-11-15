@@ -114,6 +114,7 @@ const FirstSectionStyled = styled.div`
       max-width: 100%;
       z-index: 1;
       overflow: hidden;
+      transition: 0.15s ease-out;
       box-shadow:
         0px 0px 0px 2px white,
         2px 2px 0px 0px #9d90ff,
@@ -284,7 +285,7 @@ const FirstSection = () => {
               fontSize={12}
               dropRight={8}
               dropColor={'gradient'}
-              width={324}
+              width={308}
             />
           </Link>
         </section>
