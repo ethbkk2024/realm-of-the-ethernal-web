@@ -226,15 +226,10 @@ const NavStyle = styled.div<{
       align-items: center;
       column-gap: 12px;
       cursor: pointer;
-      @media screen and (max-width: 1150px) {
-        img {
-          width: 40px;
-        }
-      }
-      @media screen and (max-width: 980px) {
-        img {
-          width: 34px;
-        }
+      position: relative;
+      img {
+        transform: scale(1.3);
+        margin-left: -12px;
       }
     }
     .r-wrap {
@@ -476,7 +471,13 @@ const NavBar = () => {
         <nav>
           <Link href={`#`}>
             <div className="l-wrap">
-              <Image src="" width="42" height="48" alt="" priority />
+              <Image
+                src="/images/logo.png"
+                width="88"
+                height="88"
+                alt=""
+                priority
+              />
             </div>
           </Link>
           <div className="hamburger-wrap">

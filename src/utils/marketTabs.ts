@@ -1,1 +1,2 @@
-export const marketTabs = ['Loot Box', 'Marketplace'];
+export const marketTabsLeft = ['Loot Box', 'Marketplace'];
+export const marketTabsRight = ['Buy', 'List'];

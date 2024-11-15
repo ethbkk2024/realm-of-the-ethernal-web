@@ -8,16 +8,16 @@ const nextConfig = {
       displayName: true,
     },
   },
-  // images: {
-  //   remotePatterns: [
-  //     {
-  //       protocol: 'https',
-  //       hostname: 'assets.sheetpapers.com',
-  //       port: '',
-  //       pathname: '/**',
-  //     },
-  //   ],
-  // },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'gateway.lighthouse.storage',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

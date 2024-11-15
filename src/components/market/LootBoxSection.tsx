@@ -74,6 +74,11 @@ const LootBoxSectionStyle = styled.div`
       width: 224px;
       z-index: 1;
     }
+      &:nth-child(1) {
+          .box-image {
+              transform: scale(1.5);
+          }
+      } 
   }
 `;
 const LootBoxSection = () => {
@@ -92,7 +97,7 @@ const LootBoxSection = () => {
           draggable={false}
         />
         <Image
-          src="/images/loot-box-1.webp"
+          src="/images/c-box.png"
           width={100}
           height={100}
           alt=""
@@ -116,7 +121,7 @@ const LootBoxSection = () => {
           draggable={false}
         />
         <Image
-          src="/images/loot-box-1.webp"
+          src="/images/w-box.png"
           width={100}
           height={100}
           alt=""

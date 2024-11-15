@@ -43,6 +43,7 @@ const BaseButtonStyle = styled.button`
       inset -4px -4px 0px 0px white;
   }
   z-index: 1;
+  color: white;
 `;
 type Props = {
   text: string;

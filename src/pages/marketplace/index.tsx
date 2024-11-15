@@ -4,6 +4,8 @@ import MainLayout from '@/layouts/MainLayout';
 import TabBit from '@/components/TabBit';
 import LootBoxSection from '@/components/market/LootBoxSection';
 import { LoadElement } from '@/styles/animations';
+import MarketPlaceSection from '@/components/market/MarketPlaceSection';
+import { marketTabsLeft, marketTabsRight } from '@/utils/marketTabs';
 
 const MarketplacePageStyle = styled.div`
   width: 100%;
@@ -17,6 +19,11 @@ const MarketplacePageStyle = styled.div`
     width: 800px;
     max-width: 100%;
     animation: ${LoadElement} 0.3s ease-in;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
   }
   .description {
     animation: ${LoadElement} 0.3s ease-in;
@@ -31,16 +38,31 @@ const MarketplacePageStyle = styled.div`
   }
 `;
 const MarketplacePage = () => {
-  const [tab, setTab] = useState<string>('Loot Box');
-  const handleClickTab = (tab: string) => {
-    setTab(tab);
+  const [tabLeft, setTabLeft] = useState<string>('Loot Box');
+  const [tabRight, setTabRight] = useState<string>('Buy');
+  const handleClickTabLeft = (tab: string) => {
+    setTabLeft(tab);
+  };
+  const handleClickTabRight = (tab: string) => {
+    setTabRight(tab);
   };
   return (
     <MarketplacePageStyle>
       <div className="tab-wrap">
-        <TabBit tab={tab} handleClickTab={handleClickTab} />
+        <TabBit
+          tab={tabLeft}
+          tabList={marketTabsLeft}
+          handleClickTab={handleClickTabLeft}
+        />
+        {tabLeft === 'Marketplace' && (
+          <TabBit
+            tab={tabRight}
+            tabList={marketTabsRight}
+            handleClickTab={handleClickTabRight}
+          />
+        )}
       </div>
-      {tab === 'Loot Box' && (
+      {tabLeft === 'Loot Box' && (
         <>
           <div className="description">
             <p>
@@ -57,9 +79,29 @@ const MarketplacePage = () => {
           <LootBoxSection />
         </>
       )}
-      {tab === 'Marketplace' && (
-        <div></div>
-        // <MarketPlaceSection>Marketplace</MarketPlaceSection>
+      {tabLeft === 'Marketplace' && tabRight === 'Buy' && (
+        <>
+          <div className="description">
+            <p>
+              Marketplace: A platform for players to buy, sell, and trade
+              in-game items or characters from loot boxes, offering a secure and
+              easy trading experience.
+            </p>
+          </div>
+          <MarketPlaceSection />
+        </>
+      )}
+      {tabLeft === 'Marketplace' && tabRight === 'List' && (
+        <>
+          <div className="description">
+            <p>
+              List Page: A page where players can list their in-game items or
+              characters for sale on the marketplace. Sellers can set prices and
+              manage their listings easily.
+            </p>
+          </div>
+          <MarketPlaceSection />
+        </>
       )}
     </MarketplacePageStyle>
   );
