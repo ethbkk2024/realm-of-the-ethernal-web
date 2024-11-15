@@ -69,6 +69,7 @@ const FeatureSectionStyled = styled.section`
         a {
           button {
             border-radius: 0 !important;
+            transition: 0.15s ease-out;
             box-shadow:
               0px 0px 0px 2px white,
               2px 2px 0px 0px #9d90ff,

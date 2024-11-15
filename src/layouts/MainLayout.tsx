@@ -9,7 +9,7 @@ const ContentStyleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  //background: #263238;
+  background: #263238;
 
   .content {
     width: 100%;

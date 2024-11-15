@@ -152,6 +152,8 @@ const NavStyle = styled.div<{
       left: 50%;
       transform: translateX(-50%);
       height: 34px;
+      transition: 0.15s ease-out;
+      animation: ${LoadElement} 0.3s ease-in;
       box-shadow:
         0px 0px 0px 2px white,
         2px 2px 0px 0px #9d90ff,
@@ -224,15 +226,10 @@ const NavStyle = styled.div<{
       align-items: center;
       column-gap: 12px;
       cursor: pointer;
-      @media screen and (max-width: 1150px) {
-        img {
-          width: 40px;
-        }
-      }
-      @media screen and (max-width: 980px) {
-        img {
-          width: 34px;
-        }
+      position: relative;
+      img {
+        transform: scale(1.3);
+        margin-left: -12px;
       }
     }
     .r-wrap {
@@ -246,6 +243,7 @@ const NavStyle = styled.div<{
         animation: ${LoadElement} 0.3s ease-in;
         border-radius: 0 !important;
         height: 34px;
+        transition: 0.15s ease-out;
         box-shadow:
           0px 0px 0px 2px white,
           2px 2px 0px 0px #9d90ff,
@@ -298,6 +296,7 @@ const NavStyle = styled.div<{
         position: relative;
         cursor: pointer;
         animation: ${LoadElement} 0.3s ease-in;
+        transition: 0.15s ease-out;
         box-shadow:
           0px 0px 0px 2px white,
           2px 2px 0px 0px #9d90ff,
@@ -472,7 +471,13 @@ const NavBar = () => {
         <nav>
           <Link href={`#`}>
             <div className="l-wrap">
-              <Image src="" width="42" height="48" alt="" priority />
+              <Image
+                src="/images/logo.png"
+                width="88"
+                height="88"
+                alt=""
+                priority
+              />
             </div>
           </Link>
           <div className="hamburger-wrap">
