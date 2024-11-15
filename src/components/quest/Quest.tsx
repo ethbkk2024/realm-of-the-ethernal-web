@@ -34,7 +34,7 @@ const QuestContainer = styled.div`
   margin-top: -88px;
   height: 100vh;
   canvas {
-    height: 100vh;
-    max-width: 100vw;
+    width: 100%;
+    height: 100%;
   }
 `;

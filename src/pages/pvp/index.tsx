@@ -8,13 +8,19 @@ const PvpPage = () => {
   return (
     <SelectContainer>
       <LevelCard onClick={() => router.push(`/pvp/${1}`)}>
+        <img alt="" src={'/assets/character/boss/boss-lv-1.png'} />
         <div className={'title'}>LEVEL 1</div>
+        <div className={'name'}>Goblin King</div>
       </LevelCard>
       <LevelCard onClick={() => router.push(`/pvp/${2}`)}>
+        <img alt="" src={'/assets/character/boss/boss-lv-2.png'} />
         <div className={'title'}>LEVEL 2</div>
+        <div className={'name'}>Dragon Lord</div>
       </LevelCard>
       <LevelCard onClick={() => router.push(`/pvp/${3}`)}>
+        <img alt="" src={'/assets/character/boss/boss-lv-3.png'} />
         <div className={'title'}>LEVEL 3</div>
+        <div className={'name'}>Dark Wizard</div>
       </LevelCard>
     </SelectContainer>
   );
@@ -35,11 +41,13 @@ const SelectContainer = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  overflow-x: hidden;
 `;
 
 const LevelCard = styled.div`
   width: 100%;
   height: 100%;
+  position: relative;
   background: linear-gradient(
     135deg,
     rgba(0, 0, 0, 0.99),
@@ -48,15 +56,27 @@ const LevelCard = styled.div`
   position: relative;
   transform: skewX(-12deg);
   display: flex;
-  justify-content: center;
-  align-items: end;
+  justify-content: end;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
   &:hover {
   }
 
   .title {
-    height: 275px;
+    height: 96px;
     font-size: 56px;
     color: white;
+  }
+  .name {
+    height: 275px;
+    font-size: 28px;
+    color: white;
+  }
+
+  img {
+    position: absolute;
+    top: 150px;
+    zoom: 2;
   }
 `;
