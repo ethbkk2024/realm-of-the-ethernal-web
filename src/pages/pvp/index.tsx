@@ -2,22 +2,36 @@ import React, { ReactElement } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import apiBattle from '@/services/battle';
 
 const PvpPage = () => {
   const router = useRouter();
+  const startBattle = async (battleLv: number) => {
+    await apiBattle
+      .startBattle({
+        battle_level: battleLv,
+        battle_id: 'test-103',
+      })
+      .then((response) => {
+        console.log('response', response);
+        if (response) {
+          router.push(`/pvp/${battleLv}?id=${'test-103'}`);
+        }
+      });
+  };
   return (
     <SelectContainer>
-      <LevelCard onClick={() => router.push(`/pvp/${1}`)}>
+      <LevelCard onClick={() => startBattle(1)}>
         <img alt="" src={'/assets/character/boss/boss-lv-1.png'} />
         <div className={'title'}>LEVEL 1</div>
         <div className={'name'}>Goblin King</div>
       </LevelCard>
-      <LevelCard onClick={() => router.push(`/pvp/${2}`)}>
+      <LevelCard onClick={() => startBattle(2)}>
         <img alt="" src={'/assets/character/boss/boss-lv-2.png'} />
         <div className={'title'}>LEVEL 2</div>
         <div className={'name'}>Dragon Lord</div>
       </LevelCard>
-      <LevelCard onClick={() => router.push(`/pvp/${3}`)}>
+      <LevelCard onClick={() => startBattle(3)}>
         <img alt="" src={'/assets/character/boss/boss-lv-3.png'} />
         <div className={'title'}>LEVEL 3</div>
         <div className={'name'}>Dark Wizard</div>

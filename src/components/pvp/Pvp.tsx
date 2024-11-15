@@ -4,14 +4,27 @@ import { IRefPhaserGame } from '@/game/QuestGame';
 import { PvpGame } from '@/game/PvpGame';
 import { PvpMap } from '@/game/scenes/PvpMap';
 import { useRouter } from 'next/router';
+import apiBattle from '@/services/battle';
 
 const Pvp = () => {
   const phaserRef = useRef<IRefPhaserGame | null>(null);
   const [canMoveSprite, setCanMoveSprite] = useState(true);
   const router = useRouter();
-  const { lv } = router.query;
+  const { lv, id } = router.query;
 
   console.log('canMoveSprite', canMoveSprite);
+
+  useEffect(() => {
+    getActionList();
+  }, [id]);
+
+  const getActionList = async () => {
+    if (id) {
+      await apiBattle.getActionList(id).then((response) => {
+        console.log('response', response);
+      });
+    }
+  };
 
   const currentScene = (scene: Phaser.Scene) => {
     setCanMoveSprite(scene.scene.key !== 'PvpMap');
