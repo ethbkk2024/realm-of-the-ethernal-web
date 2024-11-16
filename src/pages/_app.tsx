@@ -23,186 +23,287 @@ import useSnackbar from '@/stores/layout/snackbar/useSnackbar';
 import { config } from '@/utils/config';
 
 const GlobalStyle = createGlobalStyle`
-  * {
-    -webkit-box-sizing:border-box;
-    -moz-box-sizing:border-box;
-    box-sizing:border-box;
-    font-family: ${realmFont.style.fontFamily} !important;
-  }
-  html {
-    scroll-behavior: smooth;
-    -webkit-tap-highlight-color: transparent;
-    body {
-      margin: 0;
-      font-size: 12px;
-      font-weight: 400;
-      color: #263238;
-      *{
-        cursor: url('data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAPAAAADAAAAAwAAAA8AAAAPAAAADAAAAAwAAAM8AAADPAAAA/wAAAP8AAAD/wAAA/8AAAP8AAAD/AAAA/AAAAPwAAADwAAAA8AAAAMAAAADAAAAAAAAAAAAAAAAAAAAAAAAAA///////////////////////D////w////wD///8A////A////wP//zwD//88A///DA///wwP//8AD///AA///wAA//8AAP//AAP//wAD//8AD///AA///wA///8AP///AP///wD///8D////A////w////8P////P////z////8='), auto !important;
-      }
-      a {
-        color: #263238;
-      }
-      p {
-        margin: 12px 0;
-        line-height: 1.8;
-        white-space: pre-line;
-      }
-      ul,ol {
-        @media screen and (max-width: 480px) {
-          padding-inline-start: 24px;
-        }
-        li{
-          line-height: 1.8;
-          white-space: pre-line;
-        }
-      }
-      ul {
-        margin: 12px 0;
-      }
-      h1, h2, h3, h4, h5, h6 {
-        margin: 0;
-        font-weight: 600;
-      }
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        font-family: ${realmFont.style.fontFamily} !important;
     }
-  }
-  strong {
-    font-weight: 600;
-  }
-  #nprogress {
-    transition: all .8s ease-out;
-    position: absolute;
-    z-index: 109;
-    top: 0;
-    .bar {
-      box-shadow: 0 0 10px #16D5C5, 0 0 4px #605DEC;
-      height: 2px;
-      background: #fd5394;
-      animation: changeColor 2s ease-in-out infinite;
-    }
-  }
-  .zoom-image {
-    clip-path: inset(0 round 8px);
-  }
-  .medium-zoom-overlay {
-    height: 100%;
-    background: rgb(248 248 248 / 95%) !important;
-  }
-  .realm-name {
-    background: linear-gradient(360deg, #FF0000, #FFFF00);
-    background-size: 100% 120%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient-animation 5s linear infinite;
-  }
 
-  @keyframes gradient-animation {
-    0% {
-      background-position: 0% 0%;
+    html {
+        scroll-behavior: smooth;
+        -webkit-tap-highlight-color: transparent;
+
+        body {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 400;
+            color: #263238;
+
+            * {
+                cursor: url('data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAPAAAADAAAAAwAAAA8AAAAPAAAADAAAAAwAAAM8AAADPAAAA/wAAAP8AAAD/wAAA/8AAAP8AAAD/AAAA/AAAAPwAAADwAAAA8AAAAMAAAADAAAAAAAAAAAAAAAAAAAAAAAAAA///////////////////////D////w////wD///8A////A////wP//zwD//88A///DA///wwP//8AD///AA///wAA//8AAP//AAP//wAD//8AD///AA///wA///8AP///AP///wD///8D////A////w////8P////P////z////8='), auto !important;
+            }
+
+            a {
+                color: #263238;
+            }
+
+            p {
+                margin: 12px 0;
+                line-height: 1.8;
+                white-space: pre-line;
+            }
+
+            ul, ol {
+                @media screen and (max-width: 480px) {
+                    padding-inline-start: 24px;
+                }
+
+                li {
+                    line-height: 1.8;
+                    white-space: pre-line;
+                }
+            }
+
+            ul {
+                margin: 12px 0;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                margin: 0;
+                font-weight: 600;
+            }
+        }
     }
-    20% {
-      background-position: 0% 25%;
+
+    strong {
+        font-weight: 600;
     }
-    50% {
-      background-position: 0% 100%;
+
+    #nprogress {
+        transition: all .8s ease-out;
+        position: absolute;
+        z-index: 109;
+        top: 0;
+
+        .bar {
+            box-shadow: 0 0 10px #29d, 0 0 4px #29d;
+            height: 1px;
+            background: #45BBCC;
+        }
     }
-    80% {
-      background-position: 0% 25%;
+
+    .zoom-image {
+        clip-path: inset(0 round 8px);
     }
-    100% {
-      background-position: 0% 0%;
+
+    .medium-zoom-overlay {
+        height: 100%;
+        background: rgb(248 248 248 / 95%) !important;
     }
-  }
-  .plyr {
-    height: 450px;
-    video {
-      object-fit: cover;
+
+    .realm-name {
+        background: linear-gradient(360deg, #FF0000, #FFFF00);
+        background-size: 100% 120%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradient-animation 5s linear infinite;
     }
-  }
-  .plyr--full-ui input[type='range'] {
-    color: #b0a6ff;
-    //filter: saturate(2);
-  }
-  .plyr__controls__item {
-    background: none !important;
-    button {
-      background: none !important;
+
+    @keyframes gradient-animation {
+        0% {
+            background-position: 0% 0%;
+        }
+        20% {
+            background-position: 0% 25%;
+        }
+        50% {
+            background-position: 0% 100%;
+        }
+        80% {
+            background-position: 0% 25%;
+        }
+        100% {
+            background-position: 0% 0%;
+        }
     }
-  }
-  .MuiTouchRipple-root {
-    display: none !important;
-  }
-  .modal {
-    width: 480px !important;
-    max-width: 100% !important;
-    *{
-      font-size: 10px !important;
-      .typography {
-        line-height: 1.8;
-      }
+
+    .plyr {
+        height: 450px;
+
+        video {
+            object-fit: cover;
+        }
     }
-    .badge__container {
-      *{
-        font-size: 8px !important;
-      }
+
+    .plyr--full-ui input[type='range'] {
+        color: #b0a6ff;
+        //filter: saturate(2);
     }
-  }
-  .badge__dot {
-    display: none !important;
-  }
-  .dynamic-widget-modal {
-    width: 600px !important;
-    max-width: 100% !important;
-    *{
-      font-size: 10px !important;
-      .typography {
-        line-height: 1.8;
-      }
+
+    .plyr__controls__item {
+        background: none !important;
+
+        button {
+            background: none !important;
+        }
     }
-    .non-widget-network-picker {
-      display: flex;
-      align-items: center;
+
+    .MuiTouchRipple-root {
+        display: none !important;
     }
-    .active-wallet-information__network-picker {
-      display: flex;
-      align-items: center;
+
+    .modal {
+        width: 480px !important;
+        max-width: 100% !important;
+
+        * {
+            font-size: 10px !important;
+
+            .typography {
+                line-height: 1.8;
+            }
+        }
+
+        .badge__container {
+            * {
+                font-size: 8px !important;
+            }
+        }
     }
-    .active-wallet-information__address-container {
-      >div:first-child {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
+
+    .badge__dot {
+        display: none !important;
     }
-    .active-wallet-information__header {
-      align-items: center;
+
+    .dynamic-widget-modal {
+        width: 600px !important;
+        max-width: 100% !important;
+
+        * {
+            font-size: 10px !important;
+
+            .typography {
+                line-height: 1.8;
+            }
+        }
+
+        .non-widget-network-picker {
+            display: flex;
+            align-items: center;
+        }
+
+        .active-wallet-information__network-picker {
+            display: flex;
+            align-items: center;
+        }
+
+        .active-wallet-information__address-container {
+            > div:first-child {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+        }
+
+        .active-wallet-information__header {
+            align-items: center;
+        }
+
+        .active-wallet-information__details {
+            flex-wrap: wrap;
+            column-gap: .5rem;
+            row-gap: 0;
+        }
+
+        .user-profile-section__header {
+            align-items: center;
+            margin-bottom: 16px;
+
+            * {
+                margin: 0;
+            }
+        }
+
+        .user-profile-field {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            row-gap: 8px;
+
+            p {
+                margin: 0;
+            }
+        }
     }
-    .active-wallet-information__details {
-      flex-wrap: wrap;
-      column-gap: .5rem;
-      row-gap: 0;
+
+    .MuiAlert-message {
+        font-size: 10px !important;
     }
-    .user-profile-section__header {
-      align-items: center;
-      margin-bottom: 16px;
-      *{
-        margin: 0;
-      }
+
+    .MuiDataGrid-root {
+        width: 100%;
+        border: none;
+        background: rgba(60, 76, 92, 0.8);
+        backdrop-filter: blur(8px);
+        overflow: hidden;
+
+        .MuiDataGrid-columnHeaders {
+            border-bottom: none;
+            background-color: rgba(70, 90, 110, 0.8);
+        }
+
+        .MuiDataGrid-columnHeadersInner .MuiDataGrid-columnHeader {
+            padding: 0 16px !important;
+        }
+
+        .Mui-selected {
+            background-color: #577788;
+        }
+
+        .MuiDataGrid-row {
+            &:last-child {
+                .MuiDataGrid-cell {
+                    border-bottom: 1px solid transparent !important;
+                }
+            }
+        }
+
+        .MuiDataGrid-cell {
+            font-size: 12px;
+            padding: 0 16px !important;
+            color: #fff;
+            border-bottom: 1px solid rgba(224, 224, 224, 0.54) !important;
+        }
+
+        .MuiDataGrid-columnSeparator {
+            display: none;
+        }
+
+        .MuiDataGrid-columnHeaderTitle {
+            color: #fff;
+            font-weight: 400;
+            font-size: 10px;
+        }
+
+        .MuiDataGrid-cell:focus,
+        .MuiDataGrid-cell:focus-within,
+        .MuiDataGrid-columnHeader:focus,
+        .MuiDataGrid-columnHeader:focus-within {
+            outline: none;
+        }
     }
-    .user-profile-field {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      row-gap: 8px;
-      p {
-        margin: 0;
-      }
+
+    .MuiSkeleton-root {
+        background-color: #808080 !important;
+        border-radius: 8px !important;
     }
-  }
-  .MuiAlert-message {
-      font-size: 10px !important;
-  }
+
+    .MuiSkeleton-root::after {
+        background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+    }
+
 `;
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
