@@ -421,7 +421,7 @@ const NavStyle = styled.div<{
 
 const NavBar = () => {
   const router = useRouter();
-  const { address, isConnected, chain } = useAccount();
+  const { address, isConnected } = useAccount();
   const { open, onClickShowAside, balanceToken, fetchBalanceToken } =
     useAside();
   const [initPage, setInitPage] = useState<boolean>(false);
