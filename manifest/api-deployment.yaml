@@ -18,25 +18,29 @@ spec:
     spec:
       containers:
         - name: realm-api-dev
-          image: narongsakk59/ethernal-api:dev-latest
+          image: narongsakk59/ethernal-api:sha-8675404
           imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 8000
           env:
             - name: DATABASE_URL
-              value: ""
+              value: "postgresql://postgres:CDFuNGDEGcLpKbCoLKUdgvRYSOrVxELH@autorack.proxy.rlwy.net:17085/railway"
             - name: PORT
               value: "8000"
             - name: JWT_SECRET
               value: "ethglobalteams"
             - name: LIGHHOUSE_PRIVATE_KEY
-              value: ""
+              value: "0xEdE535B16597b71Fd479Bb35a6e444CB3d841F60"
             - name: LIGHHOUSE_PUBLIC_KEY
-              value: ""
+              value: "d743a5c40e8838b881b7cd22605c94a80b9845748305c5cc3dc81a016cd37e17"
             - name: PRIVATE_KEY
-              value: ""
+              value: "2ef78c5b711f4f90d60a79a5ad4e9d9285b292ba47065392f77b27062ae3aee1"
             - name: CONTRACT_ADDRESS
-              value: ""
-            - name: NEXT_PUBLIC_GRAPHQL_ENDPOINT
-              value: ""
+              value: "0x280474b946C3C7931f6CBEc74a4a43bC3B5C6996"
+            - name: SIGN_URL
+              value: "https://testnet-rpc.sign.global/api"
+            - name: TZ
+              value: "Bangkok/Thailand"
+            - name: ENCRYPT_KEY
+              value: "ethglobalteams"
