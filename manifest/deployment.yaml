@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: realm-web-dev
+  namespace: realm-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: realm-web-dev
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: realm-web-dev
+    spec:
+      containers:
+        - name: realm-web-dev
+          image: narongsakk59/realm-web:dev-latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 3000
+          env:
+            - name: APP_NAME
+              value: "Backoffice Dev"
+            - name: NEXT_PUBLIC_API_ENDPOINT
+              value: "https://ethernal.lucablock.io/api"
+            - name: NEXT_PUBLIC_SOCKET_ENDPOINT
+              value: "https://socket-dev.petempire.io"
+            - name: NEXT_PUBLIC_CONTRACT_REALM
+              value: "0xc3f0e6018c8A115de3e0734e741C170E03C0aBd4"
+            - name: NEXT_PUBLIC_CONTRACT_GAME
+              value: "0x1fCaDFa3cCb9C2538EFf128F2386465096033a74"
+            - name: NEXT_PUBLIC_CONTRACT_MARKET
+              value: "0x7D76448DaCB4E9A81606A9707255dE985f749FE1"
+            - name: NEXT_PUBLIC_CONTRACT_NFT
+              value: "0xDEbD08dD538b541093b5aCdCa52a2040c0aB9D1A"
+            - name: NEXT_PUBLIC_IPFS_ENDPOINT
+              value: "https://gateway.lighthouse.storage/ipfs/bafybeig4tcyb7qy2chwxi2m32xkaqigf2ikceruj4mr5bdyuim54tzeq4e"
+            - name: NEXT_PUBLIC_GRAPHQL_ENDPOINT
+              value: "https://api.studio.thegraph.com/query/87960/realm-subgraph/version/latest"

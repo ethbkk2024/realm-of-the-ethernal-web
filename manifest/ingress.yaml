@@ -1,0 +1,50 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-realm-dev
+  namespace: realm-dev
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+spec:
+  rules:
+    - host: app-dev.petempire.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: petempire-web-dev
+                port:
+                  number: 80
+    - host: admin-dev.petempire.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: petempire-admin-dev
+                port:
+                  number: 80
+    - host: api-dev.petempire.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: petempire-api-dev
+                port:
+                  number: 80
+    - host: socket-dev.petempire.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: petempire-socket-dev
+                port:
+                  number: 80
+  ingressClassName: nginx

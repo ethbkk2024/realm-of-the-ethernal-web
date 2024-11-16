@@ -3,11 +3,15 @@ import MainLayout from '@/layouts/MainLayout';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import apiIPFS from '@/services/ipfs';
-import { useWriteContract } from 'wagmi';
-import apiBattle from '@/services/battle';
+import { useAccount, useWriteContract } from 'wagmi';
+import apiGraphql from '@/services/graphql';
+import _ from 'lodash';
+import { gameABI } from '@/utils/abi/game';
+import { subAddressFormat } from '@/utils/address';
 
 const PvpPage = () => {
   const router = useRouter();
+  const { address } = useAccount();
   const {
     data: hash,
     writeContract,
@@ -15,24 +19,39 @@ const PvpPage = () => {
     isError,
     error,
   } = useWriteContract();
-  const nftIds = [10001, 10002];
   const [nftMetadata, setNftMetadata] = useState<any>();
   const [playerIndex, setPlayerIndex] = useState<any>(null);
+  const [myNft, setMyNft] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetchMyNft();
+  }, [address]);
+
+  const fetchMyNft = async () => {
+    if (address) {
+      await apiGraphql.getNFTsByOwner(address).then((response) => {
+        const nfts = _.filter(response.data.transferSingles, (o: any) => {
+          return o.NFT_id === '10001' || o.NFT_id === '10002';
+        });
+        setMyNft(nfts);
+      });
+    }
+  };
 
   useEffect(() => {
     fetchMetadata();
-  }, []);
+  }, [myNft]);
 
   const fetchMetadata = async () => {
     setNftMetadata([]);
-    if (nftIds.length > 0) {
+    if (myNft.length > 0) {
       setPlayerIndex(0);
-      nftIds.map(async (id) => {
-        await apiIPFS.getMetadata(id).then((response) => {
+      myNft.map(async (data) => {
+        await apiIPFS.getMetadata(data.NFT_id).then((response) => {
           if (response) {
             setNftMetadata((prev: any) => [
               ...prev,
-              { nftId: id, data: response },
+              { nftId: data.NFT_id, data: response },
             ]);
           }
         });
@@ -41,62 +60,71 @@ const PvpPage = () => {
   };
   const startBattle = async (battleLv: number) => {
     if (nftMetadata) {
-      // writeContract({
-      //   abi: gameABI,
-      //   address: `0x${subAddressFormat(`${process.env.NEXT_PUBLIC_CONTRACT_GAME}`)}`,
-      //   functionName: 'startBattle',
-      //   args: [BigInt(10001), BigInt(battleLv)],
-      // });
-      await apiBattle
-        .startBattle({
-          battle_level: battleLv,
-          battle_id: 'test114',
-          player: {
-            nft_id: nftMetadata[playerIndex].nftId,
-            hp: Number(nftMetadata[playerIndex].data.attributes[2].value),
-            atk: Number(nftMetadata[playerIndex].data.attributes[3].value),
-            def: Number(nftMetadata[playerIndex].data.attributes[4].value),
-          },
-        })
-        .then((response) => {
-          if (response.data) {
-            router.push(`/pvp/${battleLv}?id=${response.data.id}`);
-          }
-        });
+      console.log(nftMetadata, battleLv);
+      const start_battle = writeContract({
+        abi: gameABI,
+        address: `0x${subAddressFormat(`${process.env.NEXT_PUBLIC_CONTRACT_GAME}`)}`,
+        functionName: 'startBattle',
+        args: [BigInt(Number(nftMetadata[0].nftId)), BigInt(battleLv)],
+      });
+      console.log('start_battle', start_battle);
+      // await apiBattle
+      //   .startBattle({
+      //     battle_level: battleLv,
+      //     battle_id: 'test114',
+      //     player: {
+      //       nft_id: nftMetadata[playerIndex].nftId,
+      //       hp: Number(nftMetadata[playerIndex].data.attributes[2].value),
+      //       atk: Number(nftMetadata[playerIndex].data.attributes[3].value),
+      //       def: Number(nftMetadata[playerIndex].data.attributes[4].value),
+      //     },
+      //   })
+      //   .then((response) => {
+      //     if (response.data) {
+      //       router.push(`/pvp/${battleLv}?id=${response.data.id}`);
+      //     }
+      //   });
     }
   };
 
   return (
     <SelectContainer>
       <PlayerCard onClick={() => null}>
-        {nftMetadata && (
+        {nftMetadata ? (
           <>
-            <div className={'flex items-center gap-2 justify-center'}>
-              <div
-                className={`btn prev ${playerIndex === 0 && 'disable'}`}
-                onClick={() => {
-                  if (playerIndex > 0) {
-                    setPlayerIndex(playerIndex - 1);
-                  }
-                }}
-              >
-                Prev
-              </div>
-              <div
-                className={`btn next ${playerIndex === nftMetadata.length - 1 && 'disable'}`}
-                onClick={() => {
-                  if (playerIndex < nftMetadata.length - 1) {
-                    setPlayerIndex(playerIndex + 1);
-                  }
-                }}
-              >
-                Next
-              </div>
-            </div>
+            {/* <div className={'flex items-center gap-2 justify-center'}> */}
+            {/*  <div */}
+            {/*    className={`btn prev ${playerIndex === 0 && 'disable'}`} */}
+            {/*    onClick={() => { */}
+            {/*      if (playerIndex > 0) { */}
+            {/*        setPlayerIndex(playerIndex - 1); */}
+            {/*      } */}
+            {/*    }} */}
+            {/*  > */}
+            {/*    Prev */}
+            {/*  </div> */}
+            {/*  <div */}
+            {/*    className={`btn next ${playerIndex === nftMetadata.length - 1 && 'disable'}`} */}
+            {/*    onClick={() => { */}
+            {/*      if (playerIndex < nftMetadata.length - 1) { */}
+            {/*        setPlayerIndex(playerIndex + 1); */}
+            {/*      } */}
+            {/*    }} */}
+            {/*  > */}
+            {/*    Next */}
+            {/*  </div> */}
+            {/* </div> */}
             <img alt="" src={nftMetadata[playerIndex]?.data?.image} />
             <div className={'title'}>MY HERO</div>
             <div className={'name'}>{nftMetadata[playerIndex]?.data?.name}</div>
           </>
+        ) : (
+          <div
+            className={'btn open'}
+            onClick={() => router.push('/marketplace')}
+          >
+            Open box
+          </div>
         )}
       </PlayerCard>
       <div />
@@ -179,6 +207,13 @@ const PlayerCard = styled.div`
     max-height: 40px;
     cursor: pointer;
     z-index: 2;
+  }
+
+  .open {
+    position: absolute;
+    top: 50vh;
+    font-size: 24px;
+    height: 48px;
   }
 
   .btn.disable {
