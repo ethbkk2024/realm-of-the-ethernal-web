@@ -345,7 +345,7 @@ export class QuestMap extends Scene {
     const screenCenterY =
       this.cameras.main.worldView.y + this.cameras.main.height / 2;
     this.add
-      .text(screenCenterX - 490, screenCenterY - 200, 'JOIN')
+      .text(screenCenterX - 450, screenCenterY - 200, 'CHECK IN')
       .setOrigin(0.5, 0.5)
       .setScale(2)
       .setColor('#fff')

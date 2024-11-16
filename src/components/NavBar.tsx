@@ -12,6 +12,11 @@ import { useRouter } from 'next/router';
 import useAside from '@/stores/layout/aside/useAside';
 import BaseButton from '@/components/BaseButton';
 import { numberWithCommas } from '@/utils/number';
+import { getBalance } from '@wagmi/core';
+import { config } from '@/utils/config';
+import { formatEther } from 'viem';
+import { getCookie, setCookie } from 'cookies-next';
+import apiAuth from '@/services/auth';
 
 const NavStyle = styled.div<{
   $isShow: boolean;
@@ -420,8 +425,10 @@ const NavStyle = styled.div<{
 const NavBar = () => {
   const router = useRouter();
   const { address, isConnected, chain } = useAccount();
+  const [ethBalance, setEthBalance] = useState('0');
   const { open, onClickShowAside, balanceToken, fetchBalanceToken } =
     useAside();
+
   const [initPage, setInitPage] = useState<boolean>(false);
   const [scrollDirection, setScrollDirection] = useState('');
   const [scrollYPosition, setScrollYPosition] = useState(0);
@@ -429,6 +436,36 @@ const NavBar = () => {
   console.log('address', address);
   console.log('isConnected', isConnected);
   console.log('chain', chain);
+
+  useEffect(() => {
+    async function getEth() {
+      if (address) {
+        const res = await getBalance(config, {
+          address: address,
+        });
+        console.log('res', res);
+        setEthBalance(formatEther(res.value));
+      }
+    }
+
+    getEth();
+  }, [address]);
+
+  useEffect(() => {
+    const token = getCookie('access_token');
+    if (!token && address) {
+      login();
+    }
+  }, [address]);
+
+  const login = async () => {
+    if (address) {
+      await apiAuth.login(address).then((response) => {
+        setCookie('access_token', response.token);
+      });
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
@@ -538,6 +575,14 @@ const NavBar = () => {
           </div>
 
           <div className="r-wrap">
+            {isConnected && initPage && (
+              <BaseButton
+                text={`${numberWithCommas(Number(ethBalance))} ETH`}
+                handleClick={() => {
+                  //
+                }}
+              />
+            )}
             {isConnected && initPage && (
               <BaseButton
                 text={`${numberWithCommas(balanceToken)} Realm`}
