@@ -10,12 +10,11 @@ const PvpPage = () => {
     await apiBattle
       .startBattle({
         battle_level: battleLv,
-        battle_id: 'test-103',
+        battle_id: 'test106',
       })
       .then((response) => {
-        console.log('response', response);
-        if (response) {
-          router.push(`/pvp/${battleLv}?id=${'test-103'}`);
+        if (response.data) {
+          router.push(`/pvp/${battleLv}?id=${response.data.id}`);
         }
       });
   };

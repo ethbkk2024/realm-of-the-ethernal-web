@@ -1,15 +1,12 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { getCookie } from 'cookies-next';
-import getConfig from 'next/config';
-
-const { publicRuntimeConfig } = getConfig();
 
 interface AxiosRequestConfigCustom extends AxiosRequestConfig {
   headers: any;
 }
 
 const Http: AxiosInstance = axios.create({
-  baseURL: publicRuntimeConfig.API_ENDPOINT,
+  baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
     'Access-Control-Allow-Origin': '*',

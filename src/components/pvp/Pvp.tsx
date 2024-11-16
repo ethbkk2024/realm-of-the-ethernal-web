@@ -11,6 +11,7 @@ const Pvp = () => {
   const [canMoveSprite, setCanMoveSprite] = useState(true);
   const router = useRouter();
   const { lv, id } = router.query;
+  const [actionData, setActionData] = useState<any>();
 
   console.log('canMoveSprite', canMoveSprite);
 
@@ -22,6 +23,9 @@ const Pvp = () => {
     if (id) {
       await apiBattle.getActionList(id).then((response) => {
         console.log('response', response);
+        if (response?.data) {
+          setActionData(response.data);
+        }
       });
     }
   };
@@ -40,23 +44,24 @@ const Pvp = () => {
   }, [phaserRef]);
 
   const sendGameData = () => {
-    if (phaserRef.current) {
+    if (phaserRef.current && actionData) {
       const scene = phaserRef.current.scene as PvpMap;
       if (scene) {
-        scene.handleData(mockResponse);
+        scene.handleData(actionData);
       }
     }
   };
 
   useEffect(() => {
-    if (phaserRef.current && lv && mockResponse) {
+    if (phaserRef.current && lv && actionData) {
       const scene = phaserRef.current.scene as PvpMap;
       if (scene) {
-        const init = { initialStat: mockResponse.initialStat, bossLv: lv };
+        const init = { initialStat: actionData.initialStat, bossLv: lv };
         scene.handleInit(init);
+        setTimeout(() => sendGameData(), 2000);
       }
     }
-  }, [phaserRef?.current, lv, mockResponse]);
+  }, [phaserRef?.current, lv, actionData]);
 
   return (
     <PvpContainer>
