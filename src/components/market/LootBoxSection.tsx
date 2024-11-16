@@ -110,8 +110,7 @@ const LootBoxSection = () => {
 
   const [isCharacterLoading, setIsCharacterLoading] = useState(false);
   const [isItemLoading, setIsItemLoading] = useState(false);
-  const [characterAllowance, setCharacterAllowance] = useState(0);
-  const [itemAllowance, setItemAllowance] = useState(0);
+  const [allowance, setAllowance] = useState<number>(0);
   const { address } = useAccount();
 
   useEffect(() => {
@@ -144,8 +143,7 @@ const LootBoxSection = () => {
       });
 
       const value = Number(response);
-      setCharacterAllowance(value);
-      setItemAllowance(value);
+      setAllowance(value);
     } catch (error) {
       console.error('Error checking allowance:', error);
     }
@@ -242,12 +240,12 @@ const LootBoxSection = () => {
           text={
             isCharacterLoading
               ? 'Opening...'
-              : characterAllowance === 0
+              : allowance === 0
                 ? 'Approve'
-                : 'Open (5 Realm)'
+                : 'Open (10 Realm)'
           }
           handleClick={() => {
-            if (characterAllowance === 0) {
+            if (allowance === 0) {
               handleAddAllowance('character');
             } else if (!isCharacterLoading) {
               handleOpenCharacterBox();
@@ -278,12 +276,12 @@ const LootBoxSection = () => {
           text={
             isItemLoading
               ? 'Opening...'
-              : itemAllowance === 0
+              : allowance === 0
                 ? 'Approve'
                 : 'Open (5 Realm)'
           }
           handleClick={() => {
-            if (itemAllowance === 0) {
+            if (allowance === 0) {
               handleAddAllowance('item');
             } else if (!isItemLoading) {
               handleOpenItemBox();
