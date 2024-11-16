@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MainLayout from '@/layouts/MainLayout';
 import { LoadElement } from '@/styles/animations';
@@ -26,6 +26,8 @@ const HistoryPageStyle = styled.div`
   }
 `;
 const HistoryPage = () => {
+  const [history, setHistory] = useState<any[]>([]);
+
   useEffect(() => {
     getHistory();
   }, []);
@@ -33,7 +35,7 @@ const HistoryPage = () => {
   const getHistory = async () => {
     await apiBattle.getHistoryList().then((res: any) => {
       if (res) {
-        console.log(res);
+        setHistory(res.data);
       }
     });
   };
@@ -42,19 +44,23 @@ const HistoryPage = () => {
       <div className={'description'}>Battle history</div>
       <HistoryListContainer>
         <div className={'header'}>
+          <div className={'cell'}>No.</div>
+          <div className={'cell'}>Match ID</div>
           <div className={'cell'}>Level</div>
-          <div className={'cell'}>1</div>
-          <div className={'cell'}>1</div>
-          <div className={'cell'}>1</div>
-          <div className={'cell'}>1</div>
+          <div className={'cell'}></div>
         </div>
-        <div className={'row'}>
-          <div className={'cell'}>1</div>
-          <div className={'cell'}>1</div>
-          <div className={'cell'}>1</div>
-          <div className={'cell'}>1</div>
-          <div className={'cell'}>1</div>
-        </div>
+        {history &&
+          history.map((res, index) => {
+            return (
+              <div key={index} className={'row'}>
+                <div className={'cell'}>1</div>
+                <div className={'cell'}>1</div>
+                <div className={'cell'}>1</div>
+                <div className={'cell'}>1</div>
+                <div className={'cell'}>1</div>
+              </div>
+            );
+          })}
       </HistoryListContainer>
     </HistoryPageStyle>
   );

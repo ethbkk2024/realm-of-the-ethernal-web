@@ -451,7 +451,6 @@ const NavBar = () => {
     getEth();
   }, [address]);
 
-
   useEffect(() => {
     const token = getCookie('access_token');
     if (!token && address) {
