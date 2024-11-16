@@ -7,44 +7,24 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 100m
 spec:
   rules:
-    - host: app-dev.petempire.io
+    - host: realm.acmedigital.io
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: petempire-web-dev
+                name: realm-web-dev
                 port:
                   number: 80
-    - host: admin-dev.petempire.io
+    - host: realm-api.acmedigital.io
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: petempire-admin-dev
-                port:
-                  number: 80
-    - host: api-dev.petempire.io
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: petempire-api-dev
-                port:
-                  number: 80
-    - host: socket-dev.petempire.io
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: petempire-socket-dev
+                name: realm-api-dev
                 port:
                   number: 80
   ingressClassName: nginx
