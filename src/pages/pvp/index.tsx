@@ -37,7 +37,7 @@ const PvpPage = () => {
       await apiBattle
         .startBattle({
           battle_level: battleLv,
-          battle_id: 'test107',
+          battle_id: 'test109',
           player: {
             nft_id: nftMetadata[playerIndex].nftId,
             hp: Number(nftMetadata[playerIndex].data.attributes[2].value),
@@ -80,9 +80,9 @@ const PvpPage = () => {
                 Next
               </div>
             </div>
-            <img alt="" src={nftMetadata[playerIndex].data?.image} />
+            <img alt="" src={nftMetadata[playerIndex]?.data?.image} />
             <div className={'title'}>MY HERO</div>
-            <div className={'name'}>{nftMetadata[playerIndex].data?.name}</div>
+            <div className={'name'}>{nftMetadata[playerIndex]?.data?.name}</div>
           </>
         )}
       </PlayerCard>

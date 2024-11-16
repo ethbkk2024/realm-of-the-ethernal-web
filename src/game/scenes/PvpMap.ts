@@ -31,6 +31,8 @@ export class PvpMap extends Scene {
 
   dm_text: Phaser.GameObjects.Text | undefined;
 
+  game_end: boolean = false;
+
   constructor() {
     super('PvpMap');
   }
@@ -101,10 +103,10 @@ export class PvpMap extends Scene {
       key: 'value-red',
       url: 'UI/ValueRed_120x8.png',
     });
-    this.load.image({
-      key: 'nft-player',
-      url: 'character/avatar/knight.png',
-    });
+    // this.load.image({
+    //   key: 'nft-player',
+    //   url: 'character/avatar/knight.png',
+    // });
     this.load.image({
       key: 'boss-1',
       url: 'character/boss/boss-lv-1.png',
@@ -117,6 +119,14 @@ export class PvpMap extends Scene {
       key: 'boss-3',
       url: 'character/boss/boss-lv-3.png',
     });
+    this.load.image({
+      key: 'player-10001',
+      url: 'https://gateway.lighthouse.storage/ipfs/bafybeigkyttg6h63viklsstmxmuzrg6vcqgihotspmvvm3nrm6zimtyty4/10001.png',
+    });
+    this.load.image({
+      key: 'player-10002',
+      url: 'https://gateway.lighthouse.storage/ipfs/bafybeigkyttg6h63viklsstmxmuzrg6vcqgihotspmvvm3nrm6zimtyty4/10002.png',
+    });
   }
 
   create() {
@@ -125,8 +135,6 @@ export class PvpMap extends Scene {
     this.camera.setBackgroundColor(0x000);
     const screenCenterX =
       this.cameras.main.worldView.x + this.cameras.main.width / 2;
-    const screenCenterY =
-      this.cameras.main.worldView.y + this.cameras.main.height / 2;
     const display_size = {
       width: this.scale.width,
       height: this.scale.height,
@@ -181,10 +189,10 @@ export class PvpMap extends Scene {
     //   .setOrigin(0.5, 0.5)
     //   .play('samurai_anim', true);
 
-    this.player = this.add
-      .image(screenCenterX - 400, screenCenterY + 180, 'nft-player')
-      .setDisplaySize(250, 250)
-      .setOrigin(0.5, 0.5);
+    // this.player = this.add
+    //   .image(screenCenterX - 400, screenCenterY + 180, 'nft-player')
+    //   .setDisplaySize(250, 250)
+    //   .setOrigin(0.5, 0.5);
     // this.boss = this.add
     //   .image(screenCenterX + 400, screenCenterY + 120, 'boss-1')
     //   .setDisplaySize(400, 400)
@@ -198,10 +206,10 @@ export class PvpMap extends Scene {
       .image(display_size.width * (1 - 0.1), 200, 'rec-box')
       .setOrigin(0.5, 0.5)
       .setScale(1.5);
-    this.add
-      .image(display_size.width * 0.1, 200, 'nft-player')
-      .setOrigin(0.5, 0.5)
-      .setScale(0.23);
+    // this.add
+    //   .image(display_size.width * 0.1, 200, 'nft-player')
+    //   .setOrigin(0.5, 0.5)
+    //   .setScale(0.23);
     // this.add
     //   .image(display_size.width * (1 - 0.1), 200, 'boss-1')
     //   .setOrigin(0.5, 0.5)
@@ -233,6 +241,23 @@ export class PvpMap extends Scene {
       .setColor('#fff')
       .setOrigin(0.5, 0);
     EventBus.emit('current-scene-ready', this);
+  }
+
+  playerInit(nftId: any) {
+    const screenCenterX =
+      this.cameras.main.worldView.x + this.cameras.main.width / 2;
+    const screenCenterY =
+      this.cameras.main.worldView.y + this.cameras.main.height / 2;
+    if (nftId) {
+      this.player = this.add
+        .image(screenCenterX - 400, screenCenterY + 180, `player-${nftId}`)
+        .setDisplaySize(250, 250)
+        .setOrigin(0.5, 0.5);
+      this.add
+        .image(this.scale.width * 0.1, 200, `player-${nftId}`)
+        .setOrigin(0.5, 0.5)
+        .setScale(0.23);
+    }
   }
 
   handleInit(init: any) {
@@ -311,7 +336,9 @@ export class PvpMap extends Scene {
       if (action.attacker === 'boss') {
         setTimeout(
           () => {
-            this.player_hp?.setText(`${action.hp}/${action.maxHp}`);
+            this.player_hp?.setText(
+              `${action.hp < 0 ? 0 : action.hp}/${action.maxHp}`,
+            );
             const ratio = (action.hp * 100) / action.maxHp;
             const useWidth = (ratio * 240) / 100;
             this.player_hp_bar?.setDisplaySize(useWidth, 16);
@@ -332,7 +359,9 @@ export class PvpMap extends Scene {
       } else if (action.attacker === 'player') {
         setTimeout(
           () => {
-            this.boss_hp?.setText(`${action.hp}/${action.maxHp}`);
+            this.boss_hp?.setText(
+              `${action.hp < 0 ? 0 : action.hp}/${action.maxHp}`,
+            );
             const ratio = (action.hp * 100) / action.maxHp;
             const useWidth = (ratio * 240) / 100;
             this.boss_hp_bar?.setDisplaySize(useWidth, 16);
@@ -356,6 +385,20 @@ export class PvpMap extends Scene {
         );
       }
     });
+    setTimeout(
+      () => {
+        this.dm_text = this.add
+          .text(
+            screenCenterX,
+            screenCenterY,
+            data.summary.winner === 'boss' ? 'Lose' : 'Winner',
+          )
+          .setFont('128px')
+          .setColor('#ff0000')
+          .setOrigin(0.5, 0.5);
+      },
+      (data.action_list.length + 1) * 1000,
+    );
     // this.tweens.add({
     //   targets: this.boss, // The sprite we want to animate
     //   x: screenCenterX - 400, // Animate the sprite to the right

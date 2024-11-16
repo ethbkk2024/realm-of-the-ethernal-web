@@ -58,6 +58,7 @@ const Pvp = () => {
       if (scene) {
         const init = { initialStat: actionData.initialStat, bossLv: lv };
         scene.handleInit(init);
+        scene.playerInit(actionData.initialStat.player.nft_id);
         setTimeout(() => sendGameData(), 2000);
       }
     }
