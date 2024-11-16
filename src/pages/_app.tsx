@@ -21,7 +21,6 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { Alert, Snackbar } from '@mui/material';
 import useSnackbar from '@/stores/layout/snackbar/useSnackbar';
-import { injected } from '@wagmi/core';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -201,6 +200,9 @@ const GlobalStyle = createGlobalStyle`
       }
     }
   }
+  .MuiAlert-message {
+      font-size: 10px !important;
+  }
 `;
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -214,7 +216,6 @@ type AppPropsWithLayout = AppProps & {
 const config = createConfig({
   chains: [baseSepolia],
   multiInjectedProviderDiscovery: false,
-  connectors: [injected()],
   transports: {
     [baseSepolia.id]: http(),
   },
@@ -259,7 +260,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <GlobalStyle />
       <Snackbar
         open={snackBar.open}
-        autoHideDuration={5000}
+        autoHideDuration={5000000}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         onClose={() => {
           openSnackbar({ ...snackBar, open: false });
