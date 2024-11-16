@@ -13,11 +13,11 @@ const PvpPage = () => {
   const router = useRouter();
   const { address } = useAccount();
   const {
-    data: hash,
+    // data: hash,
     writeContract,
-    isPending,
-    isError,
-    error,
+    // isPending,
+    // isError,
+    // error,
   } = useWriteContract();
   const [nftMetadata, setNftMetadata] = useState<any>();
   const [playerIndex, setPlayerIndex] = useState<any>(null);
