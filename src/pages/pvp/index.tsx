@@ -78,7 +78,10 @@ const PvpPage = () => {
   };
 
   useEffect(() => {
-    handleBattle();
+    if (isConfirmed) {
+      console.log('isConfirmed', isConfirmed);
+      handleBattle();
+    }
   }, [isConfirmed]);
 
   const handleBattle = async () => {
@@ -88,6 +91,7 @@ const PvpPage = () => {
       functionName: 'battleCount',
     });
     if (id && lvSelected) {
+      console.log('id', id);
       await apiBattle
         .startBattle({
           battle_level: lvSelected,
@@ -137,6 +141,12 @@ const PvpPage = () => {
             <img alt="" src={nftMetadata[playerIndex]?.data?.image} />
             <div className={'title'}>MY HERO</div>
             <div className={'name'}>{nftMetadata[playerIndex]?.data?.name}</div>
+            <div
+              className={'history'}
+              onClick={() => router.push('/pvp/history')}
+            >
+              History
+            </div>
           </>
         ) : (
           <div
@@ -257,6 +267,18 @@ const PlayerCard = styled.div`
     top: 50px;
     zoom: 2;
     transform: skewX(12deg);
+  }
+
+  .history {
+    z-index: 2;
+    font-size: 20px;
+    background: #fa7136;
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px;
+    position: absolute;
+    bottom: 40px;
+    cursor: pointer;
   }
 `;
 

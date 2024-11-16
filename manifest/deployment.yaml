@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: realm-web-dev
-          image: narongsakk59/realm-web:dev-latest
+          image: narongsakk59/realm-web-dev:latest
           imagePullPolicy: Always
           ports:
             - name: http

@@ -12,6 +12,8 @@ import { useRouter } from 'next/router';
 import useAside from '@/stores/layout/aside/useAside';
 import BaseButton from '@/components/BaseButton';
 import { numberWithCommas } from '@/utils/number';
+import { getCookie, setCookie } from 'cookies-next';
+import apiAuth from '@/services/auth';
 
 const NavStyle = styled.div<{
   $isShow: boolean;
@@ -426,9 +428,22 @@ const NavBar = () => {
   const [scrollDirection, setScrollDirection] = useState('');
   const [scrollYPosition, setScrollYPosition] = useState(0);
   const [screenWidth, setScreenWidth] = useState<number>(0);
-  console.log('address', address);
-  console.log('isConnected', isConnected);
-  console.log('chain', chain);
+
+  useEffect(() => {
+    const token = getCookie('access_token');
+    if (!token && address) {
+      login();
+    }
+  }, [address]);
+
+  const login = async () => {
+    if (address) {
+      await apiAuth.login(address).then((response) => {
+        setCookie('access_token', response.token);
+      });
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);

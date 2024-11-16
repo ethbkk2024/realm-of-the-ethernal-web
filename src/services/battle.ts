@@ -32,6 +32,28 @@ const apiBattle = {
       };
     }
   },
+  getHistoryList: async () => {
+    try {
+      const res = await Http.get(`/pvp`);
+      return res.data;
+    } catch (error) {
+      return {
+        isError: true,
+        error,
+      };
+    }
+  },
+  getBattleDetail: async (id: number) => {
+    try {
+      const res = await Http.get(`/pvp/detail/${id}`);
+      return res.data;
+    } catch (error) {
+      return {
+        isError: true,
+        error,
+      };
+    }
+  },
 };
 
 export default apiBattle;
