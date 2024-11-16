@@ -230,15 +230,15 @@ const WhyPlaySection = () => {
             <div className="reason-group">
               {/* Reason 1 */}
               <div className="reason">
-                <div className="icon">
-                  <Image
-                    src="/icons/icon-nft-character.svg"
-                    width="40"
-                    height="40"
-                    alt="NFT Character"
-                    priority
-                  />
-                </div>
+                {/* <div className="icon"> */}
+                {/*  <Image */}
+                {/*    src="/icons/icon-nft-character.svg" */}
+                {/*    width="40" */}
+                {/*    height="40" */}
+                {/*    alt="NFT Character" */}
+                {/*    priority */}
+                {/*  /> */}
+                {/* </div> */}
                 <p className="text">
                   Unique NFT characters powered by NounsDAO, making each hero
                   truly yours.
@@ -247,15 +247,15 @@ const WhyPlaySection = () => {
 
               {/* Reason 2 */}
               <div className="reason">
-                <div className="icon">
-                  <Image
-                    src="/icons/icon-web3-integration.svg"
-                    width="40"
-                    height="40"
-                    alt="Web3 Integration"
-                    priority
-                  />
-                </div>
+                {/* <div className="icon"> */}
+                {/*  <Image */}
+                {/*    src="/icons/icon-web3-integration.svg" */}
+                {/*    width="40" */}
+                {/*    height="40" */}
+                {/*    alt="Web3 Integration" */}
+                {/*    priority */}
+                {/*  /> */}
+                {/* </div> */}
                 <p className="text">
                   Experience seamless Web3 integration with Filecoin, Uniswap,
                   and Sign Protocol for secure and immersive gameplay.
@@ -264,15 +264,15 @@ const WhyPlaySection = () => {
 
               {/* Reason 3 */}
               <div className="reason">
-                <div className="icon">
-                  <Image
-                    src="/icons/icon-quest.svg"
-                    width="40"
-                    height="40"
-                    alt="Epic Quests"
-                    priority
-                  />
-                </div>
+                {/* <div className="icon"> */}
+                {/*  <Image */}
+                {/*    src="/icons/icon-quest.svg" */}
+                {/*    width="40" */}
+                {/*    height="40" */}
+                {/*    alt="Epic Quests" */}
+                {/*    priority */}
+                {/*  /> */}
+                {/* </div> */}
                 <p className="text">
                   Embark on thrilling quests and defeat powerful bosses to
                   unlock rare artifacts and rewards.
@@ -281,15 +281,15 @@ const WhyPlaySection = () => {
 
               {/* Reason 4 */}
               <div className="reason">
-                <div className="icon">
-                  <Image
-                    src="/icons/icon-marketplace.svg"
-                    width="40"
-                    height="40"
-                    alt="Marketplace"
-                    priority
-                  />
-                </div>
+                {/* <div className="icon"> */}
+                {/*  <Image */}
+                {/*    src="/icons/icon-marketplace.svg" */}
+                {/*    width="40" */}
+                {/*    height="40" */}
+                {/*    alt="Marketplace" */}
+                {/*    priority */}
+                {/*  /> */}
+                {/* </div> */}
                 <p className="text">
                   Buy, sell, and trade items and NFTs in the Realm Marketplace
                   to empower your character.
@@ -298,15 +298,15 @@ const WhyPlaySection = () => {
 
               {/* Reason 5 */}
               <div className="reason">
-                <div className="icon">
-                  <Image
-                    src="/icons/icon-rewards.svg"
-                    width="40"
-                    height="40"
-                    alt="Reward System"
-                    priority
-                  />
-                </div>
+                {/* <div className="icon"> */}
+                {/*  <Image */}
+                {/*    src="/icons/icon-rewards.svg" */}
+                {/*    width="40" */}
+                {/*    height="40" */}
+                {/*    alt="Reward System" */}
+                {/*    priority */}
+                {/*  /> */}
+                {/* </div> */}
                 <p className="text">
                   Collect USDC, Realm Tokens, and exclusive NFT items from the
                   reward pool by completing quests and challenges.

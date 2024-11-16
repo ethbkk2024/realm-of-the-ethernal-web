@@ -252,7 +252,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <GlobalStyle />
       <Snackbar
         open={snackBar.open}
-        autoHideDuration={5000000}
+        autoHideDuration={5000}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         onClose={() => {
           openSnackbar({ ...snackBar, open: false });

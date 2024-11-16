@@ -51,6 +51,9 @@ const FooterStyled = styled.footer`
     }
     .footer-logo {
       margin-bottom: -16px;
+      img {
+        transform: scale(2.1);
+      }
     }
     .footer-title {
       text-align: center;
@@ -220,11 +223,12 @@ const Footer = () => {
       <div className="content-footer">
         <div className="footer-logo">
           <Image
-            src="/icons/icon-hy-seller.svg"
-            width="82"
-            height="94"
+            src="/images/logo.png"
+            width="88"
+            height="88"
             alt="Game Logo"
             priority
+            className="logo-footer"
           />
         </div>
         <div className="footer-title">Realm of the Eternal</div>
@@ -247,10 +251,9 @@ const Footer = () => {
           <div className="circle">
             <Image
               src="/icons/icon-facebook.svg"
-              width="24"
-              height="24"
+              width="12"
+              height="12"
               alt="Facebook"
-              priority
             />
           </div>
           {/* YouTube */}
@@ -260,27 +263,24 @@ const Footer = () => {
               width="24"
               height="24"
               alt="YouTube"
-              priority
             />
           </div>
           {/* Line */}
           <div className="circle">
             <Image
               src="/icons/icon-line.svg"
-              width="24"
-              height="24"
+              width="22"
+              height="22"
               alt="Line"
-              priority
             />
           </div>
           {/* TikTok */}
           <div className="circle">
             <Image
               src="/icons/icon-tiktok.svg"
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               alt="TikTok"
-              priority
             />
           </div>
         </div>

@@ -109,7 +109,7 @@ const MarketPlaceSectionStyle = styled.div`
   }
 `;
 const MarketPlaceSection = () => {
-  const [marketItem, setMarketItem] = useState<any>([
+  const [marketItem] = useState<any>([
     {
       name: 'Iron Sword',
       description: 'A basic but reliable sword',

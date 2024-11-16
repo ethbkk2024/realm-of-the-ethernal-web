@@ -195,10 +195,7 @@ const MaterialStyled = styled.div`
   }
 `;
 
-type Props = {
-  isRegister?: boolean | undefined;
-};
-const Material = ({ isRegister }: Props) => {
+const Material = () => {
   return (
     <MaterialStyled>
       <div className="presenter-content">
@@ -216,13 +213,9 @@ const Material = ({ isRegister }: Props) => {
           }}
         >
           <Image
-            src={
-              isRegister
-                ? '/images/presenter-register.png'
-                : '/images/presenter-main.png'
-            }
-            width={578}
-            height={858}
+            src={'/images/legen-armor.png'}
+            width={200}
+            height={200}
             alt=""
             priority
           />
@@ -243,7 +236,7 @@ const Material = ({ isRegister }: Props) => {
           }}
         >
           <Image
-            src="/images/tiktok-landing.svg"
+            src="/images/sword-1.png"
             width={154}
             height={178}
             alt=""
@@ -265,7 +258,7 @@ const Material = ({ isRegister }: Props) => {
           }}
         >
           <Image
-            src="/images/facebook-landing.svg"
+            src="/images/sword-2.png"
             width={162}
             height={162}
             alt=""
@@ -287,7 +280,7 @@ const Material = ({ isRegister }: Props) => {
           }}
         >
           <Image
-            src="/images/messenger-landing.svg"
+            src="/images/sword-1.png"
             width={150}
             height={150}
             alt=""
@@ -309,7 +302,7 @@ const Material = ({ isRegister }: Props) => {
           }}
         >
           <Image
-            src="/images/meta-landing.svg"
+            src="/images/daimond-armor.png"
             width={119}
             height={57}
             alt=""
@@ -331,9 +324,9 @@ const Material = ({ isRegister }: Props) => {
           }}
         >
           <Image
-            src="/images/violet-ball.svg"
-            width={80}
-            height={80}
+            src="/images/w-box.png"
+            width={120}
+            height={120}
             alt=""
             priority
           />
@@ -353,7 +346,7 @@ const Material = ({ isRegister }: Props) => {
           }}
         >
           <Image
-            src="/images/presenter-circle.png"
+            src="/images/sword-2.png"
             width={250}
             height={250}
             alt=""
@@ -375,7 +368,7 @@ const Material = ({ isRegister }: Props) => {
           }}
         >
           <Image
-            src="/images/pink-ball.svg"
+            src="/images/c-box.png"
             width={180}
             height={180}
             alt=""

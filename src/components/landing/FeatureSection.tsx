@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { Button } from '@mui/material';
-import Image from 'next/image';
 
 const FeatureSectionStyled = styled.section`
   display: flex;
@@ -87,7 +86,7 @@ const FeatureSectionStyled = styled.section`
               inset -4px -4px 0px 0px white;
             font-size: 12px !important;
             min-height: 38px !important;
-            padding: 0 64px 0 32px !important;
+            padding: 0 32px 0 32px !important;
             white-space: nowrap !important;
             img {
               position: absolute;
@@ -196,13 +195,6 @@ const FeatureSection = () => {
             <Link href="#">
               <Button type="button" variant="contained" color="white">
                 <span>Start the Adventure</span>
-                <Image
-                  src="/icons/icon-arrow-right-black.svg"
-                  width={32}
-                  height={32}
-                  alt=""
-                  priority
-                />
               </Button>
             </Link>
           </div>
@@ -212,13 +204,13 @@ const FeatureSection = () => {
           {/* Feature 1 */}
           <div className="feature">
             <div className="feature-topic">
-              <Image
-                src="/icons/icon-nft-character.svg"
-                width={44}
-                height={44}
-                alt=""
-                priority
-              />
+              {/* <Image */}
+              {/*  src="/icons/icon-nft-character.svg" */}
+              {/*  width={44} */}
+              {/*  height={44} */}
+              {/*  alt="" */}
+              {/*  priority */}
+              {/* /> */}
               <h2 className="feature-topic-text">NFT Character Creation</h2>
             </div>
             <p className="feature-p">
@@ -229,13 +221,13 @@ const FeatureSection = () => {
           {/* Feature 2 */}
           <div className="feature">
             <div className="feature-topic">
-              <Image
-                src="/icons/icon-web3-integration.svg"
-                width={44}
-                height={44}
-                alt=""
-                priority
-              />
+              {/* <Image */}
+              {/*  src="/icons/icon-web3-integration.svg" */}
+              {/*  width={44} */}
+              {/*  height={44} */}
+              {/*  alt="" */}
+              {/*  priority */}
+              {/* /> */}
               <h2 className="feature-topic-text">Web3 Integrations</h2>
             </div>
             <p className="feature-p">
@@ -246,13 +238,13 @@ const FeatureSection = () => {
           {/* Feature 3 */}
           <div className="feature">
             <div className="feature-topic">
-              <Image
-                src="/icons/icon-quests.svg"
-                width={44}
-                height={44}
-                alt=""
-                priority
-              />
+              {/* <Image */}
+              {/*  src="/icons/icon-quests.svg" */}
+              {/*  width={44} */}
+              {/*  height={44} */}
+              {/*  alt="" */}
+              {/*  priority */}
+              {/* /> */}
               <h2 className="feature-topic-text">Epic Quest System</h2>
             </div>
             <p className="feature-p">
@@ -263,13 +255,13 @@ const FeatureSection = () => {
           {/* Feature 4 */}
           <div className="feature">
             <div className="feature-topic">
-              <Image
-                src="/icons/icon-boss-battle.svg"
-                width={44}
-                height={44}
-                alt=""
-                priority
-              />
+              {/* <Image */}
+              {/*  src="/icons/icon-boss-battle.svg" */}
+              {/*  width={44} */}
+              {/*  height={44} */}
+              {/*  alt="" */}
+              {/*  priority */}
+              {/* /> */}
               <h2 className="feature-topic-text">Challenging Boss Battles</h2>
             </div>
             <p className="feature-p">
@@ -280,13 +272,13 @@ const FeatureSection = () => {
           {/* Feature 5 */}
           <div className="feature">
             <div className="feature-topic">
-              <Image
-                src="/icons/icon-marketplace.svg"
-                width={44}
-                height={44}
-                alt=""
-                priority
-              />
+              {/* <Image */}
+              {/*  src="/icons/icon-marketplace.svg" */}
+              {/*  width={44} */}
+              {/*  height={44} */}
+              {/*  alt="" */}
+              {/*  priority */}
+              {/* /> */}
               <h2 className="feature-topic-text">NFT Marketplace</h2>
             </div>
             <p className="feature-p">
@@ -297,13 +289,13 @@ const FeatureSection = () => {
           {/* Feature 6 */}
           <div className="feature">
             <div className="feature-topic">
-              <Image
-                src="/icons/icon-rewards.svg"
-                width={44}
-                height={44}
-                alt=""
-                priority
-              />
+              {/* <Image */}
+              {/*  src="/icons/icon-rewards.svg" */}
+              {/*  width={44} */}
+              {/*  height={44} */}
+              {/*  alt="" */}
+              {/*  priority */}
+              {/* /> */}
               <h2 className="feature-topic-text">Reward Pool System</h2>
             </div>
             <p className="feature-p">

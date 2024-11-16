@@ -469,7 +469,7 @@ const NavBar = () => {
         $scrollYPosition={scrollYPosition}
       >
         <nav>
-          <Link href={`#`}>
+          <Link href={`/`}>
             <div className="l-wrap">
               <Image
                 src="/images/logo.png"
