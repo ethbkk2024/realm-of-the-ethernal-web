@@ -378,6 +378,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           environmentId: 'e1d804b8-4c7b-4a83-901e-86c8780b67d1',
           walletConnectors: [EthereumWalletConnectors],
           shadowDOMEnabled: false,
+          redirectUrl: `${process.env.NEXT_PUBLIC_REDIRECT_URL}`,
+          social: {
+            strategy: 'popup',
+          },
         }}
       >
         <WagmiProvider config={config}>

@@ -150,9 +150,6 @@ const NavStyle = styled.div<{
       align-items: center;
       margin: 0;
       background: #2632384f;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
       height: 34px;
       transition: 0.15s ease-out;
       animation: ${LoadElement} 0.3s ease-in;
@@ -240,15 +237,6 @@ const NavStyle = styled.div<{
       column-gap: 32px;
       @media screen and (max-width: 980px) {
         display: none;
-      }
-      button {
-        overflow: hidden;
-        span {
-          max-width: 124px;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-        }
       }
       .dynamic-widget-inline-controls {
         animation: ${LoadElement} 0.3s ease-in;
@@ -489,55 +477,66 @@ const NavBar = () => {
         $scrollYPosition={scrollYPosition}
       >
         <nav>
-          <Link href={`/`}>
-            <div className="l-wrap">
-              <Image
-                src="/images/logo.png"
-                width="88"
-                height="88"
-                alt=""
-                priority
-              />
-            </div>
-          </Link>
-          <div className="hamburger-wrap">
-            <IconButton
-              onClick={() => {
-                onClickShowAside(!open);
-              }}
-            >
-              <div className="hamburger">
-                <div className="beef" />
+          <div className="flex items-center gap-[8px]">
+            <Link href={`/`}>
+              <div className="l-wrap">
+                <Image
+                  src="/images/logo.png"
+                  width="88"
+                  height="88"
+                  alt=""
+                  priority
+                />
               </div>
-            </IconButton>
-          </div>
-          <ul>
-            {menuConfig.map((item: any, index: number) => (
-              <React.Fragment key={index}>
-                <li>
-                  <Link
-                    href={item.url}
-                    style={{
-                      color: 'white',
-                    }}
-                    onClick={async (e: any) => {
-                      e.preventDefault();
-                      if (item.sectionId !== null) {
-                        handleScroll(item.sectionId);
-                      } else {
-                        await router.push(item.url);
+            </Link>
+            <div className="hamburger-wrap">
+              <IconButton
+                onClick={() => {
+                  onClickShowAside(!open);
+                }}
+              >
+                <div className="hamburger">
+                  <div className="beef" />
+                </div>
+              </IconButton>
+            </div>
+            <ul>
+              {menuConfig.map((item: any, index: number) => (
+                <React.Fragment key={index}>
+                  <li>
+                    <Link
+                      href={item.url}
+                      style={{
+                        color: 'white',
+                      }}
+                      onClick={async (e: any) => {
+                        e.preventDefault();
+                        if (item.sectionId !== null) {
+                          handleScroll(item.sectionId);
+                        } else {
+                          await router.push(item.url);
+                        }
+                      }}
+                    >
+                      {item.name}
+                    </Link>
+                    <div
+                      className={
+                        item.url === '/'
+                          ? router.pathname === item.url
+                            ? 'active'
+                            : ''
+                          : router.pathname.startsWith(item.url)
+                            ? 'active'
+                            : ''
                       }
-                    }}
-                  >
-                    {item.name}
-                  </Link>
-                  <div
-                    className={router.pathname === item.url ? 'active' : ''}
-                  />
-                </li>
-              </React.Fragment>
-            ))}
-          </ul>
+                    />
+                  </li>
+                </React.Fragment>
+              ))}
+            </ul>
+          </div>
+
           <div className="r-wrap">
             {isConnected && initPage && (
               <BaseButton
