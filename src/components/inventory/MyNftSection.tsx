@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LoadElement } from '@/styles/animations';
 import Image from 'next/image';
 import BaseButton from '@/components/BaseButton';
 import { isEmpty } from 'lodash';
+import apiGraphql from '@/services/graphql';
+import { useAccount } from 'wagmi';
+import { readContract } from 'wagmi/actions';
+import { config } from '@/utils/config';
+import { subAddressFormat } from '@/utils/address';
+import { nftABI } from '@/utils/abi/nft';
+import apiIPFS from '@/services/ipfs';
 
 const MyNftSectionStyle = styled.div`
   width: 1200px;
@@ -104,192 +111,80 @@ const MyNftSectionStyle = styled.div`
       .attributes {
         margin-top: 12px;
         letter-spacing: 2px;
+        height: 110px;
+        overflow: auto;
       }
     }
   }
 `;
 const MyNftSection = () => {
-  const [myNftItem] = useState<any>([
-    {
-      name: 'Iron Sword',
-      description: 'A basic but reliable sword',
-      image:
-        'https://gateway.lighthouse.storage/ipfs/bafybeigkyttg6h63viklsstmxmuzrg6vcqgihotspmvvm3nrm6zimtyty4/1.png',
-      attributes: [
-        {
-          trait_type: 'Type',
-          value: 'Weapon',
-        },
-        {
-          trait_type: 'Rarity',
-          value: 'Common',
-        },
-        {
-          trait_type: 'Power Bonus',
-          value: 20,
-        },
-        {
-          trait_type: 'Attack Bonus',
-          value: 15,
-        },
-        {
-          trait_type: 'Defense Bonus',
-          value: 0,
-        },
-      ],
-    },
-    {
-      name: 'Mythril Blade',
-      description: 'A superior blade forged from mythril',
-      image:
-        'https://gateway.lighthouse.storage/ipfs/bafybeigkyttg6h63viklsstmxmuzrg6vcqgihotspmvvm3nrm6zimtyty4/2.png',
-      attributes: [
-        {
-          trait_type: 'Type',
-          value: 'Weapon',
-        },
-        {
-          trait_type: 'Rarity',
-          value: 'Rare',
-        },
-        {
-          trait_type: 'Power Bonus',
-          value: 40,
-        },
-        {
-          trait_type: 'Attack Bonus',
-          value: 30,
-        },
-        {
-          trait_type: 'Defense Bonus',
-          value: 5,
-        },
-      ],
-    },
-    {
-      name: 'Dragon Slayer',
-      description: "A legendary sword infused with dragon's power",
-      image:
-        'https://gateway.lighthouse.storage/ipfs/bafybeigkyttg6h63viklsstmxmuzrg6vcqgihotspmvvm3nrm6zimtyty4/3.png',
-      attributes: [
-        {
-          trait_type: 'Type',
-          value: 'Weapon',
-        },
-        {
-          trait_type: 'Rarity',
-          value: 'Legendary',
-        },
-        {
-          trait_type: 'Power Bonus',
-          value: 60,
-        },
-        {
-          trait_type: 'Attack Bonus',
-          value: 50,
-        },
-        {
-          trait_type: 'Defense Bonus',
-          value: 10,
-        },
-      ],
-    },
-    {
-      name: 'Iron Armor',
-      description: 'Standard protective armor',
-      image:
-        'https://gateway.lighthouse.storage/ipfs/bafybeigkyttg6h63viklsstmxmuzrg6vcqgihotspmvvm3nrm6zimtyty4/4.png',
-      attributes: [
-        {
-          trait_type: 'Type',
-          value: 'Armor',
-        },
-        {
-          trait_type: 'Rarity',
-          value: 'Common',
-        },
-        {
-          trait_type: 'Power Bonus',
-          value: 15,
-        },
-        {
-          trait_type: 'Attack Bonus',
-          value: 0,
-        },
-        {
-          trait_type: 'Defense Bonus',
-          value: 20,
-        },
-      ],
-    },
-    {
-      name: 'Mythril Plate',
-      description: 'Superior armor crafted from mythril',
-      image:
-        'https://gateway.lighthouse.storage/ipfs/bafybeigkyttg6h63viklsstmxmuzrg6vcqgihotspmvvm3nrm6zimtyty4/5.png',
-      attributes: [
-        {
-          trait_type: 'Type',
-          value: 'Armor',
-        },
-        {
-          trait_type: 'Rarity',
-          value: 'Rare',
-        },
-        {
-          trait_type: 'Power Bonus',
-          value: 30,
-        },
-        {
-          trait_type: 'Attack Bonus',
-          value: 5,
-        },
-        {
-          trait_type: 'Defense Bonus',
-          value: 40,
-        },
-      ],
-    },
-    {
-      name: 'Divine Platemail',
-      description: 'Legendary armor blessed by the gods',
-      image:
-        'https://gateway.lighthouse.storage/ipfs/bafybeigkyttg6h63viklsstmxmuzrg6vcqgihotspmvvm3nrm6zimtyty4/6.png',
-      attributes: [
-        {
-          trait_type: 'Type',
-          value: 'Armor',
-        },
-        {
-          trait_type: 'Rarity',
-          value: 'Legendary',
-        },
-        {
-          trait_type: 'Power Bonus',
-          value: 50,
-        },
-        {
-          trait_type: 'Attack Bonus',
-          value: 10,
-        },
-        {
-          trait_type: 'Defense Bonus',
-          value: 60,
-        },
-      ],
-    },
-  ]);
+  const { address } = useAccount();
+  const [myNftItem, setMyNftItem] = useState<any>([]);
   const handleClick = () => {
     console.log('click buy');
   };
+
+  const checkBalanceOfBatch = async (uniqueNFTs: any) => {
+    if (!address || uniqueNFTs.length === 0) return;
+
+    const tokenIds = uniqueNFTs.map((nft: any) => BigInt(nft.NFT_id));
+    try {
+      const accounts = tokenIds.map(() => address);
+      const response: any = await readContract(config, {
+        abi: nftABI,
+        address: `0x${subAddressFormat(`${process.env.NEXT_PUBLIC_CONTRACT_NFT}`)}`,
+        args: [accounts, tokenIds],
+        functionName: 'balanceOfBatch',
+      });
+
+      if (response) {
+        const balances = response.map((balance: any, index: number) => ({
+          tokenId: Number(tokenIds[index]),
+          balance: Number(balance),
+        }));
+
+        const enrichedBalances = await Promise.all(
+          balances.map(async (item: any) => {
+            const metadata = await apiIPFS.getMetadata(item.tokenId);
+            return { ...item, metadata };
+          }),
+        );
+        setMyNftItem(enrichedBalances);
+      }
+    } catch (error) {
+      console.error('Error checking batch balances:', error);
+    }
+  };
+
+  const fetchMyNft = async () => {
+    if (address) {
+      await apiGraphql.getNFTsByOwner(address).then((response) => {
+        console.log('response', response);
+
+        const nfts = response.data?.transferSingles || [];
+
+        const uniqueNFTs = Array.from(
+          new Map(nfts.map((nft: any) => [nft.NFT_id, nft])).values(),
+        );
+        if (uniqueNFTs) {
+          checkBalanceOfBatch(uniqueNFTs);
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchMyNft();
+  }, []);
+
   if (!isEmpty(myNftItem)) {
     return (
       <MyNftSectionStyle>
         {myNftItem.map((item: any, index: number) => (
           <div className="nft-card" key={index}>
-            <div className="name">{item.name}</div>
+            <div className="name">{item.metadata.name}</div>
             <Image
-              src={item.image}
+              src={item.metadata.image}
               width={100}
               height={100}
               alt=""
@@ -297,9 +192,9 @@ const MyNftSection = () => {
               draggable={false}
             />
             <div className="card-description">
-              <div className="detail">{item.description}</div>
+              <div className="detail">{item.metadata.description}</div>
               <div className="attributes">
-                {item.attributes.map((attr: any, index: number) => (
+                {item.metadata.attributes.map((attr: any, index: number) => (
                   <div key={index}>
                     {attr.trait_type}: {attr.value}
                   </div>
