@@ -20,6 +20,9 @@ import { Skeleton } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { isEmpty } from 'lodash';
 import { numberWithCommas } from '@/utils/number';
+import { readContract } from 'wagmi/actions';
+import { config } from '@/utils/config';
+import { gameABI } from '@/utils/abi/game';
 
 const FirstSectionStyled = styled.div`
   display: flex;
@@ -323,82 +326,44 @@ const FirstSection = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [rows, setRows] = useState<any>([]);
 
-  useEffect(() => {
-    setIsHydrated(true);
-    setRows([
-      {
-        id: 1,
-        newRank: 'gold',
-        score: 80,
-        blockTimestamp: 1634567890,
-        player: '0x610a5E811A19b6dA4269D69b2c495000deF94895',
-      },
-      {
-        id: 2,
-        newRank: 'silver',
-        score: 60,
-        blockTimestamp: 1634568901,
-        player: '0x7fB36A1aC4b2E6aD4A9148Ab1204E6B0e9481E1D',
-      },
-      {
-        id: 3,
-        newRank: 'bronze',
-        score: 40,
-        blockTimestamp: 1634570012,
-        player: '0x5dB2c47d8C3B4A32a7F8cAbdA4F8dC01D9F5678A',
-      },
-      {
-        id: 4,
-        newRank: 'gold',
-        score: 95,
-        blockTimestamp: 1634571123,
-        player: '0x3cA2bADeA1B2d4A3B5c9dA4bA9C8F0dE9B123456',
-      },
-      {
-        id: 5,
-        newRank: 'silver',
-        score: 70,
-        blockTimestamp: 1634572234,
-        player: '0x2bF3C4dD1A6bB2aD4F8cBaE6D8F9E1C0A123789',
-      },
-      {
-        id: 6,
-        newRank: 'gold',
-        score: 88,
-        blockTimestamp: 1634573345,
-        player: '0x9C8d5D4C7F8AbcD1B2c3E4F6D7F1A0b2C123456',
-      },
-      {
-        id: 7,
-        newRank: 'bronze',
-        score: 30,
-        blockTimestamp: 1634574456,
-        player: '0x1F9B2d4C5A6c7D8F9B3C4A5D7E1C2b3E9C123567',
-      },
-      {
-        id: 8,
-        newRank: 'gold',
-        score: 100,
-        blockTimestamp: 1634575567,
-        player: '0x0C3D5A7F8B6E9C2B1A4d7F6D3A5B8C2D9E123678',
-      },
-      {
-        id: 9,
-        newRank: 'silver',
-        score: 65,
-        blockTimestamp: 1634576678,
-        player: '0x6F8B2dA4C9E7D1F3B4C8D5E6F1A9C3B7E123789',
-      },
-      {
-        id: 10,
-        newRank: 'bronze',
-        score: 50,
-        blockTimestamp: 1634577789,
-        player: '0x5B7C9E6F1D4A8C3B2D9E5A1F6C7D2A9E123890',
-      },
-    ]);
-  }, []);
+  const getLeaderboard = async () => {
+    try {
+      const response: any = await readContract(config, {
+        abi: gameABI,
+        address: `0x${subAddressFormat(`${process.env.NEXT_PUBLIC_CONTRACT_GAME}`)}`,
+        functionName: 'getCurrentWeekLeaderboard',
+      });
 
+      const players = response[0] || [];
+      const scores = response[1] || [];
+
+      if (players.length !== scores.length) {
+        console.error('Players and scores length mismatch');
+        return;
+      }
+
+      const leaderboardData = players.map((player: string, index: number) => ({
+        id: index + 1,
+        player:
+          player === '0x0000000000000000000000000000000000000000'
+            ? 'N/A'
+            : player,
+        score: Number(scores[index]) || 0,
+      }));
+
+      setRows(leaderboardData);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching leaderboard:', error);
+      setRows([]);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getLeaderboard();
+    setIsHydrated(true);
+  }, []);
   const columns: GridColDef[] = [
     {
       field: '#',
@@ -412,7 +377,7 @@ const FirstSection = () => {
       renderCell: (params: any) => {
         return (
           <div className="overflow-hidden text-ellipsis">
-            {params.row.player === 'Loading...' ? (
+            {isLoading ? (
               <Skeleton
                 variant="rounded"
                 animation="wave"
@@ -439,7 +404,7 @@ const FirstSection = () => {
       renderCell: (params: any) => {
         return (
           <div className="overflow-hidden text-ellipsis">
-            {params.row.player === 'Loading...' ? (
+            {isLoading ? (
               <Skeleton
                 variant="rounded"
                 animation="wave"
@@ -465,7 +430,7 @@ const FirstSection = () => {
       renderCell: (params: any) => {
         return (
           <div className="overflow-hidden text-ellipsis">
-            {params.row.score === 0 ? (
+            {isLoading ? (
               <Skeleton
                 variant="rounded"
                 animation="wave"
