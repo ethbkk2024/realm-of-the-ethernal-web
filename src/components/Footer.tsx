@@ -227,7 +227,7 @@ const Footer = () => {
             priority
           />
         </div>
-        <div className="footer-title">Realm of the Eternal Archive</div>
+        <div className="footer-title">Realm of the Eternal</div>
         <Link href={`#`}>
           <ActionButton
             text="Start the Adventure"
@@ -240,8 +240,7 @@ const Footer = () => {
           />
         </Link>
         <div className="footer-description">
-          Embark on an epic journey through the mystical world of the Eternal
-          Archive.
+          Embark on an epic journey through the mystical world of the Eternal .
         </div>
         <div className="social-media-wrap">
           {/* Facebook */}
@@ -288,7 +287,7 @@ const Footer = () => {
       </div>
       <div className="copyright-bar">
         <div className="copyright">
-          © 2024 Realm of the Eternal Archive. All Rights Reserved.
+          © 2024 Realm of the Eternal. All Rights Reserved.
         </div>
         <div className="about">
           <ul>

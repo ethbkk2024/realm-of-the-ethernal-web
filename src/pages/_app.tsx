@@ -11,9 +11,8 @@ import { theme } from '@/styles/theme';
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core';
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
-import { http, createConfig, WagmiProvider } from 'wagmi';
+import { WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { baseSepolia } from 'wagmi/chains';
 import Head from 'next/head';
 import { realmFont } from '@/styles/font';
 import 'plyr/dist/plyr.css';
@@ -21,6 +20,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { Alert, Snackbar } from '@mui/material';
 import useSnackbar from '@/stores/layout/snackbar/useSnackbar';
+import { config } from '@/utils/config';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -213,14 +213,6 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const config = createConfig({
-  chains: [baseSepolia],
-  multiInjectedProviderDiscovery: false,
-  transports: {
-    [baseSepolia.id]: http(),
-  },
-});
-
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
@@ -276,9 +268,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         </Alert>
       </Snackbar>
       <Head>
-        <meta property="og:site_name" content="Realm Of The Eternal Archive" />
+        <meta property="og:site_name" content="Realm Of The Eternal" />
         {/* <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" /> */}
-        <title>Realm Of The Eternal Archive</title>
+        <title>Realm Of The Eternal</title>
       </Head>
       <DynamicContextProvider
         settings={{

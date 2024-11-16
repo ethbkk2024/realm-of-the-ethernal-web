@@ -320,7 +320,7 @@ const FirstSection = () => {
         />
         <header className="header-landing">
           <div className="header-content-wrap">
-            <h1>Realm Of The Eternal Archive</h1>
+            <h1>Realm Of The Eternal</h1>
             <p className="h1">Explore a Mystical World of Endless Knowledge</p>
             <p>
               Venture into an ancient archive filled with hidden artifacts,
@@ -376,7 +376,7 @@ const FirstSection = () => {
       </FirstSectionStyled>
       <BrandMarqueeWrapStyled>
         <div className="text-group">
-          <h2>The Secrets of the Eternal Archive</h2>
+          <h2>The Secrets of the Eternal</h2>
           <p className="h2 mt-[16px]">Join a world where knowledge is power.</p>
           <p>
             Dive into quests that challenge your wits and courage. Unravel

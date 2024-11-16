@@ -191,7 +191,7 @@ const FeatureSection = () => {
       <div className="feature-content">
         <h1 className="feature-text">KEY FEATURES</h1>
         <div className="header-zone">
-          <p className="title">Realm Of The Eternal Archive</p>
+          <p className="title">Realm Of The Eternal</p>
           <div className="btn">
             <Link href="#">
               <Button type="button" variant="contained" color="white">
