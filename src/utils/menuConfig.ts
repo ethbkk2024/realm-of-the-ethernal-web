@@ -8,7 +8,7 @@ export const menuConfig = [
   {
     id: 2,
     name: 'Play',
-    url: '/quest',
+    url: '/play',
     sectionId: null,
   },
   {
