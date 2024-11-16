@@ -16,6 +16,7 @@ import { readContract } from '@wagmi/core';
 import { realmABI } from '@/utils/abi/token';
 import { parseEther } from 'viem';
 import { config } from '@/utils/config';
+import useAside from '@/stores/layout/aside/useAside';
 
 const LootBoxSectionStyle = styled.div`
   width: 800px;
@@ -107,7 +108,7 @@ const LootBoxSection = () => {
     isSuccess: isConfirmed,
     isError: isErrorTransaction,
   } = useWaitForTransactionReceipt({ hash });
-
+  const { fetchBalanceToken } = useAside();
   const [isCharacterLoading, setIsCharacterLoading] = useState(false);
   const [isItemLoading, setIsItemLoading] = useState(false);
   const [allowance, setAllowance] = useState<number>(0);
@@ -120,6 +121,9 @@ const LootBoxSection = () => {
         text: 'Transaction success.',
         severity: 'success',
       });
+      if (address) {
+        fetchBalanceToken(address);
+      }
     } else if (isError) {
       const errorReason = extractErrorReason(error);
       useSnackbar.getState().openSnackbar({

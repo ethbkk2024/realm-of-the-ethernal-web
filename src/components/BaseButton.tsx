@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { LoadElement } from '@/styles/animations';
 
 const BaseButtonStyle = styled.button`
   all: unset;
@@ -10,6 +11,7 @@ const BaseButtonStyle = styled.button`
   align-items: center;
   justify-content: center;
   transition: 0.15s ease-out;
+  animation: ${LoadElement} 0.3s ease-in;
   box-shadow:
     0px 0px 0px 2px white,
     2px 2px 0px 0px #9d90ff,
@@ -56,7 +58,7 @@ const BaseButton = ({ text, handleClick }: Props) => {
         handleClick();
       }}
     >
-      {text}
+      <span>{text}</span>
     </BaseButtonStyle>
   );
 };

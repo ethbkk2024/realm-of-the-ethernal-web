@@ -10,6 +10,8 @@ import { useAccount } from 'wagmi';
 import { LoadElement } from '@/styles/animations';
 import { useRouter } from 'next/router';
 import useAside from '@/stores/layout/aside/useAside';
+import BaseButton from '@/components/BaseButton';
+import { numberWithCommas } from '@/utils/number';
 
 const NavStyle = styled.div<{
   $isShow: boolean;
@@ -239,6 +241,15 @@ const NavStyle = styled.div<{
       @media screen and (max-width: 980px) {
         display: none;
       }
+      button {
+        overflow: hidden;
+        span {
+          max-width: 128px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
       .dynamic-widget-inline-controls {
         animation: ${LoadElement} 0.3s ease-in;
         border-radius: 0 !important;
@@ -421,7 +432,9 @@ const NavStyle = styled.div<{
 const NavBar = () => {
   const router = useRouter();
   const { address, isConnected, chain } = useAccount();
-  const { open, onClickShowAside } = useAside();
+  const { open, onClickShowAside, balanceToken, fetchBalanceToken } =
+    useAside();
+  const [initPage, setInitPage] = useState<boolean>(false);
   const [scrollDirection, setScrollDirection] = useState('');
   const [scrollYPosition, setScrollYPosition] = useState(0);
   const [screenWidth, setScreenWidth] = useState<number>(0);
@@ -444,6 +457,11 @@ const NavBar = () => {
     }
   }, [screenWidth]);
   useEffect(() => {
+    if (address) {
+      fetchBalanceToken(address);
+    }
+  }, [address]);
+  useEffect(() => {
     const handleScroll = () => {
       const newYPosition = window.scrollY;
       setScrollYPosition(newYPosition);
@@ -460,7 +478,9 @@ const NavBar = () => {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   };
-
+  useEffect(() => {
+    setInitPage(true);
+  }, []);
   return (
     <>
       <NavStyle
@@ -519,6 +539,14 @@ const NavBar = () => {
             ))}
           </ul>
           <div className="r-wrap">
+            {isConnected && initPage && (
+              <BaseButton
+                text={`${numberWithCommas(balanceToken)} Realm`}
+                handleClick={() => {
+                  //
+                }}
+              />
+            )}
             <DynamicWidget buttonClassName={'connect-button-custom'} />
             {/* <div className="btn-group"> */}
             {/*  <Link */}

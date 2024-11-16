@@ -16,6 +16,7 @@ import useSnackbar from '@/stores/layout/snackbar/useSnackbar';
 import { subAddressFormat } from '@/utils/address';
 import { realmABI } from '@/utils/abi/token';
 import { extractErrorReason } from '@/utils/errorContract';
+import useAside from '@/stores/layout/aside/useAside';
 
 const FirstSectionStyled = styled.div`
   display: flex;
@@ -244,7 +245,8 @@ const VideoPlayer = ({ videoUrl }: VideoPlayerProps) => (
   />
 );
 const FirstSection = () => {
-  const { isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
+  const { fetchBalanceToken } = useAside();
   const {
     data: hash,
     writeContract,
@@ -275,6 +277,9 @@ const FirstSection = () => {
 
   useEffect(() => {
     setLoadingRealm(!!(isPending || isConfirming));
+    if (address) {
+      fetchBalanceToken(address);
+    }
   }, [isConfirming, isPending, isConfirmed, isError]);
 
   const handleGetRealm = () => {
