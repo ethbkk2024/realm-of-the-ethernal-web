@@ -7,7 +7,11 @@ import BrandMarquee from '@/components/landing/BrandMarquee';
 import Plyr from 'plyr-react';
 import { LoadElement } from '@/styles/animations';
 import BaseButton from '@/components/BaseButton';
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
+import {
+  useAccount,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from 'wagmi';
 import useSnackbar from '@/stores/layout/snackbar/useSnackbar';
 import { subAddressFormat } from '@/utils/address';
 import { realmABI } from '@/utils/abi/token';
@@ -240,6 +244,7 @@ const VideoPlayer = ({ videoUrl }: VideoPlayerProps) => (
   />
 );
 const FirstSection = () => {
+  const { isConnected } = useAccount();
   const {
     data: hash,
     writeContract,
@@ -256,6 +261,11 @@ const FirstSection = () => {
   });
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [loadingRealm, setLoadingRealm] = useState<boolean>(false);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   useEffect(() => {
     const video = document.createElement('video');
@@ -272,7 +282,7 @@ const FirstSection = () => {
     if (!isPending && !isConfirming) {
       writeContract({
         abi: realmABI,
-        address: `0x${subAddressFormat(`${process.env.NEXT_PUBLIC_CONTRACT_NFT}`)}`,
+        address: `0x${subAddressFormat(`${process.env.NEXT_PUBLIC_CONTRACT_REALM}`)}`,
         functionName: 'claimInitialTokens',
         args: [],
       });
@@ -297,7 +307,6 @@ const FirstSection = () => {
     }
   }, [isConfirmed, isError, isErrorTransaction]);
 
-  console.log('errorerrorerrorerrorerrorerrorerrorerror', error);
   return (
     <>
       <FirstSectionStyled id="/">
@@ -311,7 +320,7 @@ const FirstSection = () => {
         />
         <header className="header-landing">
           <div className="header-content-wrap">
-            <h1>Realm Of The Eternal Archive</h1>
+            <h1>Realm Of The Eternal</h1>
             <p className="h1">Explore a Mystical World of Endless Knowledge</p>
             <p>
               Venture into an ancient archive filled with hidden artifacts,
@@ -321,15 +330,24 @@ const FirstSection = () => {
             </p>
           </div>
         </header>
-        <section className="first-section-content">
-          <BaseButton
-            text={`${loadingRealm ? 'Loading...' : 'Get (1000 Realm)'}`}
-            handleClick={() => {
-              if (!loadingRealm) {
-                handleGetRealm();
-              }
+        {isHydrated && isConnected && (
+          <div
+            style={{
+              marginTop: '16px',
+              zIndex: '1',
             }}
-          />
+          >
+            <BaseButton
+              text={`${loadingRealm ? 'Loading...' : 'Get (1000 Realm)'}`}
+              handleClick={() => {
+                if (!loadingRealm && isHydrated && isConnected) {
+                  handleGetRealm();
+                }
+              }}
+            />
+          </div>
+        )}
+        <section className="first-section-content">
           <div className="player-wrap">
             {isVideoLoaded ? (
               <div className="video">
@@ -358,7 +376,7 @@ const FirstSection = () => {
       </FirstSectionStyled>
       <BrandMarqueeWrapStyled>
         <div className="text-group">
-          <h2>The Secrets of the Eternal Archive</h2>
+          <h2>The Secrets of the Eternal</h2>
           <p className="h2 mt-[16px]">Join a world where knowledge is power.</p>
           <p>
             Dive into quests that challenge your wits and courage. Unravel

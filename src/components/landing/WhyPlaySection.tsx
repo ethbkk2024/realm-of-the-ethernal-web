@@ -221,10 +221,10 @@ const WhyPlaySection = () => {
         <div className="why-use-content-wrap">
           <div className="reason-zone">
             <div className="header-group">
-              <h1 className="topic">Realm of the Eternal Archive</h1>
+              <h1 className="topic">Realm of the Eternal</h1>
               <p className="description">
                 Discover a world of ancient secrets, powerful artifacts, and
-                legendary quests in the Realm of the Eternal Archive.
+                legendary quests in the Realm of the Eternal.
               </p>
             </div>
             <div className="reason-group">
@@ -318,9 +318,7 @@ const WhyPlaySection = () => {
         </div>
         <div className="marquee-vertical">
           <Marquee speed={60} autoFill={true} direction={marqueePosition}>
-            <div className="text">
-              REALM OF THE ETERNAL ARCHIVE · NFT GAME &nbsp;
-            </div>
+            <div className="text">REALM OF THE ETERNAL · NFT GAME &nbsp;</div>
           </Marquee>
         </div>
       </div>
