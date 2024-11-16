@@ -61,41 +61,122 @@ const BrandMarqueeStyled = styled.div`
 const BrandMarquee = () => {
   return (
     <BrandMarqueeStyled>
-      <div className="content-wrap ">
+      <div className="content-wrap">
         <Marquee speed={60} autoFill={true} pauseOnClick={true}>
           <div className="brand-marquee">
             <div className="brand">
               <Image
-                src="/icons/icon-hyseller-gradient.svg"
-                width={112}
-                height={126}
+                src="/images/boss1.png"
+                width={188}
+                height={188}
                 alt=""
                 priority
               />
             </div>
             <div className="brand">
               <Image
-                src="/icons/SheetPapers.svg"
-                width={112}
-                height={126}
+                src="/images/boss2.png"
+                width={188}
+                height={188}
                 alt=""
                 priority
               />
             </div>
             <div className="brand">
               <Image
-                src="/icons/icon-hy-seller-black.svg"
-                width={112}
-                height={126}
+                src="/images/boss3.png"
+                width={188}
+                height={188}
                 alt=""
                 priority
               />
             </div>
             <div className="brand">
               <Image
-                src="/icons/internth.svg"
-                width={112}
-                height={126}
+                src="/images/iron-armor.png"
+                width={188}
+                height={188}
+                alt=""
+                priority
+              />
+            </div>
+            <div className="brand">
+              <Image
+                src="/images/daimond-armor.png"
+                width={188}
+                height={188}
+                alt=""
+                priority
+              />
+            </div>
+            <div className="brand">
+              <Image
+                src="/images/legen-armor.png"
+                width={188}
+                height={188}
+                alt=""
+                priority
+              />
+            </div>
+            <div className="brand">
+              <Image
+                src="/images/knight.png"
+                width={188}
+                height={188}
+                alt=""
+                priority
+              />
+            </div>
+            <div className="brand">
+              <Image
+                src="/images/knight2.png"
+                width={188}
+                height={188}
+                alt=""
+                priority
+              />
+            </div>
+            <div className="brand">
+              <Image
+                src="/images/wizard.png"
+                width={188}
+                height={188}
+                alt=""
+                priority
+              />
+            </div>
+            <div className="brand">
+              <Image
+                src="/images/sword-1.png"
+                width={188}
+                height={188}
+                alt=""
+                priority
+              />
+            </div>
+            <div className="brand">
+              <Image
+                src="/images/sword-2.png"
+                width={188}
+                height={188}
+                alt=""
+                priority
+              />
+            </div>
+            <div className="brand">
+              <Image
+                src="/images/c-box.png"
+                width={188}
+                height={188}
+                alt=""
+                priority
+              />
+            </div>
+            <div className="brand">
+              <Image
+                src="/images/w-box.png"
+                width={188}
+                height={188}
                 alt=""
                 priority
               />
