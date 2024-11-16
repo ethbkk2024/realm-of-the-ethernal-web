@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: realm-api-dev
+  namespace: realm-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: realm-api-dev
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: realm-api-dev
+    spec:
+      containers:
+        - name: realm-api-dev
+          image: narongsakk59/ethernal-api:dev-latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: ""
+            - name: PORT
+              value: "8000"
+            - name: JWT_SECRET
+              value: "ethglobalteams"
+            - name: LIGHHOUSE_PRIVATE_KEY
+              value: ""
+            - name: LIGHHOUSE_PUBLIC_KEY
+              value: ""
+            - name: PRIVATE_KEY
+              value: ""
+            - name: CONTRACT_ADDRESS
+              value: ""
+            - name: NEXT_PUBLIC_GRAPHQL_ENDPOINT
+              value: ""

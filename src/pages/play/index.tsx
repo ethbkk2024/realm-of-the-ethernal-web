@@ -136,7 +136,7 @@ const PlayPage = () => {
             <BaseButton
               text={'Play'}
               handleClick={async () => {
-                await router.push('/play/quest');
+                await router.push('/quest');
               }}
             />
           </div>
@@ -151,7 +151,7 @@ const PlayPage = () => {
             <BaseButton
               text={'Play'}
               handleClick={async () => {
-                await router.push('/play/pvp');
+                await router.push('/pvp');
               }}
             />
           </div>
