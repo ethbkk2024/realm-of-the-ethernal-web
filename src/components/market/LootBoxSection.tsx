@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LoadElement } from '@/styles/animations';
 import Image from 'next/image';
@@ -6,6 +6,7 @@ import BaseButton from '@/components/BaseButton';
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import { nftABI } from '@/utils/abi/nft';
 import { subAddressFormat } from '@/utils/address';
+import useSnackbar from '@/stores/layout/snackbar/useSnackbar';
 
 const LootBoxSectionStyle = styled.div`
   width: 800px;
@@ -95,10 +96,33 @@ const LootBoxSection = () => {
   });
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [initPage, setInitPage] = useState<boolean>(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setInitPage(true);
+  }, []);
+
+  useEffect(() => {
     setLoading(!!(isPending || isConfirming));
   }, [isConfirming, isPending, isConfirmed, isError]);
+
+  useEffect(() => {
+    if (initPage) {
+      if (isConfirmed) {
+        useSnackbar.getState().openSnackbar({
+          open: true,
+          text: 'Transaction Success.',
+          severity: 'success',
+        });
+      } else {
+        useSnackbar.getState().openSnackbar({
+          open: true,
+          text: 'Transaction failed.',
+          severity: 'error',
+        });
+      }
+    }
+  }, [isConfirmed, isError]);
 
   const handleOpenCharacterBox = () => {
     if (!isPending && !isConfirming) {
@@ -144,9 +168,9 @@ const LootBoxSection = () => {
         />
         <BaseButton
           text={`${loading ? 'Opening...' : 'Open (5 Realm)'}`}
-          handleClick={async () => {
+          handleClick={() => {
             if (!loading) {
-              await handleOpenCharacterBox();
+              handleOpenCharacterBox();
             }
           }}
         />
@@ -172,9 +196,9 @@ const LootBoxSection = () => {
         />
         <BaseButton
           text={`${loading ? 'Opening...' : 'Open (5 Realm)'}`}
-          handleClick={async () => {
+          handleClick={() => {
             if (!loading) {
-              await handleOpenItemBox();
+              handleOpenItemBox();
             }
           }}
         />
