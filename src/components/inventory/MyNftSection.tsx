@@ -311,7 +311,7 @@ const MyNftSection = () => {
                 }}
               >
                 <BaseButton
-                  text={'Buy'}
+                  text={'Equip'}
                   handleClick={() => {
                     handleClick();
                   }}
