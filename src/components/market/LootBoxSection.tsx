@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LoadElement } from '@/styles/animations';
 import Image from 'next/image';
 import BaseButton from '@/components/BaseButton';
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
+import { nftABI } from '@/utils/abi/nft';
+import { subAddressFormat } from '@/utils/address';
+import useSnackbar from '@/stores/layout/snackbar/useSnackbar';
 
 const LootBoxSectionStyle = styled.div`
   width: 800px;
@@ -82,17 +86,75 @@ const LootBoxSectionStyle = styled.div`
   }
 `;
 const LootBoxSection = () => {
-  const handleClick = () => {
-    console.log('click buy');
+  const { data: hash, writeContract, isPending } = useWriteContract();
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+    isError,
+  } = useWaitForTransactionReceipt({
+    hash,
+  });
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [initPage, setInitPage] = useState<boolean>(false);
+
+  useEffect(() => {
+    setInitPage(true);
+  }, []);
+
+  useEffect(() => {
+    setLoading(!!(isPending || isConfirming));
+  }, [isConfirming, isPending, isConfirmed, isError]);
+
+  useEffect(() => {
+    if (initPage) {
+      if (isConfirmed) {
+        useSnackbar.getState().openSnackbar({
+          open: true,
+          text: 'Transaction Success.',
+          severity: 'success',
+        });
+      } else {
+        useSnackbar.getState().openSnackbar({
+          open: true,
+          text: 'Transaction failed.',
+          severity: 'error',
+        });
+      }
+    }
+  }, [isConfirmed, isError]);
+
+  const handleOpenCharacterBox = () => {
+    if (!isPending && !isConfirming) {
+      writeContract({
+        abi: nftABI,
+        address: `0x${subAddressFormat(`${process.env.NEXT_PUBLIC_CONTRACT_NFT}`)}`,
+        functionName: 'openCharacterLootBox',
+        args: [],
+      });
+    }
   };
+
+  const handleOpenItemBox = () => {
+    if (!isPending && !isConfirming) {
+      writeContract({
+        abi: nftABI,
+        address: `0x${subAddressFormat(`${process.env.NEXT_PUBLIC_CONTRACT_NFT}`)}`,
+        functionName: 'openItemLootBox',
+        args: [],
+      });
+    }
+  };
+
   return (
     <LootBoxSectionStyle>
+      {/* Character Box */}
       <div className="box-card">
         <div className="name">Character Box</div>
         <Image
           src="/images/bg-loot-box-1.webp"
           fill
-          alt=""
+          alt="Character Loot Box"
           className="bg-card"
           draggable={false}
         />
@@ -100,23 +162,27 @@ const LootBoxSection = () => {
           src="/images/c-box.png"
           width={100}
           height={100}
-          alt=""
+          alt="Character Box"
           className="box-image"
           draggable={false}
         />
         <BaseButton
-          text={'Buy'}
+          text={`${loading ? 'Opening...' : 'Open (5 Realm)'}`}
           handleClick={() => {
-            handleClick();
+            if (!loading) {
+              handleOpenCharacterBox();
+            }
           }}
         />
       </div>
+
+      {/* Item Box */}
       <div className="box-card">
         <div className="name">Item Box</div>
         <Image
           src="/images/bg-loot-box-3.webp"
           fill
-          alt=""
+          alt="Item Loot Box"
           className="bg-card"
           draggable={false}
         />
@@ -124,19 +190,20 @@ const LootBoxSection = () => {
           src="/images/w-box.png"
           width={100}
           height={100}
-          alt=""
+          alt="Item Box"
           className="box-image"
           draggable={false}
         />
         <BaseButton
-          text={'Buy'}
+          text={`${loading ? 'Opening...' : 'Open (5 Realm)'}`}
           handleClick={() => {
-            handleClick();
+            if (!loading) {
+              handleOpenItemBox();
+            }
           }}
         />
       </div>
     </LootBoxSectionStyle>
   );
 };
-
 export default LootBoxSection;

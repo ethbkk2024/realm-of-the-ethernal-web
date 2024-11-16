@@ -14,7 +14,7 @@ import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
 import { createConfig, WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { http } from 'viem';
-import { mainnet, optimism, base } from 'viem/chains';
+import { baseSepolia } from 'viem/chains';
 import Head from 'next/head';
 import { realmFont } from '@/styles/font';
 import 'plyr/dist/plyr.css';
@@ -210,12 +210,10 @@ type AppPropsWithLayout = AppProps & {
 };
 
 const config = createConfig({
-  chains: [mainnet, optimism, base],
+  chains: [baseSepolia],
   multiInjectedProviderDiscovery: false,
   transports: {
-    [mainnet.id]: http(),
-    [optimism.id]: http(),
-    [base.id]: http(),
+    [baseSepolia.id]: http(),
   },
 });
 

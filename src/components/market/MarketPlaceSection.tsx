@@ -103,6 +103,7 @@ const MarketPlaceSectionStyle = styled.div`
       }
       .attributes {
         margin-top: 12px;
+        letter-spacing: 2px;
       }
     }
   }
