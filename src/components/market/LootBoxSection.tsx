@@ -7,6 +7,7 @@ import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import { nftABI } from '@/utils/abi/nft';
 import { subAddressFormat } from '@/utils/address';
 import useSnackbar from '@/stores/layout/snackbar/useSnackbar';
+import { extractErrorReason } from '@/utils/errorContract';
 
 const LootBoxSectionStyle = styled.div`
   width: 800px;
@@ -86,43 +87,42 @@ const LootBoxSectionStyle = styled.div`
   }
 `;
 const LootBoxSection = () => {
-  const { data: hash, writeContract, isPending } = useWriteContract();
+  const {
+    data: hash,
+    writeContract,
+    isPending,
+    isError,
+    error,
+  } = useWriteContract();
   const {
     isLoading: isConfirming,
     isSuccess: isConfirmed,
-    isError,
+    isError: isErrorTransaction,
   } = useWaitForTransactionReceipt({
     hash,
   });
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [initPage, setInitPage] = useState<boolean>(false);
-
-  useEffect(() => {
-    setInitPage(true);
-  }, []);
-
   useEffect(() => {
     setLoading(!!(isPending || isConfirming));
   }, [isConfirming, isPending, isConfirmed, isError]);
 
   useEffect(() => {
-    if (initPage) {
-      if (isConfirmed) {
-        useSnackbar.getState().openSnackbar({
-          open: true,
-          text: 'Transaction Success.',
-          severity: 'success',
-        });
-      } else {
-        useSnackbar.getState().openSnackbar({
-          open: true,
-          text: 'Transaction failed.',
-          severity: 'error',
-        });
-      }
+    if (isConfirmed) {
+      useSnackbar.getState().openSnackbar({
+        open: true,
+        text: 'Transaction success.',
+        severity: 'success',
+      });
+    } else if (isError) {
+      const errorReason = extractErrorReason(error);
+      useSnackbar.getState().openSnackbar({
+        open: true,
+        text: errorReason,
+        severity: 'error',
+      });
     }
-  }, [isConfirmed, isError]);
+  }, [isConfirmed, isError, isErrorTransaction]);
 
   const handleOpenCharacterBox = () => {
     if (!isPending && !isConfirming) {

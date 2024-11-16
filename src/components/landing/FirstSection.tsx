@@ -6,6 +6,12 @@ import Image from 'next/image';
 import BrandMarquee from '@/components/landing/BrandMarquee';
 import Plyr from 'plyr-react';
 import { LoadElement } from '@/styles/animations';
+import BaseButton from '@/components/BaseButton';
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
+import useSnackbar from '@/stores/layout/snackbar/useSnackbar';
+import { subAddressFormat } from '@/utils/address';
+import { realmABI } from '@/utils/abi/token';
+import { extractErrorReason } from '@/utils/errorContract';
 
 const FirstSectionStyled = styled.div`
   display: flex;
@@ -234,12 +240,64 @@ const VideoPlayer = ({ videoUrl }: VideoPlayerProps) => (
   />
 );
 const FirstSection = () => {
+  const {
+    data: hash,
+    writeContract,
+    isPending,
+    isError,
+    error,
+  } = useWriteContract();
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+    isError: isErrorTransaction,
+  } = useWaitForTransactionReceipt({
+    hash,
+  });
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [loadingRealm, setLoadingRealm] = useState<boolean>(false);
+
   useEffect(() => {
     const video = document.createElement('video');
     video.src = 'https://assets.sheetpapers.com/videos%2Fman-on-the-cloud.mp4';
     video.onloadeddata = () => setIsVideoLoaded(true);
   }, []);
+
+  useEffect(() => {
+    setLoadingRealm(!!(isPending || isConfirming));
+  }, [isConfirming, isPending, isConfirmed, isError]);
+
+  const handleGetRealm = () => {
+    setLoadingRealm(true);
+    if (!isPending && !isConfirming) {
+      writeContract({
+        abi: realmABI,
+        address: `0x${subAddressFormat(`${process.env.NEXT_PUBLIC_CONTRACT_NFT}`)}`,
+        functionName: 'claimInitialTokens',
+        args: [],
+      });
+    }
+    setLoadingRealm(false);
+  };
+
+  useEffect(() => {
+    if (isConfirmed) {
+      useSnackbar.getState().openSnackbar({
+        open: true,
+        text: 'Transaction success.',
+        severity: 'success',
+      });
+    } else if (isError) {
+      const errorReason = extractErrorReason(error);
+      useSnackbar.getState().openSnackbar({
+        open: true,
+        text: errorReason,
+        severity: 'error',
+      });
+    }
+  }, [isConfirmed, isError, isErrorTransaction]);
+
+  console.log('errorerrorerrorerrorerrorerrorerrorerror', error);
   return (
     <>
       <FirstSectionStyled id="/">
@@ -264,6 +322,14 @@ const FirstSection = () => {
           </div>
         </header>
         <section className="first-section-content">
+          <BaseButton
+            text={`${loadingRealm ? 'Loading...' : 'Get (1000 Realm)'}`}
+            handleClick={() => {
+              if (!loadingRealm) {
+                handleGetRealm();
+              }
+            }}
+          />
           <div className="player-wrap">
             {isVideoLoaded ? (
               <div className="video">
