@@ -2,12 +2,19 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import apiBattle from '@/services/battle';
 import apiIPFS from '@/services/ipfs';
+import { useWriteContract } from 'wagmi';
+import apiBattle from '@/services/battle';
 
 const PvpPage = () => {
   const router = useRouter();
-
+  const {
+    data: hash,
+    writeContract,
+    isPending,
+    isError,
+    error,
+  } = useWriteContract();
   const nftIds = [10001, 10002];
   const [nftMetadata, setNftMetadata] = useState<any>();
   const [playerIndex, setPlayerIndex] = useState<any>(null);
@@ -34,10 +41,16 @@ const PvpPage = () => {
   };
   const startBattle = async (battleLv: number) => {
     if (nftMetadata) {
+      // writeContract({
+      //   abi: gameABI,
+      //   address: `0x${subAddressFormat(`${process.env.NEXT_PUBLIC_CONTRACT_GAME}`)}`,
+      //   functionName: 'startBattle',
+      //   args: [BigInt(10001), BigInt(battleLv)],
+      // });
       await apiBattle
         .startBattle({
           battle_level: battleLv,
-          battle_id: 'test109',
+          battle_id: 'test114',
           player: {
             nft_id: nftMetadata[playerIndex].nftId,
             hp: Number(nftMetadata[playerIndex].data.attributes[2].value),
@@ -145,14 +158,13 @@ const PlayerCard = styled.div`
   }
 
   .title {
-    height: 96px;
-    font-size: 56px;
+    height: 64px;
+    font-size: 32px;
     color: white;
   }
-
   .name {
-    height: 275px;
-    font-size: 28px;
+    height: 150px;
+    font-size: 18px;
     color: white;
   }
 
@@ -164,7 +176,7 @@ const PlayerCard = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    max-height: 80px;
+    max-height: 40px;
     cursor: pointer;
     z-index: 2;
   }
@@ -174,22 +186,20 @@ const PlayerCard = styled.div`
   }
 
   .prev {
-    height: 275px;
-    font-size: 28px;
+    font-size: 24px;
     color: white;
     scale: 0.8;
   }
 
   .next {
-    height: 275px;
-    font-size: 28px;
+    font-size: 24px;
     color: white;
     scale: 0.8;
   }
 
   img {
     position: absolute;
-    top: 100px;
+    top: 50px;
     zoom: 2;
     transform: skewX(12deg);
   }
@@ -215,67 +225,20 @@ const LevelCard = styled.div`
   }
 
   .title {
-    height: 96px;
-    font-size: 56px;
+    height: 64px;
+    font-size: 32px;
     color: white;
   }
   .name {
-    height: 275px;
-    font-size: 28px;
+    height: 220px;
+    font-size: 18px;
     color: white;
   }
 
   img {
     transform: skewX(12deg);
     position: absolute;
-    top: 200px;
+    top: 150px;
     zoom: 2;
   }
 `;
-
-const mockPlayerMeta = {
-  name: 'Warrior',
-  description: 'A mighty warrior skilled in close combat and defensive tactics',
-  image:
-    'https://gateway.lighthouse.storage/ipfs/bafybeigkyttg6h63viklsstmxmuzrg6vcqgihotspmvvm3nrm6zimtyty4/10001.png',
-  attributes: [
-    {
-      trait_type: 'Character Type',
-      value: 'Warrior',
-    },
-    {
-      trait_type: 'Base Level',
-      value: 1,
-    },
-    {
-      trait_type: 'Health',
-      value: 150,
-    },
-    {
-      trait_type: 'Attack',
-      // value: 15,
-      value: 30,
-    },
-    {
-      trait_type: 'Defense',
-      value: 12,
-    },
-    {
-      trait_type: 'Power',
-      value: 100,
-    },
-    {
-      trait_type: 'Class Ability',
-      value: 'Shield Block',
-    },
-    {
-      trait_type: 'Weapon Proficiency',
-      value: 'Swords and Axes',
-    },
-    {
-      trait_type: 'Armor Proficiency',
-      value: 'Heavy Armor',
-    },
-  ],
-  background_color: '8B0000',
-};

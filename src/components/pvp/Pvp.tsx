@@ -64,10 +64,30 @@ const Pvp = () => {
     }
   }, [phaserRef?.current, lv, actionData]);
 
+  useEffect(() => {
+    if (actionData) {
+      setTimeout(
+        () => setIsClose(true),
+        (actionData.action_list.length + 2) * 1000,
+      );
+    }
+  }, [actionData]);
+
+  const [isClose, setIsClose] = useState<boolean>(false);
+
   return (
     <PvpContainer>
       <PvpGame ref={phaserRef} currentActiveScene={currentScene} />
-      <button onClick={sendGameData}>test</button>
+      {isClose && (
+        <div
+          className={'close'}
+          onClick={() => {
+            router.push('/pvp');
+          }}
+        >
+          Close
+        </div>
+      )}
     </PvpContainer>
   );
 };
@@ -81,6 +101,8 @@ const PvpContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: black;
+  position: relative;
+
   canvas {
     margin-top: 88px;
     //width: 1024px;
@@ -88,122 +110,15 @@ const PvpContainer = styled.div`
     width: 100%;
     height: 100%;
   }
-`;
 
-const mockResponse = {
-  action_list: [
-    {
-      maxHp: 200,
-      attacker: 'player',
-      damage: 7.5,
-      hp: 192.5,
-    },
-    {
-      maxHp: 150,
-      attacker: 'boss',
-      damage: 19,
-      hp: 131,
-    },
-    {
-      maxHp: 200,
-      attacker: 'player',
-      damage: 7.5,
-      hp: 185,
-    },
-    {
-      maxHp: 150,
-      attacker: 'boss',
-      damage: 19,
-      hp: 112,
-    },
-    {
-      maxHp: 200,
-      attacker: 'player',
-      damage: 7.5,
-      hp: 177.5,
-    },
-    {
-      maxHp: 150,
-      attacker: 'boss',
-      damage: 19,
-      hp: 93,
-    },
-    {
-      maxHp: 200,
-      attacker: 'player',
-      damage: 7.5,
-      hp: 170,
-    },
-    {
-      maxHp: 150,
-      attacker: 'boss',
-      damage: 19,
-      hp: 74,
-    },
-    {
-      maxHp: 200,
-      attacker: 'player',
-      damage: 7.5,
-      hp: 162.5,
-    },
-    {
-      maxHp: 150,
-      attacker: 'boss',
-      damage: 19,
-      hp: 55,
-    },
-    {
-      maxHp: 200,
-      attacker: 'player',
-      damage: 7.5,
-      hp: 155,
-    },
-    {
-      maxHp: 150,
-      attacker: 'boss',
-      damage: 19,
-      hp: 36,
-    },
-    {
-      maxHp: 200,
-      attacker: 'player',
-      damage: 7.5,
-      hp: 147.5,
-    },
-    {
-      maxHp: 150,
-      attacker: 'boss',
-      damage: 19,
-      hp: 17,
-    },
-    {
-      maxHp: 200,
-      attacker: 'player',
-      damage: 7.5,
-      hp: 140,
-    },
-    {
-      maxHp: 150,
-      attacker: 'boss',
-      damage: 19,
-      hp: -2,
-    },
-  ],
-  summary: {
-    winner: 'boss',
-  },
-  initialStat: {
-    player: {
-      max_hp: 150,
-      hp: 150,
-      atk: 15,
-      def: 12,
-    },
-    boss: {
-      max_hp: 200,
-      hp: 200,
-      atk: 25,
-      def: 15,
-    },
-  },
-};
+  .close {
+    font-size: 28px;
+    background: #ff7400;
+    color: white;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 40vh;
+  }
+`;

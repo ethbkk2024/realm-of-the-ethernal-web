@@ -143,7 +143,7 @@ export class PvpMap extends Scene {
     const height = 768;
     const scale = 1.75;
     const x = screenCenterX;
-    const y = 500;
+    const y = 200;
 
     // this.add.tileSprite(x, y, width, height, `dark-forest-0`).setScale(scale);
     this.add.tileSprite(x, y, width, height, `dark-forest-1`).setScale(scale);
@@ -215,19 +215,19 @@ export class PvpMap extends Scene {
     //   .setOrigin(0.5, 0.5)
     //   .setScale(0.23);
     this.add
-      .image(display_size.width * 0.175, 200, 'value-bar')
-      .setOrigin(0.5, 0.5)
+      .image(display_size.width * 0.145, 200, 'value-bar')
+      .setOrigin(0, 0.5)
       .setScale(2);
     this.add
-      .image(display_size.width * (1 - 0.175), 200, 'value-bar')
-      .setOrigin(0.5, 0.5)
+      .image(display_size.width * (1 - 0.145), 200, 'value-bar')
+      .setOrigin(1, 0.5)
       .setScale(2);
     this.player_hp_bar = this.add
-      .image(display_size.width * 0.13, 200, 'value-red')
+      .image(display_size.width * 0.15, 200, 'value-red')
       .setOrigin(0, 0.5)
       .setDisplaySize(240, 16);
     this.boss_hp_bar = this.add
-      .image(display_size.width * (1 - 0.13), 200, 'value-red')
+      .image(display_size.width * (1 - 0.15), 200, 'value-red')
       .setOrigin(1, 0.5)
       .setDisplaySize(240, 16);
     this.player_hp = this.add
@@ -341,7 +341,7 @@ export class PvpMap extends Scene {
             );
             const ratio = (action.hp * 100) / action.maxHp;
             const useWidth = (ratio * 240) / 100;
-            this.player_hp_bar?.setDisplaySize(useWidth, 16);
+            this.player_hp_bar?.setDisplaySize(useWidth < 0 ? 0 : useWidth, 16);
             this.dm_text = this.add
               .text(screenCenterX - 400, screenCenterY, `${action.damage}`)
               .setFont('64px')
@@ -364,7 +364,7 @@ export class PvpMap extends Scene {
             );
             const ratio = (action.hp * 100) / action.maxHp;
             const useWidth = (ratio * 240) / 100;
-            this.boss_hp_bar?.setDisplaySize(useWidth, 16);
+            this.boss_hp_bar?.setDisplaySize(useWidth < 0 ? 0 : useWidth, 16);
             this.dm_text = this.add
               .text(
                 screenCenterX + 400,
@@ -387,14 +387,15 @@ export class PvpMap extends Scene {
     });
     setTimeout(
       () => {
-        this.dm_text = this.add
+        this.add
           .text(
             screenCenterX,
-            screenCenterY,
+            screenCenterY - 200,
             data.summary.winner === 'boss' ? 'Lose' : 'Winner',
           )
           .setFont('128px')
-          .setColor('#ff0000')
+          .setColor(data.summary.winner === 'boss' ? '#fff' : '#00ff54')
+          .setBackgroundColor('#ff0000')
           .setOrigin(0.5, 0.5);
       },
       (data.action_list.length + 1) * 1000,
