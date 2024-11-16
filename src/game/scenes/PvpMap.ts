@@ -391,7 +391,7 @@ export class PvpMap extends Scene {
           .text(
             screenCenterX,
             screenCenterY - 200,
-            data.summary.winner === 'boss' ? 'Lose' : 'Winner',
+            data.summary.winner === 'boss' ? 'Defeat' : 'Winner',
           )
           .setFont('128px')
           .setColor(data.summary.winner === 'boss' ? '#fff' : '#00ff54')

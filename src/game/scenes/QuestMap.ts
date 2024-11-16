@@ -73,9 +73,21 @@ export class QuestMap extends Scene {
       .setScale(0.75)
       .setOrigin(0.5, 0.5);
     this.add
+      .text(screenCenterX + 250, screenCenterY - 30, 'COMING SOON')
+      .setOrigin(0.5, 0.5)
+      .setScale(2)
+      .setColor('#fff')
+      .setBackgroundColor('#7c7c7c');
+    this.add
       .sprite(screenCenterX, screenCenterY + 175, 'land-c')
       .setScale(0.75)
       .setOrigin(0.5, 0.5);
+    this.add
+      .text(screenCenterX, screenCenterY + 245, 'COMING SOON')
+      .setOrigin(0.5, 0.5)
+      .setScale(2)
+      .setColor('#fff')
+      .setBackgroundColor('#7c7c7c');
     this.anims.create({
       key: 'cow_anim',
       frames: this.anims.generateFrameNames(
@@ -324,6 +336,24 @@ export class QuestMap extends Scene {
     }
 
     this.scene.start('Game');
+  }
+
+  onJoinQuest(reactCallback: () => void) {
+    this.camera = this.cameras.main;
+    const screenCenterX =
+      this.cameras.main.worldView.x + this.cameras.main.width / 2;
+    const screenCenterY =
+      this.cameras.main.worldView.y + this.cameras.main.height / 2;
+    this.add
+      .text(screenCenterX - 490, screenCenterY - 200, 'JOIN')
+      .setOrigin(0.5, 0.5)
+      .setScale(2)
+      .setColor('#fff')
+      .setBackgroundColor('#ff8237')
+      .setInteractive()
+      .on('pointerdown', () => {
+        reactCallback();
+      });
   }
 
   moveLogo(reactCallback: ({ x, y }: { x: number; y: number }) => void) {

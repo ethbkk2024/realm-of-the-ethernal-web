@@ -3,25 +3,31 @@ import MainLayout from '@/layouts/MainLayout';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import apiIPFS from '@/services/ipfs';
-import { useAccount, useWriteContract } from 'wagmi';
+import {
+  useAccount,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from 'wagmi';
 import apiGraphql from '@/services/graphql';
 import _ from 'lodash';
 import { gameABI } from '@/utils/abi/game';
 import { subAddressFormat } from '@/utils/address';
+import { readContract } from '@wagmi/core';
+import { config } from '@/utils/config';
+import apiBattle from '@/services/battle';
 
 const PvpPage = () => {
   const router = useRouter();
   const { address } = useAccount();
-  const {
-    // data: hash,
-    writeContract,
-    // isPending,
-    // isError,
-    // error,
-  } = useWriteContract();
+  const { data: hash, writeContract, isPending } = useWriteContract();
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
   const [nftMetadata, setNftMetadata] = useState<any>();
   const [playerIndex, setPlayerIndex] = useState<any>(null);
   const [myNft, setMyNft] = useState<any[]>([]);
+  const [lvSelected, setLvSelected] = useState<number>(0);
 
   useEffect(() => {
     fetchMyNft();
@@ -58,32 +64,46 @@ const PvpPage = () => {
       });
     }
   };
+
   const startBattle = async (battleLv: number) => {
-    if (nftMetadata) {
-      console.log(nftMetadata, battleLv);
-      const start_battle = writeContract({
+    if (nftMetadata && (!isPending || !isConfirming)) {
+      setLvSelected(battleLv);
+      writeContract({
         abi: gameABI,
         address: `0x${subAddressFormat(`${process.env.NEXT_PUBLIC_CONTRACT_GAME}`)}`,
         functionName: 'startBattle',
         args: [BigInt(Number(nftMetadata[0].nftId)), BigInt(battleLv)],
       });
-      console.log('start_battle', start_battle);
-      // await apiBattle
-      //   .startBattle({
-      //     battle_level: battleLv,
-      //     battle_id: 'test114',
-      //     player: {
-      //       nft_id: nftMetadata[playerIndex].nftId,
-      //       hp: Number(nftMetadata[playerIndex].data.attributes[2].value),
-      //       atk: Number(nftMetadata[playerIndex].data.attributes[3].value),
-      //       def: Number(nftMetadata[playerIndex].data.attributes[4].value),
-      //     },
-      //   })
-      //   .then((response) => {
-      //     if (response.data) {
-      //       router.push(`/pvp/${battleLv}?id=${response.data.id}`);
-      //     }
-      //   });
+    }
+  };
+
+  useEffect(() => {
+    handleBattle();
+  }, [isConfirmed]);
+
+  const handleBattle = async () => {
+    const id = await readContract(config, {
+      abi: gameABI,
+      address: `0x${subAddressFormat(`${process.env.NEXT_PUBLIC_CONTRACT_GAME}`)}`,
+      functionName: 'battleCount',
+    });
+    if (id && lvSelected) {
+      await apiBattle
+        .startBattle({
+          battle_level: lvSelected,
+          battle_id: String(Number(id)),
+          player: {
+            nft_id: nftMetadata[playerIndex].nftId,
+            hp: Number(nftMetadata[playerIndex].data.attributes[2].value),
+            atk: Number(nftMetadata[playerIndex].data.attributes[3].value),
+            def: Number(nftMetadata[playerIndex].data.attributes[4].value),
+          },
+        })
+        .then((response) => {
+          if (response.data) {
+            router.push(`/pvp/${lvSelected}?id=${response.data.id}`);
+          }
+        });
     }
   };
 
