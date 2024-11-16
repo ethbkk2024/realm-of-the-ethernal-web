@@ -434,6 +434,7 @@ const NavBar = () => {
   const { address, isConnected, chain } = useAccount();
   const { open, onClickShowAside, balanceToken, fetchBalanceToken } =
     useAside();
+  const [initPage, setInitPage] = useState<boolean>(false);
   const [scrollDirection, setScrollDirection] = useState('');
   const [scrollYPosition, setScrollYPosition] = useState(0);
   const [screenWidth, setScreenWidth] = useState<number>(0);
@@ -477,7 +478,9 @@ const NavBar = () => {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   };
-
+  useEffect(() => {
+    setInitPage(true);
+  }, []);
   return (
     <>
       <NavStyle
@@ -536,12 +539,14 @@ const NavBar = () => {
             ))}
           </ul>
           <div className="r-wrap">
-            <BaseButton
-              text={`${numberWithCommas(balanceToken)} Realm`}
-              handleClick={() => {
-                //
-              }}
-            />
+            {isConnected && initPage && (
+              <BaseButton
+                text={`${numberWithCommas(balanceToken)} Realm`}
+                handleClick={() => {
+                  //
+                }}
+              />
+            )}
             <DynamicWidget buttonClassName={'connect-button-custom'} />
             {/* <div className="btn-group"> */}
             {/*  <Link */}
