@@ -244,7 +244,7 @@ const NavStyle = styled.div<{
       button {
         overflow: hidden;
         span {
-          max-width: 128px;
+          max-width: 124px;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;

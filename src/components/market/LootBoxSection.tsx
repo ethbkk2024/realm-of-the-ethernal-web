@@ -113,7 +113,7 @@ const LootBoxSection = () => {
   const [isItemLoading, setIsItemLoading] = useState(false);
   const [allowance, setAllowance] = useState<number>(0);
   const { address } = useAccount();
-
+  const [isFetchAllowance, setIsFetchAllowance] = useState<boolean>(false);
   useEffect(() => {
     if (isConfirmed) {
       useSnackbar.getState().openSnackbar({
@@ -132,6 +132,8 @@ const LootBoxSection = () => {
         severity: 'error',
       });
     }
+    setIsCharacterLoading(false);
+    setIsItemLoading(false);
   }, [isConfirmed, isError, isErrorTransaction]);
 
   const checkAllowance = async () => {
@@ -148,6 +150,7 @@ const LootBoxSection = () => {
 
       const value = Number(response);
       setAllowance(value);
+      setIsFetchAllowance(true);
     } catch (error) {
       console.error('Error checking allowance:', error);
     }
@@ -180,8 +183,6 @@ const LootBoxSection = () => {
     } catch (error) {
       console.error('Error adding allowance:', error);
     }
-    setIsCharacterLoading(false);
-    setIsItemLoading(false);
   };
 
   const handleOpenCharacterBox = async () => {
@@ -196,8 +197,6 @@ const LootBoxSection = () => {
         });
       } catch (error) {
         console.error('Error opening character loot box:', error);
-      } finally {
-        setIsCharacterLoading(false);
       }
     }
   };
@@ -214,8 +213,6 @@ const LootBoxSection = () => {
         });
       } catch (error) {
         console.error('Error opening item loot box:', error);
-      } finally {
-        setIsItemLoading(false);
       }
     }
   };
@@ -240,22 +237,24 @@ const LootBoxSection = () => {
           className="box-image"
           draggable={false}
         />
-        <BaseButton
-          text={
-            isCharacterLoading
-              ? 'Opening...'
-              : allowance === 0
-                ? 'Approve'
-                : 'Open (10 Realm)'
-          }
-          handleClick={() => {
-            if (allowance === 0) {
-              handleAddAllowance('character');
-            } else if (!isCharacterLoading) {
-              handleOpenCharacterBox();
+        {isFetchAllowance && (
+          <BaseButton
+            text={
+              isCharacterLoading
+                ? 'Opening...'
+                : allowance === 0
+                  ? 'Approve'
+                  : 'Open (10 Realm)'
             }
-          }}
-        />
+            handleClick={() => {
+              if (allowance === 0) {
+                handleAddAllowance('character');
+              } else if (allowance > 0 && !isCharacterLoading) {
+                handleOpenCharacterBox();
+              }
+            }}
+          />
+        )}
       </div>
 
       {/* Item Box */}
@@ -276,22 +275,24 @@ const LootBoxSection = () => {
           className="box-image"
           draggable={false}
         />
-        <BaseButton
-          text={
-            isItemLoading
-              ? 'Opening...'
-              : allowance === 0
-                ? 'Approve'
-                : 'Open (5 Realm)'
-          }
-          handleClick={() => {
-            if (allowance === 0) {
-              handleAddAllowance('item');
-            } else if (!isItemLoading) {
-              handleOpenItemBox();
+        {isFetchAllowance && (
+          <BaseButton
+            text={
+              isItemLoading
+                ? 'Opening...'
+                : allowance === 0
+                  ? 'Approve'
+                  : 'Open (5 Realm)'
             }
-          }}
-        />
+            handleClick={() => {
+              if (allowance === 0) {
+                handleAddAllowance('item');
+              } else if (allowance > 0 && !isItemLoading) {
+                handleOpenItemBox();
+              }
+            }}
+          />
+        )}
       </div>
     </LootBoxSectionStyle>
   );

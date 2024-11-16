@@ -5,7 +5,7 @@ import Image from 'next/image';
 import BaseButton from '@/components/BaseButton';
 import { isEmpty } from 'lodash';
 
-const MarketPlaceSectionStyle = styled.div`
+const MyNftSectionStyle = styled.div`
   width: 1200px;
   animation: ${LoadElement} 0.3s ease-in;
   display: grid;
@@ -108,8 +108,8 @@ const MarketPlaceSectionStyle = styled.div`
     }
   }
 `;
-const MarketPlaceSection = () => {
-  const [marketItem] = useState<any>([
+const MyNftSection = () => {
+  const [myNftItem] = useState<any>([
     {
       name: 'Iron Sword',
       description: 'A basic but reliable sword',
@@ -282,10 +282,10 @@ const MarketPlaceSection = () => {
   const handleClick = () => {
     console.log('click buy');
   };
-  if (!isEmpty(marketItem)) {
+  if (!isEmpty(myNftItem)) {
     return (
-      <MarketPlaceSectionStyle>
-        {marketItem.map((item: any, index: number) => (
+      <MyNftSectionStyle>
+        {myNftItem.map((item: any, index: number) => (
           <div className="nft-card" key={index}>
             <div className="name">{item.name}</div>
             <Image
@@ -320,10 +320,10 @@ const MarketPlaceSection = () => {
             </div>
           </div>
         ))}
-      </MarketPlaceSectionStyle>
+      </MyNftSectionStyle>
     );
   }
-  <MarketPlaceSectionStyle></MarketPlaceSectionStyle>;
+  <MyNftSectionStyle></MyNftSectionStyle>;
 };
 
-export default MarketPlaceSection;
+export default MyNftSection;

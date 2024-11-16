@@ -18,9 +18,9 @@ export const menuConfig = [
     sectionId: null,
   },
   {
-    id: 3,
-    name: 'About',
-    url: '',
-    sectionId: 'about-us',
+    id: 4,
+    name: 'Inventory',
+    url: '/inventory',
+    sectionId: null,
   },
 ];
