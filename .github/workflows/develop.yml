@@ -14,14 +14,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-single-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-single-buildx
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -42,7 +34,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: narongsakk59/realm-web:dev-latest
+          tags: narongsakk59/realm-web-dev:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
