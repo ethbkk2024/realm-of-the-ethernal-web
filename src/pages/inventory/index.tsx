@@ -2,12 +2,11 @@ import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import MainLayout from '@/layouts/MainLayout';
 import TabBit from '@/components/TabBit';
-import LootBoxSection from '@/components/market/LootBoxSection';
 import { LoadElement } from '@/styles/animations';
-import { marketTabs } from '@/utils/marketTabs';
-import MarketPlaceSection from '@/components/market/MarketPlaceSection';
+import { inventoryTabs } from '@/utils/marketTabs';
+import MyNftSection from '@/components/inventory/MyNftSection';
 
-const MarketplacePageStyle = styled.div`
+const InventoryPageStyle = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -37,53 +36,48 @@ const MarketplacePageStyle = styled.div`
     }
   }
 `;
-const MarketplacePage = () => {
-  const [tab, setTab] = useState<string>('Loot Box');
+const InventoryPage = () => {
+  const [tab, setTab] = useState<string>('My NFT');
   const handleClickTab = (tab: string) => {
     setTab(tab);
   };
   return (
-    <MarketplacePageStyle>
+    <InventoryPageStyle>
       <div className="tab-wrap">
         <TabBit
           tab={tab}
-          tabList={marketTabs}
+          tabList={inventoryTabs}
           handleClickTab={handleClickTab}
         />
       </div>
-      {tab === 'Loot Box' && (
+      {tab === 'My NFT' && (
         <>
           <div className="description">
             <p>
-              Character Box: A loot box that offers unique or rare characters
-              for players to use in the game, enhancing their gameplay
-              experience and strategy.
-            </p>
-            <p>
-              Item Box: A loot box that contains valuable in-game items, which
-              players can use to improve their performance or sell on the
-              marketplace to trade with others.
+              My NFTs: This page displays the NFTs in your bag that you own. You
+              can list them for sale in the marketplace by setting your desired
+              price and easily manage your listings.
             </p>
           </div>
-          <LootBoxSection />
+          <MyNftSection />
         </>
       )}
-      {tab === 'Marketplace' && (
+      {tab === 'My List' && (
         <>
           <div className="description">
             <p>
-              Marketplace: A platform for players to buy, sell, and trade
-              in-game items or characters from loot boxes, offering a secure and
-              easy trading experience.
+              List Page: A page where players can list their in-game items or
+              characters for sale on the marketplace. Sellers can set prices and
+              manage their listings easily.
             </p>
           </div>
-          <MarketPlaceSection />
+          {/* <MarketPlaceSection /> */}
         </>
       )}
-    </MarketplacePageStyle>
+    </InventoryPageStyle>
   );
 };
-MarketplacePage.getLayout = function getLayout(page: ReactElement) {
+InventoryPage.getLayout = function getLayout(page: ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 };
-export default MarketplacePage;
+export default InventoryPage;
