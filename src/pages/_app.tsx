@@ -11,15 +11,17 @@ import { theme } from '@/styles/theme';
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core';
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
-import { createConfig, WagmiProvider } from 'wagmi';
+import { http, createConfig, WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { http } from 'viem';
-import { baseSepolia } from 'viem/chains';
+import { baseSepolia } from 'wagmi/chains';
 import Head from 'next/head';
 import { realmFont } from '@/styles/font';
 import 'plyr/dist/plyr.css';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { Alert, Snackbar } from '@mui/material';
+import useSnackbar from '@/stores/layout/snackbar/useSnackbar';
+import { injected } from '@wagmi/core';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -36,9 +38,9 @@ const GlobalStyle = createGlobalStyle`
       font-size: 12px;
       font-weight: 400;
       color: #263238;
-     *{
-       cursor: url('data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAPAAAADAAAAAwAAAA8AAAAPAAAADAAAAAwAAAM8AAADPAAAA/wAAAP8AAAD/wAAA/8AAAP8AAAD/AAAA/AAAAPwAAADwAAAA8AAAAMAAAADAAAAAAAAAAAAAAAAAAAAAAAAAA///////////////////////D////w////wD///8A////A////wP//zwD//88A///DA///wwP//8AD///AA///wAA//8AAP//AAP//wAD//8AD///AA///wA///8AP///AP///wD///8D////A////w////8P////P////z////8='), auto !important;
-     }
+      *{
+        cursor: url('data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAPAAAADAAAAAwAAAA8AAAAPAAAADAAAAAwAAAM8AAADPAAAA/wAAAP8AAAD/wAAA/8AAAP8AAAD/AAAA/AAAAPwAAADwAAAA8AAAAMAAAADAAAAAAAAAAAAAAAAAAAAAAAAAA///////////////////////D////w////wD///8A////A////wP//zwD//88A///DA///wwP//8AD///AA///wAA//8AAP//AAP//wAD//8AD///AA///wA///8AP///AP///wD///8D////A////w////8P////P////z////8='), auto !important;
+      }
       a {
         color: #263238;
       }
@@ -152,12 +154,12 @@ const GlobalStyle = createGlobalStyle`
   .dynamic-widget-modal {
     width: 600px !important;
     max-width: 100% !important;
-     *{
-        font-size: 10px !important;
-       .typography {
-         line-height: 1.8;
-       }
+    *{
+      font-size: 10px !important;
+      .typography {
+        line-height: 1.8;
       }
+    }
     .non-widget-network-picker {
       display: flex;
       align-items: center;
@@ -212,6 +214,7 @@ type AppPropsWithLayout = AppProps & {
 const config = createConfig({
   chains: [baseSepolia],
   multiInjectedProviderDiscovery: false,
+  connectors: [injected()],
   transports: {
     [baseSepolia.id]: http(),
   },
@@ -222,6 +225,8 @@ const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   const router = useRouter();
+  const { snackBar, openSnackbar } = useSnackbar((state) => state);
+
   useEffect(() => {
     NProgress.configure({
       easing: 'ease-out',
@@ -252,6 +257,23 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <GlobalStyle />
+      <Snackbar
+        open={snackBar.open}
+        autoHideDuration={5000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        onClose={() => {
+          openSnackbar({ ...snackBar, open: false });
+        }}
+      >
+        <Alert
+          onClose={() => {
+            openSnackbar({ ...snackBar, open: false });
+          }}
+          severity={snackBar.severity}
+        >
+          {snackBar.text}
+        </Alert>
+      </Snackbar>
       <Head>
         <meta property="og:site_name" content="Realm Of The Eternal Archive" />
         {/* <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" /> */}
