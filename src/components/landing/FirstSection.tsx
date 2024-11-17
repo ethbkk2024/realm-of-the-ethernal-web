@@ -207,7 +207,6 @@ const FirstSectionStyled = styled.div`
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0px 0px 8px 0px #ffffff;
-      height: 346px;
       .MuiDataGrid-cell--withRenderer {
         &:nth-child(2) {
           padding-left: 0 !important;
@@ -552,6 +551,7 @@ const FirstSection = () => {
                 rowCount={rows.length}
                 disableSelectionOnClick={false}
                 sortModel={[]}
+                autoHeight={true}
                 getRowHeight={() => 44}
                 headerHeight={38}
               />
@@ -564,8 +564,8 @@ const FirstSection = () => {
                 paginationMode="server"
                 rowCount={10}
                 disableSelectionOnClick={false}
-                autoHeight
                 sortModel={[]}
+                autoHeight={true}
                 getRowHeight={() => 44}
                 headerHeight={38}
               />
