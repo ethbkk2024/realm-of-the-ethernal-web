@@ -11,6 +11,7 @@ import { config } from '@/utils/config';
 import { subAddressFormat } from '@/utils/address';
 import { nftABI } from '@/utils/abi/nft';
 import apiIPFS from '@/services/ipfs';
+import { numberWithCommas } from '@/utils/number';
 
 const MyNftSectionStyle = styled.div`
   width: 1200px;
@@ -176,13 +177,14 @@ const MyNftSection = () => {
   useEffect(() => {
     fetchMyNft();
   }, []);
-
   if (!isEmpty(myNftItem)) {
     return (
       <MyNftSectionStyle>
         {myNftItem.map((item: any, index: number) => (
           <div className="nft-card" key={index}>
-            <div className="name">{item.metadata.name}</div>
+            <div className="name">
+              {item.metadata.name} ({numberWithCommas(item.balance)})
+            </div>
             <Image
               src={item.metadata.image}
               width={100}
