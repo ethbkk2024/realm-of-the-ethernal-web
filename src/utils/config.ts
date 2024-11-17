@@ -1,12 +1,12 @@
 import { createConfig, http } from 'wagmi';
-import { baseSepolia } from 'wagmi/chains';
+import { spicy } from 'wagmi/chains';
 import { injected } from '@wagmi/core';
 
 export const config = createConfig({
-  chains: [baseSepolia],
+  chains: [spicy],
   multiInjectedProviderDiscovery: false,
   transports: {
-    [baseSepolia.id]: http(),
+    [spicy.id]: http(),
   },
   connectors: [injected()],
 });
