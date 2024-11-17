@@ -9,14 +9,18 @@ import apiGraphql from '@/services/graphql';
 import _ from 'lodash';
 import { gameABI } from '@/utils/abi/game';
 import { subAddressFormat } from '@/utils/address';
+import useSnackbar from '@/stores/layout/snackbar/useSnackbar';
 
 export function CompleteModal({ onClose }: { onClose: () => void }) {
   const { address } = useAccount();
   const { data: hash, writeContract, isPending } = useWriteContract();
-  const { isLoading: isConfirming, isSuccess: isConfirmed } =
-    useWaitForTransactionReceipt({
-      hash,
-    });
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+    isError,
+  } = useWaitForTransactionReceipt({
+    hash,
+  });
 
   const [myNft, setMyNft] = useState<any[]>([]);
 
@@ -51,8 +55,20 @@ export function CompleteModal({ onClose }: { onClose: () => void }) {
   useEffect(() => {
     if (isConfirmed) {
       onClose();
+      useSnackbar.getState().openSnackbar({
+        open: true,
+        text: 'Transaction success.',
+        severity: 'success',
+      });
     }
-  }, [isConfirmed]);
+    if (isError) {
+      useSnackbar.getState().openSnackbar({
+        open: true,
+        text: 'Transaction failed.',
+        severity: 'error',
+      });
+    }
+  }, [isConfirmed, isError]);
 
   return (
     <CompleteContainer>

@@ -12,6 +12,7 @@ import { subAddressFormat } from '@/utils/address';
 import apiGraphql from '@/services/graphql';
 import _ from 'lodash';
 import { CompleteModal } from '@/components/quest/CompleteModal';
+import useSnackbar from '@/stores/layout/snackbar/useSnackbar';
 
 const Quest = () => {
   const phaserRef = useRef<IRefPhaserGame | null>(null);
@@ -20,10 +21,13 @@ const Quest = () => {
   console.log('canMoveSprite', canMoveSprite);
   const { data: hash, writeContract, isPending } = useWriteContract();
   const [completeModal, setCompleteModal] = useState(false);
-  const { isLoading: isConfirming, isSuccess: isConfirmed } =
-    useWaitForTransactionReceipt({
-      hash,
-    });
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+    isError,
+  } = useWaitForTransactionReceipt({
+    hash,
+  });
 
   const [myNft, setMyNft] = useState<any[]>([]);
 
@@ -76,8 +80,20 @@ const Quest = () => {
   useEffect(() => {
     if (isConfirmed) {
       setCompleteModal(true);
+      useSnackbar.getState().openSnackbar({
+        open: true,
+        text: 'Transaction success.',
+        severity: 'success',
+      });
     }
-  }, [isConfirmed]);
+    if (isError) {
+      useSnackbar.getState().openSnackbar({
+        open: true,
+        text: 'Transaction failed.',
+        severity: 'error',
+      });
+    }
+  }, [isConfirmed, isError]);
 
   return (
     <QuestContainer>
